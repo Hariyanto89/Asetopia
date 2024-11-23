@@ -51,7 +51,6 @@ function initializeMerigiMap(ctx) {
     renderLocations(ctx, merigiLocations); // Render lokasi mining
     drawHariyanto(ctx); // Gambar NPC Hariyanto
     drawCharacter(ctx); // Gambar karakter pemain
-    console.log("Peta Merigi berhasil dimuat.");
   };
 
   // Penanganan jika gambar gagal dimuat
@@ -84,32 +83,41 @@ function handleMapClick(event, ctx, locations) {
 
 // Fungsi untuk berinteraksi dengan NPC Hariyanto
 function interactWithHariyanto() {
-  if (Math.hypot(hariyanto.x - character.x, hariyanto.y - character.y) < 50) {
-    alert("Hariyanto: Selamat datang di Kecamatan Merigi! Tantangan Anda adalah menyelesaikan masalah sertifikasi lahan.");
+  const distance = Math.hypot(hariyanto.x - character.x, hariyanto.y - character.y);
+  if (distance < 50) {
+    alert(
+      "Hariyanto: Selamat datang di Kecamatan Merigi! Tantangan Anda adalah menyelesaikan masalah sertifikasi lahan."
+    );
     startQuest("Sertifikasi Lahan");
   }
 }
 
 // Fungsi untuk menangani pergerakan karakter
 function moveCharacter(event, ctx) {
+  const previousPosition = { x: character.x, y: character.y }; // Simpan posisi sebelumnya
   const speed = 10; // Kecepatan pergerakan
+
   switch (event.key) {
     case "ArrowUp":
       if (character.y > 0) character.y -= speed;
       break;
     case "ArrowDown":
-      if (character.y < 370) character.y += speed;
+      if (character.y < ctx.canvas.height - character.size) character.y += speed;
       break;
     case "ArrowLeft":
       if (character.x > 0) character.x -= speed;
       break;
     case "ArrowRight":
-      if (character.x < 770) character.x += speed;
+      if (character.x < ctx.canvas.width - character.size) character.x += speed;
       break;
   }
-  ctx.clearRect(0, 0, 800, 400); // Hapus canvas
-  initializeMerigiMap(ctx); // Render ulang peta
-  interactWithHariyanto(); // Cek interaksi dengan Hariyanto
+
+  // Jika posisi berubah, render ulang peta
+  if (previousPosition.x !== character.x || previousPosition.y !== character.y) {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Bersihkan canvas
+    initializeMerigiMap(ctx); // Render ulang peta
+    interactWithHariyanto(); // Cek interaksi dengan Hariyanto
+  }
 }
 
 // Inisialisasi event listener untuk klik pada canvas dan pergerakan karakter
