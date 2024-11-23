@@ -8,6 +8,9 @@ const merigiLocations = [
 // NPC Hariyanto
 const hariyanto = { x: 400, y: 200, size: 40, name: "Hariyanto" };
 
+// Karakter pemain
+let character = { x: 50, y: 50, size: 30 }; // Posisi awal karakter
+
 // Fungsi untuk menggambar lokasi mining di peta
 function renderLocations(ctx, locations) {
   locations.forEach((loc) => {
@@ -37,15 +40,12 @@ function drawCharacter(ctx) {
   };
 }
 
-// Karakter pemain
-let character = { x: 50, y: 50, size: 30 }; // Posisi awal karakter
-
 // Fungsi untuk inisialisasi peta Kecamatan Merigi
 function initializeMerigiMap(ctx) {
   const mapImage = new Image(); // Objek gambar peta
   mapImage.src = "assets/images/map_merigi.png"; // Path gambar peta
 
-  // Ketika gambar selesai dimuat, render peta dan lokasi mining
+  // Ketika gambar selesai dimuat, render peta dan elemen lainnya
   mapImage.onload = () => {
     ctx.drawImage(mapImage, 0, 0, 800, 400); // Render gambar peta
     renderLocations(ctx, merigiLocations); // Render lokasi mining
@@ -118,6 +118,24 @@ function moveCharacter(event, ctx) {
     initializeMerigiMap(ctx); // Render ulang peta
     interactWithHariyanto(); // Cek interaksi dengan Hariyanto
   }
+}
+
+// Fungsi untuk transisi ke peta berikutnya
+function initializeSeberangMusiMap(ctx) {
+  const mapImage = new Image();
+  mapImage.src = "assets/images/map_seberang_musi.png";
+
+  mapImage.onload = () => {
+    ctx.drawImage(mapImage, 0, 0, 800, 400); // Render peta baru
+    // Tambahkan elemen di peta berikutnya
+    renderLocations(ctx, seberangMusiLocations);
+    drawHariyanto(ctx);
+    drawCharacter(ctx);
+  };
+
+  mapImage.onerror = () => {
+    console.error("Gagal memuat peta Seberang Musi.");
+  };
 }
 
 // Inisialisasi event listener untuk klik pada canvas dan pergerakan karakter
