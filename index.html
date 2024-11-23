@@ -8,81 +8,81 @@
 </head>
 <body>
   <!-- Tombol untuk Memulai Game -->
-  <div id="start-container" style="display: flex; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(120deg, #89f7fe, #66a6ff);">
+  <div id="start-container" class="center-screen">
     <button id="startGameButton" class="start-button">
       Mulai Game
     </button>
   </div>
 
   <!-- Kontainer Utama -->
-  <div id="game-container" style="display: none;">
-    <!-- Judul dan Developer -->
-    <header style="margin-bottom: 20px; text-align: center;">
-      <h1>Selamat Datang di Asetopia</h1>
-      <p>Developer: Hariyanto</p>
-    </header>
-
-    <!-- Kanvas Peta -->
-    <canvas id="mapCanvas" width="800" height="400" style="border: 1px solid black; display: block; margin: 0 auto;"></canvas>
-
-    <!-- UI Kontainer -->
-    <div id="ui-container" style="margin-top: 20px; text-align: center;">
-      <p><strong>Ruby DIPAYANG:</strong> <span id="ruby">0</span></p>
-      <p><strong>Profit:</strong> <span id="profit">0</span></p>
-      <button id="upgradeButton">Upgrade Aset (50 Ruby)</button>
-    </div>
-
-    <!-- Quest Kontainer -->
-    <div id="quest-container" style="margin-top: 20px;">
-      <h3>Quest Aktif:</h3>
-      <p id="active-quest">Tidak ada quest aktif</p>
-    </div>
-
-    <!-- Status Lokasi Mining -->
-    <div id="location-status" style="margin-top: 20px;">
-      <h3>Status Lokasi Mining:</h3>
-      <!-- Lokasi mining akan diupdate dinamis -->
-    </div>
-
-    <!-- Pet Shop -->
-    <div id="pet-shop" style="margin-top: 20px;">
-      <h2>Pet Shop</h2>
-      <div class="pet-option">
-        <img src="assets/images/pet_robot.png" alt="Robot Tambang" class="pet-image">
-        <button onclick="buyPet('robot')">Beli Robot Tambang (50 Ruby)</button>
+  <div id="game-container" style="display: none; flex;">
+    <!-- Sidebar Kiri -->
+    <aside id="sidebar">
+      <!-- UI Kontainer -->
+      <div id="ui-container">
+        <h2>Info Pemain</h2>
+        <p><strong>Ruby DIPAYANG:</strong> <span id="ruby">0</span></p>
+        <p><strong>Profit:</strong> <span id="profit">0</span></p>
+        <button id="upgradeButton">Upgrade Aset (50 Ruby)</button>
       </div>
-      <div class="pet-option">
-        <img src="assets/images/pet_loader.png" alt="Hewan Loader" class="pet-image">
-        <button onclick="buyPet('loader')">Beli Hewan Loader (100 Ruby)</button>
+
+      <!-- Quest Kontainer -->
+      <div id="quest-container">
+        <h3>Quest Aktif:</h3>
+        <p id="active-quest">Tidak ada quest aktif</p>
       </div>
-      <div class="pet-option">
-        <img src="assets/images/pet_drone.png" alt="Drone Eksplorasi" class="pet-image">
-        <button onclick="buyPet('drone')">Beli Drone Eksplorasi (150 Ruby)</button>
+
+      <!-- Status Lokasi Mining -->
+      <div id="location-status">
+        <h3>Status Lokasi Mining:</h3>
       </div>
-    </div>
 
-    <!-- Status Pet -->
-    <div id="pet-status" style="margin-top: 20px;">
-      <h3>Pet Dimiliki:</h3>
-      <ul id="pet-list">
-        <!-- Daftar pet akan diupdate dinamis -->
-      </ul>
-    </div>
+      <!-- Pet Shop -->
+      <div id="pet-shop">
+        <h3>Pet Shop</h3>
+        <div class="pet-option">
+          <img src="assets/images/pet_robot.png" alt="Robot Tambang" class="pet-image">
+          <button onclick="buyPet('robot')">Beli Robot Tambang (50 Ruby)</button>
+        </div>
+        <div class="pet-option">
+          <img src="assets/images/pet_loader.png" alt="Hewan Loader" class="pet-image">
+          <button onclick="buyPet('loader')">Beli Hewan Loader (100 Ruby)</button>
+        </div>
+        <div class="pet-option">
+          <img src="assets/images/pet_drone.png" alt="Drone Eksplorasi" class="pet-image">
+          <button onclick="buyPet('drone')">Beli Drone Eksplorasi (150 Ruby)</button>
+        </div>
+      </div>
 
-    <!-- Tombol Reset (Opsional untuk Testing) -->
-    <button id="resetButton" style="margin-top: 20px;">Reset Game</button>
+      <!-- Status Pet -->
+      <div id="pet-status">
+        <h3>Pet Dimiliki:</h3>
+        <ul id="pet-list"></ul>
+      </div>
 
-    <!-- Kontrol Virtual untuk Perangkat Layar Sentuh -->
-    <div id="virtual-controls" style="text-align: center; margin-top: 20px;">
-      <button class="control-button" data-direction="up">⬆</button><br>
-      <button class="control-button" data-direction="left">⬅</button>
-      <button class="control-button" data-direction="down">⬇</button>
-      <button class="control-button" data-direction="right">➡</button>
-    </div>
+      <!-- Tombol Reset -->
+      <button id="resetButton">Reset Game</button>
+    </aside>
+
+    <!-- Area Map dan Kontrol -->
+    <main id="main-area">
+      <!-- Tombol Navigasi -->
+      <div id="virtual-controls">
+        <button class="control-button" data-direction="up">⬆</button>
+        <div style="display: flex; justify-content: center;">
+          <button class="control-button" data-direction="left">⬅</button>
+          <button class="control-button" data-direction="down">⬇</button>
+          <button class="control-button" data-direction="right">➡</button>
+        </div>
+      </div>
+
+      <!-- Kanvas Peta -->
+      <canvas id="mapCanvas" width="800" height="400"></canvas>
+    </main>
   </div>
 
   <!-- Footer -->
-  <footer style="margin-top: 30px; text-align: center; color: #666;">
+  <footer>
     <p>Game by Hariyanto - 2024</p>
   </footer>
 
