@@ -128,3 +128,12 @@ document.querySelectorAll(".control-button").forEach((button) => {
     handleVirtualControl(direction, ctx); // Panggil fungsi kontrol virtual
   });
 });
+
+document.querySelectorAll(".control-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const direction = button.dataset.direction;
+    const canvas = document.getElementById("mapCanvas");
+    const ctx = canvas.getContext("2d");
+    handleVirtualControl(direction, ctx);
+  });
+});
