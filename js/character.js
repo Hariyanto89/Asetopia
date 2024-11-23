@@ -55,9 +55,7 @@ function moveCharacter(event, ctx) {
     previousPosition.x !== character.x ||
     previousPosition.y !== character.y
   ) {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Bersihkan canvas
-    initializeMerigiMap(ctx); // Render ulang peta
-    interactWithHariyanto(ctx); // Cek interaksi dengan Hariyanto
+    renderUpdatedMap(ctx); // Render ulang peta dengan posisi baru
   }
 }
 
@@ -89,10 +87,15 @@ function handleVirtualControl(direction, ctx) {
     previousPosition.x !== character.x ||
     previousPosition.y !== character.y
   ) {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Bersihkan canvas
-    initializeMerigiMap(ctx); // Render ulang peta
-    interactWithHariyanto(ctx); // Cek interaksi dengan Hariyanto
+    renderUpdatedMap(ctx); // Render ulang peta dengan posisi baru
   }
+}
+
+// Fungsi untuk merender ulang peta
+function renderUpdatedMap(ctx) {
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Bersihkan canvas
+  initializeMerigiMap(ctx); // Render ulang peta utama
+  interactWithHariyanto(ctx); // Cek interaksi dengan Hariyanto
 }
 
 // Fungsi untuk memeriksa apakah karakter berinteraksi dengan Hariyanto
