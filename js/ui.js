@@ -1,7 +1,13 @@
+function updateRubyUI() {
+  document.getElementById("ruby").textContent = ruby;
+}
+
 function updateProfitUI() {
   document.getElementById("profit").textContent = profit;
 }
 
-document.getElementById("upgradeButton").addEventListener("click", () => {
-  upgradeAsset();
-});
+// Fungsi inisialisasi UI
+function initializeGame() {
+  updateRubyUI();
+  updateProfitUI();
+}
