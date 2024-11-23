@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Game sedang dimulai...");
-  
+
   // Memutar musik latar
   const bgm = new Audio("assets/sounds/bgm.mp3");
   bgm.loop = true;
@@ -13,4 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initializeMap(ctx); // Render peta lokasi mining
   initializeGame();   // Inisialisasi UI dan variabel
-});
+
+  // Event listener untuk NPC Hariyanto
+  document.getElement
+::contentReference[oaicite:0]{index=0}
+ 
