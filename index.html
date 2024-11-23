@@ -21,13 +21,25 @@
     <p>Developer: Hariyanto</p>
 
     <!-- Kanvas Peta -->
-    <canvas id="mapCanvas" width="800" height="400"></canvas>
+    <canvas id="mapCanvas" width="800" height="400" style="border: 1px solid black;"></canvas>
 
     <!-- UI Kontainer -->
     <div id="ui-container">
-      <p>Ruby DIPAYANG: <span id="ruby">0</span></p>
-      <p>Profit: <span id="profit">0</span></p>
+      <p><strong>Ruby DIPAYANG:</strong> <span id="ruby">0</span></p>
+      <p><strong>Profit:</strong> <span id="profit">0</span></p>
       <button id="upgradeButton">Upgrade Aset (50 Ruby)</button>
+    </div>
+
+    <!-- Quest Kontainer -->
+    <div id="quest-container">
+      <h3>Quest Aktif:</h3>
+      <p id="active-quest">Tidak ada quest aktif</p>
+    </div>
+
+    <!-- Status Lokasi Mining -->
+    <div id="location-status">
+      <h3>Status Lokasi Mining:</h3>
+      <!-- Lokasi mining akan diupdate dinamis -->
     </div>
 
     <!-- Pet Shop -->
@@ -47,10 +59,16 @@
       </div>
     </div>
 
-    <!-- NPC Hariyanto -->
-    <div id="npc-hariyanto">
-      <img src="assets/images/hariyanto.png" alt="Hariyanto" width="50" id="hariyanto-npc">
+    <!-- Status Pet -->
+    <div id="pet-status">
+      <h3>Pet Dimiliki:</h3>
+      <ul id="pet-list">
+        <!-- Daftar pet akan diupdate dinamis -->
+      </ul>
     </div>
+
+    <!-- Tombol Reset (Opsional untuk Testing) -->
+    <button id="resetButton" style="margin-top: 20px;">Reset Game</button>
   </div>
 
   <!-- Footer -->
