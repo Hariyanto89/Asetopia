@@ -16,7 +16,25 @@ function updateQuestUI() {
     : "Tidak ada quest aktif";
 }
 
-// Fungsi untuk memperbarui status lokasi mining di UI
+// Fungsi memperbarui daftar pet di UI
+function updatePetUI() {
+  const petList = document.getElementById("pet-list");
+  petList.innerHTML = ""; // Bersihkan daftar sebelumnya
+
+  if (pets.length > 0) {
+    pets.forEach((pet) => {
+      const petItem = document.createElement("li");
+      petItem.textContent = `- ${pet}`;
+      petList.appendChild(petItem);
+    });
+  } else {
+    const noPetItem = document.createElement("li");
+    noPetItem.textContent = "Tidak ada pet.";
+    petList.appendChild(noPetItem);
+  }
+}
+
+// Fungsi memperbarui status lokasi mining di UI
 function updateLocationUI(locations) {
   const locationContainer = document.getElementById("location-status");
   locationContainer.innerHTML = ""; // Bersihkan kontainer
@@ -30,10 +48,10 @@ function updateLocationUI(locations) {
 
 // Fungsi inisialisasi UI
 function initializeUI() {
-  // Inisialisasi nilai awal
   updateRubyUI();
   updateProfitUI();
   updateQuestUI();
+  updatePetUI();
   updateLocationUI(merigiLocations);
 
   // Tombol upgrade aset
@@ -41,9 +59,10 @@ function initializeUI() {
     upgradeAsset();
   });
 
-  // Tombol reset game (opsional, untuk testing)
+  // Tombol reset game (opsional untuk testing)
   document.getElementById("resetButton").addEventListener("click", () => {
     resetGame();
     updateLocationUI(merigiLocations); // Perbarui tampilan lokasi
+    updatePetUI(); // Reset tampilan pet
   });
 }
