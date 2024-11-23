@@ -1,44 +1,57 @@
+// Inisialisasi peta di canvas
 function initializeMap(ctx) {
-  const mapImage = new Image();
-  mapImage.src = "assets/images/map.png";
+  const mapImage = new Image(); // Objek gambar
+  mapImage.src = "assets/images/map.png"; // Path gambar peta
 
+  // Ketika gambar selesai dimuat, render ke canvas
   mapImage.onload = () => {
     console.log("Gambar peta berhasil dimuat.");
-    ctx.drawImage(mapImage, 0, 0, 800, 400); // Gambar peta di canvas
+    ctx.drawImage(mapImage, 0, 0, 800, 400); // Render gambar di canvas
   };
 
+  // Jika gambar gagal dimuat
   mapImage.onerror = () => {
     console.error("Gagal memuat gambar peta. Pastikan path file benar.");
+    ctx.fillStyle = "#e0e0e0"; // Warna latar placeholder
+    ctx.fillRect(0, 0, 800, 400); // Gambar kotak abu-abu sebagai placeholder
   };
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.getElementById("mapCanvas");
-  const ctx = canvas.getContext("2d");
+// Fungsi utama untuk inisialisasi game
+function initializeGame() {
+  // Inisialisasi UI ruby dan profit
+  updateRubyUI();
+  updateProfitUI();
 
-  console.log("Inisialisasi map...");
-  initializeMap(ctx);
-});
+  // Event listener untuk tombol upgrade
+  document.getElementById("upgradeButton").addEventListener("click", () => {
+    upgradeAsset(); // Logika upgrade aset
+  });
 
-function initializeMap(ctx) {
-  ctx.fillStyle = "#e0e0e0"; // Warna latar placeholder
-  ctx.fillRect(0, 0, 800, 400); // Gambar kotak abu-abu sebagai placeholder
+  console.log("Game berhasil diinisialisasi.");
 }
 
-  // Memutar musik latar
-  const bgm = new Audio("assets/sounds/bgm.mp3");
-  bgm.loop = true;
-  bgm.volume = 0.5;
-  bgm.play().catch(err => console.error("Gagal memutar musik latar:", err));
+// Fungsi untuk memulai musik latar
+function startBackgroundMusic() {
+  const bgm = new Audio("assets/sounds/bgm.mp3"); // Path musik latar
+  bgm.loop = true; // Ulangi musik
+  bgm.volume = 0.5; // Volume musik
+  bgm.play().catch(err => console.error("Gagal memutar musik latar:", err)); // Tangani error
+}
 
-  // Inisialisasi canvas untuk peta
-  const canvas = document.getElementById("mapCanvas");
-  const ctx = canvas.getContext("2d");
+// Event listener utama saat DOM siap
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("mapCanvas"); // Ambil elemen canvas
+  const ctx = canvas.getContext("2d"); // Context untuk menggambar di canvas
 
-  initializeMap(ctx); // Render peta lokasi mining
-  initializeGame();   // Inisialisasi UI dan variabel
+  // Inisialisasi peta
+  initializeMap(ctx);
 
-  // Event listener untuk NPC Hariyanto
-  document.getElement
-::contentReference[oaicite:0]{index=0}
- 
+  // Mulai musik latar
+  startBackgroundMusic();
+
+  // Inisialisasi elemen game lainnya
+  initializeGame();
+
+  console.log("Game Asetopia siap dimainkan!");
+});
