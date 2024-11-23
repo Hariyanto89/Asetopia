@@ -1,7 +1,7 @@
 const miningLocations = [
   { x: 100, y: 150, resource: 100, name: "Lokasi A" },
   { x: 300, y: 250, resource: 50, name: "Lokasi B" },
-  { x: 500, y: 100, resource: 75, name: "Lokasi C" }
+  { x: 500, y: 100, resource: 75, name: "Lokasi C" },
 ];
 
 function initializeMap(ctx) {
@@ -19,7 +19,7 @@ function initializeMap(ctx) {
     });
   };
 
-  // Interaksi klik pada peta
+  // Event klik pada peta
   document.getElementById("mapCanvas").addEventListener("click", (event) => {
     const rect = ctx.canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -27,7 +27,7 @@ function initializeMap(ctx) {
 
     miningLocations.forEach(loc => {
       if (Math.hypot(loc.x - x, loc.y - y) < 10) {
-        mineRuby(loc); // Jalankan fungsi mining
+        mineRuby(loc); // Proses mining di lokasi yang diklik
       }
     });
   });
