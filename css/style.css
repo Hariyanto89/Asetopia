@@ -101,20 +101,30 @@ footer {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #eaf7ff;
+  background: linear-gradient(120deg, #89f7fe, #66a6ff); /* Gradasi warna baru */
 }
 
-#startGameButton {
-  padding: 20px 40px;
-  font-size: 1.5em;
-  color: white;
-  background-color: #4caf50;
+/* Tombol Mulai Game */
+.start-button {
+  padding: 20px 50px;
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #ff6b6b, #f06595);
   border: none;
-  border-radius: 10px;
+  border-radius: 50px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease-in-out;
 }
 
-#startGameButton:hover {
-  background-color: #45a049;
+.start-button:hover {
+  background: linear-gradient(45deg, #f06595, #ff6b6b);
+  transform: scale(1.1);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.start-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
