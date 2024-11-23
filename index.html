@@ -15,7 +15,7 @@
   </div>
 
   <!-- Kontainer Utama -->
-  <div id="game-container" style="display: none; flex;">
+  <div id="game-container" style="display: none;">
     <!-- Sidebar Kiri -->
     <aside id="sidebar">
       <!-- UI Kontainer -->
@@ -67,18 +67,18 @@
     <!-- Area Map -->
     <main id="map-container">
       <!-- Kanvas Peta -->
-      <canvas id="mapCanvas" width="800" height="400"></canvas>
-    </main>
+      <canvas id="mapCanvas"></canvas>
 
-    <!-- Tombol Navigasi Virtual -->
-    <div id="virtual-controls">
-      <button class="control-button" data-direction="up">⬆</button><br>
-      <div>
-        <button class="control-button" data-direction="left">⬅</button>
-        <button class="control-button" data-direction="down">⬇</button>
-        <button class="control-button" data-direction="right">➡</button>
+      <!-- Tombol Navigasi Virtual (Overlay) -->
+      <div id="virtual-controls">
+        <button class="control-button" data-direction="up">⬆</button><br>
+        <div>
+          <button class="control-button" data-direction="left">⬅</button>
+          <button class="control-button" data-direction="down">⬇</button>
+          <button class="control-button" data-direction="right">➡</button>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
 
   <!-- Footer -->
