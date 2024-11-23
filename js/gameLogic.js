@@ -5,11 +5,11 @@ let profit = 0; // Profit dari aset yang di-upgrade
 function mineRuby(location) {
   if (location.resource > 0) {
     location.resource -= 10; // Kurangi sumber daya lokasi
-    ruby += 10; // Tambah ruby
+    ruby += 10; // Tambahkan ruby
     updateRubyUI(); // Perbarui tampilan ruby
-    playSound("mining.mp3"); // Efek suara mining
+    playSound("mining.mp3"); // Putar suara mining
   } else {
-    alert("Sumber daya di lokasi ini sudah habis!");
+    alert(`Sumber daya di ${location.name} habis!`);
   }
 }
 
@@ -17,16 +17,16 @@ function mineRuby(location) {
 function upgradeAsset() {
   if (ruby >= 50) {
     ruby -= 50; // Kurangi ruby
-    profit += 20; // Tambah profit
+    profit += 20; // Tambahkan profit
     updateProfitUI(); // Perbarui tampilan profit
-    playSound("upgrade.mp3"); // Efek suara upgrade
+    playSound("upgrade.mp3"); // Putar suara upgrade
   } else {
     alert("Ruby tidak cukup untuk upgrade aset!");
   }
 }
 
-// Fungsi memutar efek suara
+// Fungsi memainkan efek suara
 function playSound(file) {
   const sound = new Audio(`assets/sounds/${file}`);
-  sound.play().catch(err => console.log("Gagal memutar efek suara:", err));
+  sound.play().catch(err => console.error("Gagal memutar efek suara:", err));
 }
