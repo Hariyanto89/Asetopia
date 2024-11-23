@@ -7,20 +7,41 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Kontainer Utama -->
   <div id="game-container">
+    <!-- Judul dan Developer -->
     <h1>Selamat Datang di Asetopia</h1>
     <p>Developer: Hariyanto</p>
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+    <!-- Kanvas Peta -->
+    <canvas id="mapCanvas" width="800" height="400"></canvas>
+
+    <!-- UI Kontainer -->
     <div id="ui-container">
+      <p>Ruby DIPAYANG: <span id="ruby">0</span></p>
       <p>Profit: <span id="profit">0</span></p>
-      <button id="upgradeButton">Upgrade Aset</button>
+      <button id="upgradeButton">Upgrade Aset (50 Ruby)</button>
+    </div>
+
+    <!-- Pet Shop -->
+    <div id="pet-shop">
+      <h2>Pet Shop</h2>
+      <button onclick="buyPet('robot')">Beli Robot Tambang (50 Ruby)</button>
+      <button onclick="buyPet('loader')">Beli Hewan Loader (100 Ruby)</button>
+      <button onclick="buyPet('drone')">Beli Drone Eksplorasi (150 Ruby)</button>
     </div>
   </div>
+
+  <!-- Footer -->
   <footer>
     <p>Game by Hariyanto - 2024</p>
   </footer>
+
+  <!-- Script Game -->
   <script src="js/main.js"></script>
   <script src="js/gameLogic.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/pet.js"></script>
   <script src="js/ui.js"></script>
 </body>
 </html>
