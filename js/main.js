@@ -36,22 +36,30 @@ function startBackgroundMusic() {
   const bgm = new Audio("assets/sounds/bgm.mp3"); // Path musik latar
   bgm.loop = true; // Ulangi musik
   bgm.volume = 0.5; // Volume musik
-  bgm.play().catch(err => console.error("Gagal memutar musik latar:", err)); // Tangani error
+  bgm.play()
+    .then(() => console.log("Musik latar berhasil diputar."))
+    .catch((err) => console.error("Gagal memutar musik latar:", err));
+}
+
+// Fungsi untuk memulai game
+function startGame() {
+  console.log("Game dimulai!");
+
+  // Sembunyikan tombol start dan tampilkan game
+  document.getElementById("start-container").style.display = "none";
+  document.getElementById("game-container").style.display = "block";
+
+  // Inisialisasi elemen game
+  const canvas = document.getElementById("mapCanvas");
+  const ctx = canvas.getContext("2d");
+  initializeMap(ctx); // Inisialisasi peta
+  initializeGame(); // Inisialisasi elemen lainnya
+  startBackgroundMusic(); // Mulai musik latar
 }
 
 // Event listener utama saat DOM siap
 document.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.getElementById("mapCanvas"); // Ambil elemen canvas
-  const ctx = canvas.getContext("2d"); // Context untuk menggambar di canvas
-
-  // Inisialisasi peta
-  initializeMap(ctx);
-
-  // Mulai musik latar
-  startBackgroundMusic();
-
-  // Inisialisasi elemen game lainnya
-  initializeGame();
-
-  console.log("Game Asetopia siap dimainkan!");
+  console.log("DOM siap. Menunggu interaksi pengguna...");
+  const startButton = document.getElementById("startGameButton");
+  startButton.addEventListener("click", startGame); // Tambahkan event listener ke tombol
 });
