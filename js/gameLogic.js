@@ -17,8 +17,9 @@ function mineRuby(location) {
 
 // Fungsi upgrade aset
 function upgradeAsset() {
-  if (ruby >= 50) {
-    ruby -= 50; // Kurangi ruby
+  const upgradeCost = 50; // Biaya upgrade
+  if (ruby >= upgradeCost) {
+    ruby -= upgradeCost; // Kurangi ruby
     profit += 20; // Tambahkan profit
     updateProfitUI(); // Perbarui tampilan profit
     playSound("upgrade.mp3"); // Putar suara upgrade
@@ -42,7 +43,18 @@ function checkCompletion() {
     completeQuest(); // Tandai quest sebagai selesai
     giveReward(); // Berikan reward
     alert("Selamat! Semua lokasi di Kecamatan Merigi selesai. Lanjutkan ke map berikutnya.");
+    proceedToNextMap(); // Transisi ke map berikutnya
   }
+}
+
+// Fungsi untuk memulai map berikutnya
+function proceedToNextMap() {
+  const canvas = document.getElementById("mapCanvas");
+  const ctx = canvas.getContext("2d");
+
+  // Ganti peta ke Kecamatan Seberang Musi (contoh)
+  alert("Peta berikutnya adalah Kecamatan Seberang Musi.");
+  initializeSeberangMusiMap(ctx); // Fungsi untuk inisialisasi map berikutnya
 }
 
 // Fungsi untuk memainkan efek suara
@@ -59,4 +71,19 @@ function resetGame() {
   updateRubyUI();
   updateProfitUI();
   alert("Game telah di-reset.");
+}
+
+// Fungsi untuk menyelesaikan quest
+function completeQuest() {
+  const activeQuest = document.getElementById("active-quest");
+  activeQuest.textContent = "Quest selesai!";
+  playSound("quest_complete.mp3"); // Efek suara quest selesai
+  console.log("Quest selesai.");
+}
+
+// Fungsi untuk memulai quest baru
+function startQuest(questName) {
+  const activeQuest = document.getElementById("active-quest");
+  activeQuest.textContent = questName;
+  console.log(`Quest dimulai: ${questName}`);
 }
