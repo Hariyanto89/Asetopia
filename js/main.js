@@ -1,29 +1,28 @@
-// Inisialisasi peta di canvas
-function initializeMap(ctx) {
+// Fungsi untuk memuat dan menggambar peta di canvas
+function initializeMap(ctx, mapImagePath, callback) {
   const mapImage = new Image(); // Objek gambar
-  mapImage.src = "assets/images/map.png"; // Path gambar peta
+  mapImage.src = mapImagePath; // Path gambar peta
 
-  // Ketika gambar selesai dimuat, render ke canvas
   mapImage.onload = () => {
-    console.log("Gambar peta berhasil dimuat.");
+    console.log("Gambar peta berhasil dimuat:", mapImagePath);
     ctx.drawImage(mapImage, 0, 0, 800, 400); // Render gambar di canvas
+    if (callback) callback(); // Panggil callback jika ada
   };
 
-  // Jika gambar gagal dimuat
   mapImage.onerror = () => {
-    console.error("Gagal memuat gambar peta. Pastikan path file benar.");
+    console.error("Gagal memuat gambar peta:", mapImagePath);
     ctx.fillStyle = "#e0e0e0"; // Warna latar placeholder
-    ctx.fillRect(0, 0, 800, 400); // Gambar kotak abu-abu sebagai placeholder
+    ctx.fillRect(0, 0, 800, 400); // Gambar placeholder abu-abu
   };
 }
 
-// Fungsi utama untuk inisialisasi game
+// Fungsi untuk inisialisasi elemen game
 function initializeGame() {
-  // Inisialisasi UI ruby dan profit
-  updateRubyUI();
-  updateProfitUI();
+  updateRubyUI(); // Perbarui UI ruby
+  updateProfitUI(); // Perbarui UI profit
+  updateQuestUI("Tidak ada quest aktif"); // Perbarui UI quest
 
-  // Event listener untuk tombol upgrade
+  // Event listener untuk tombol upgrade aset
   document.getElementById("upgradeButton").addEventListener("click", () => {
     upgradeAsset(); // Logika upgrade aset
   });
@@ -49,17 +48,47 @@ function startGame() {
   document.getElementById("start-container").style.display = "none";
   document.getElementById("game-container").style.display = "block";
 
-  // Inisialisasi elemen game
+  // Inisialisasi canvas dan context
   const canvas = document.getElementById("mapCanvas");
   const ctx = canvas.getContext("2d");
-  initializeMap(ctx); // Inisialisasi peta
-  initializeGame(); // Inisialisasi elemen lainnya
+
+  // Inisialisasi peta pertama (Kecamatan Merigi)
+  initializeMap(ctx, "assets/images/map_merigi.png", () => {
+    initializeMerigiMap(ctx); // Peta pertama: Kecamatan Merigi
+  });
+
+  // Inisialisasi elemen lain (UI, event listener, dll.)
+  initializeGame();
   startBackgroundMusic(); // Mulai musik latar
+}
+
+// Fungsi untuk transisi ke map berikutnya
+function transitionToNextMap(nextMapFunction, mapImagePath) {
+  console.log("Transisi ke map berikutnya...");
+  const canvas = document.getElementById("mapCanvas");
+  const ctx = canvas.getContext("2d");
+
+  // Bersihkan canvas dan muat peta baru
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  initializeMap(ctx, mapImagePath, () => {
+    nextMapFunction(ctx); // Inisialisasi peta berikutnya
+  });
+
+  alert("Anda sekarang berada di map berikutnya!");
 }
 
 // Event listener utama saat DOM siap
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM siap. Menunggu interaksi pengguna...");
   const startButton = document.getElementById("startGameButton");
-  startButton.addEventListener("click", startGame); // Tambahkan event listener ke tombol
+
+  // Event listener untuk tombol "Mulai Game"
+  startButton.addEventListener("click", startGame);
+
+  // Event listener untuk tombol reset game (opsional untuk testing)
+  const resetButton = document.getElementById("resetButton");
+  resetButton?.addEventListener("click", () => {
+    resetGame(); // Reset seluruh game
+    location.reload(); // Reload halaman
+  });
 });
