@@ -11,65 +11,79 @@ body {
   color: #333;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
   margin: 0;
 }
 
 /* Kontainer Game */
 #game-container {
-  width: 100%;
-  max-width: 900px;
-  padding: 20px;
-  background-color: #fff;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Elemen Canvas */
-#mapCanvas {
-  width: 800px; /* Lebar tetap */
-  height: 400px; /* Tinggi tetap */
-  border: 2px solid #000;
-  background-color: #f5f5f5; /* Tambahkan latar belakang default */
-  margin: 20px auto; /* Pusatkan canvas */
-  display: block;
-  border-radius: 5px; /* Sudut canvas melengkung */
+/* Sidebar Kiri */
+#sidebar {
+  width: 25%;
+  background-color: #f7f9fc;
+  border-right: 2px solid #ccc;
+  padding: 20px;
+  overflow-y: auto;
 }
 
-/* UI Container */
-#ui-container p {
+#sidebar h2,
+#sidebar h3 {
+  margin-bottom: 15px;
+  font-size: 1.4em;
+  text-align: left;
+  color: #444;
+}
+
+#sidebar p {
   font-size: 1.2em;
   margin: 10px 0;
 }
 
-/* Tombol */
-button {
-  padding: 10px 20px;
-  margin: 5px;
+#sidebar button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1em;
+  background-color: #4caf50;
+  color: #fff;
   border: none;
   border-radius: 5px;
-  background-color: #4caf50;
-  color: white;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
 
-button:hover {
+#sidebar button:hover {
   background-color: #45a049;
   transform: scale(1.05);
 }
 
-button:active {
+#sidebar button:active {
   transform: scale(0.95);
 }
 
-/* Tombol Virtual Kontrol */
+/* Main Area untuk Map */
+#main-area {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  background-color: #f3f4f6;
+}
+
+/* Tombol Navigasi */
+#virtual-controls {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .control-button {
   padding: 15px;
   margin: 5px;
@@ -91,7 +105,15 @@ button:active {
   transform: scale(0.9);
 }
 
-/* Opsi Pet */
+/* Kanvas Peta */
+#mapCanvas {
+  border: 2px solid #000;
+  background-color: #f5f5f5;
+  display: block;
+  border-radius: 5px;
+}
+
+/* Pet Shop */
 .pet-option {
   display: flex;
   align-items: center;
@@ -113,40 +135,45 @@ button:active {
   background-color: #ff5722;
   color: white;
   border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1em;
 }
 
 .pet-option button:hover {
   background-color: #e64a19;
 }
 
-/* NPC Hariyanto */
-#npc-hariyanto {
-  margin-top: 20px;
+/* Daftar Pet */
+#pet-list {
+  list-style: none;
+  padding: 0;
 }
 
-#hariyanto-npc {
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-#hariyanto-npc:hover {
-  transform: scale(1.1);
-}
-
-/* Footer */
-footer {
-  margin-top: 20px;
-  font-size: 0.8em;
+#pet-list li {
+  font-size: 1em;
+  margin: 5px 0;
   color: #555;
 }
 
-/* Kontainer Start */
-#start-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: linear-gradient(120deg, #89f7fe, #66a6ff); /* Gradasi warna baru */
+/* Quest Container */
+#quest-container {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f3f4f6;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#quest-container p {
+  font-size: 1em;
+  color: #444;
+}
+
+/* Status Lokasi */
+#location-status p {
+  font-size: 1em;
+  margin: 5px 0;
+  color: #333;
 }
 
 /* Tombol Mulai Game */
@@ -174,30 +201,10 @@ footer {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Quest Container */
-#quest-container {
-  margin: 20px 0;
-  padding: 10px;
-  background-color: #f3f4f6;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-/* Status Lokasi */
-#location-status p {
-  font-size: 1em;
-  margin: 5px 0;
-  color: #333;
-}
-
-/* Daftar Pet */
-#pet-list {
-  list-style: none;
-  padding: 0;
-}
-
-#pet-list li {
-  font-size: 1em;
-  margin: 5px 0;
+/* Footer */
+footer {
+  margin-top: 20px;
+  font-size: 0.8em;
   color: #555;
+  text-align: center;
 }
