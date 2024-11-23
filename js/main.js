@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeMap(ctx);
 });
 
+function initializeMap(ctx) {
+  ctx.fillStyle = "#e0e0e0"; // Warna latar placeholder
+  ctx.fillRect(0, 0, 800, 400); // Gambar kotak abu-abu sebagai placeholder
+}
 
   // Memutar musik latar
   const bgm = new Audio("assets/sounds/bgm.mp3");
