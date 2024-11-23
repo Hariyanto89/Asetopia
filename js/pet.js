@@ -11,6 +11,7 @@ function buyPet(type) {
     ruby -= petPrices[type]; // Kurangi ruby
     pets.push(type); // Tambahkan pet ke daftar pemain
     updateRubyUI(); // Perbarui tampilan ruby
+    updatePetUI(); // Perbarui daftar pet di UI
     playSound("pet.mp3"); // Putar suara pembelian pet
     alert(`Pet ${type} berhasil dibeli!`);
     console.log(`Daftar pet saat ini: ${pets.join(", ")}`);
@@ -31,6 +32,7 @@ function applyPetEffects(location) {
       case "loader":
         // Loader memberikan tambahan ruby setiap kali mining
         ruby += 5;
+        updateRubyUI();
         console.log("Hewan loader menambahkan ruby +5.");
         break;
       case "drone":
