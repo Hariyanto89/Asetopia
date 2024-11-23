@@ -18,11 +18,11 @@ body {
 /* Sidebar */
 #sidebar {
   width: 25%;
+  height: 100vh;
   padding: 20px;
   background-color: #f7f9fc;
-  overflow-y: auto;
-  height: 100vh;
   border-right: 2px solid #ccc;
+  overflow-y: auto;
 }
 
 #sidebar h2, #sidebar h3 {
@@ -42,7 +42,7 @@ body {
   padding: 10px;
   font-size: 1em;
   background-color: #4caf50;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -58,11 +58,14 @@ body {
 #map-container {
   width: 75%;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #mapCanvas {
-  width: 100%;
-  height: calc(100vh - 50px);
+  width: 90%;
+  height: 80%;
   background-color: #f5f5f5;
   border: 2px solid #000;
 }
@@ -70,7 +73,7 @@ body {
 /* Virtual Controls Overlay */
 #virtual-controls {
   position: absolute;
-  top: 20px;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -122,18 +125,6 @@ body {
 
 .pet-option button:hover {
   background-color: #e64a19;
-}
-
-/* Quest Container */
-#quest-container {
-  margin: 20px 0;
-  background-color: #f3f4f6;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-#quest-container p {
-  font-size: 1em;
 }
 
 /* Footer */
