@@ -30,3 +30,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initializeGame(ctx);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const bgm = new Audio("assets/sounds/bgm.mp3");
+  bgm.loop = true;
+  bgm.volume = 0.5;
+  bgm.play().catch(err => console.log("Musik tidak dapat diputar:", err));
+
+  const soundControl = document.getElementById("sound-control");
+  const soundIcon = document.getElementById("sound-icon");
+  let isMuted = false;
+
+  soundControl.addEventListener("click", () => {
+    if (isMuted) {
+      bgm.muted = false;
+      soundIcon.src = "assets/images/sound_on.png";
+    } else {
+      bgm.muted = true;
+      soundIcon.src = "assets/images/sound_off.png";
+    }
+    isMuted = !isMuted;
+  });
+});
