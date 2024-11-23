@@ -8,11 +8,11 @@
 </head>
 <body>
   <!-- Tombol untuk Memulai Game -->
-<div id="start-container" style="display: flex; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(120deg, #89f7fe, #66a6ff);">
-  <button id="startGameButton" class="start-button">
-    Mulai Game
-  </button>
-</div>
+  <div id="start-container" style="display: flex; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(120deg, #89f7fe, #66a6ff);">
+    <button id="startGameButton" class="start-button">
+      Mulai Game
+    </button>
+  </div>
 
   <!-- Kontainer Utama -->
   <div id="game-container" style="display: none;">
@@ -69,6 +69,14 @@
 
     <!-- Tombol Reset (Opsional untuk Testing) -->
     <button id="resetButton" style="margin-top: 20px;">Reset Game</button>
+
+    <!-- Kontrol Virtual -->
+    <div id="virtual-controls" style="text-align: center; margin-top: 20px;">
+      <button class="control-button" data-direction="up">⬆</button><br>
+      <button class="control-button" data-direction="left">⬅</button>
+      <button class="control-button" data-direction="down">⬇</button>
+      <button class="control-button" data-direction="right">➡</button>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -82,5 +90,6 @@
   <script src="js/map.js"></script>
   <script src="js/pet.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/character.js"></script>
 </body>
 </html>
