@@ -69,7 +69,7 @@ body {
 
 /* Map Area */
 #map-container {
-  width: 75%;
+  width: 60%;
   position: relative;
   background-color: #f3f4f6;
   display: flex;
@@ -84,16 +84,16 @@ body {
   border-radius: 5px;
 }
 
-/* Tombol Virtual Controls Overlay */
-#virtual-controls-overlay {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 10;
+/* Tombol Navigasi Virtual */
+#virtual-controls {
+  width: 15%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  background-color: #f9f9f9;
+  border-left: 2px solid #ccc;
+  padding: 20px;
 }
 
 .control-button {
