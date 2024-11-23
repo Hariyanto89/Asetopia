@@ -64,20 +64,20 @@
       <button id="resetButton">Reset Game</button>
     </aside>
 
-    <!-- Area Map dan Kontrol -->
-    <main id="main-area">
-      <!-- Tombol Navigasi -->
+    <!-- Area Map -->
+    <main id="map-container">
+      <!-- Kanvas Peta -->
+      <canvas id="mapCanvas" width="800" height="400"></canvas>
+
+      <!-- Tombol Navigasi di atas map -->
       <div id="virtual-controls">
-        <button class="control-button" data-direction="up">⬆</button>
-        <div style="display: flex; justify-content: center;">
+        <button class="control-button" data-direction="up">⬆</button><br>
+        <div>
           <button class="control-button" data-direction="left">⬅</button>
           <button class="control-button" data-direction="down">⬇</button>
           <button class="control-button" data-direction="right">➡</button>
         </div>
       </div>
-
-      <!-- Kanvas Peta -->
-      <canvas id="mapCanvas" width="800" height="400"></canvas>
     </main>
   </div>
 
