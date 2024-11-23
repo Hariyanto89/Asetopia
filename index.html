@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asetopia</title>
-  <link rel="stylesheet" href="css/style.css"> <!-- Path CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <!-- Kontainer Utama -->
@@ -26,14 +26,23 @@
     <!-- Pet Shop -->
     <div id="pet-shop">
       <h2>Pet Shop</h2>
-      <button onclick="buyPet('robot')">Beli Robot Tambang (50 Ruby)</button>
-      <button onclick="buyPet('loader')">Beli Hewan Loader (100 Ruby)</button>
-      <button onclick="buyPet('drone')">Beli Drone Eksplorasi (150 Ruby)</button>
+      <div class="pet-option">
+        <img src="assets/images/pet_robot.png" alt="Robot Tambang" class="pet-image">
+        <button onclick="buyPet('robot')">Beli Robot Tambang (50 Ruby)</button>
+      </div>
+      <div class="pet-option">
+        <img src="assets/images/pet_loader.png" alt="Hewan Loader" class="pet-image">
+        <button onclick="buyPet('loader')">Beli Hewan Loader (100 Ruby)</button>
+      </div>
+      <div class="pet-option">
+        <img src="assets/images/pet_drone.png" alt="Drone Eksplorasi" class="pet-image">
+        <button onclick="buyPet('drone')">Beli Drone Eksplorasi (150 Ruby)</button>
+      </div>
     </div>
 
-    <!-- Gambar Developer -->
-    <div id="developer-avatar">
-      <img src="assets/images/hariyanto.png" alt="Hariyanto" width="50">
+    <!-- NPC Hariyanto -->
+    <div id="npc-hariyanto">
+      <img src="assets/images/hariyanto.png" alt="Hariyanto" width="50" id="hariyanto-npc">
     </div>
   </div>
 
