@@ -8,7 +8,7 @@
 /* Umum */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #f0f8ff, #e6f7ff); /* Gradasi biru muda yang lembut */
+    background: linear-gradient(to bottom, #f0f8ff, #e6f7ff); /* Gradasi biru muda */
     color: #333;
     display: flex;
     flex-direction: column;
@@ -32,8 +32,8 @@ header {
 
 header h1 {
     font-size: 2rem;
-    margin-bottom: 5px;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 header nav ul {
@@ -78,7 +78,6 @@ main {
 #dashboard h2 {
     color: #4CAF50;
     font-size: 1.8rem;
-    margin-bottom: 15px;
     font-weight: bold;
     text-align: center;
 }
@@ -95,7 +94,7 @@ main {
 
 #playerToken {
     font-weight: bold;
-    color: #FFA500; /* Warna oranye untuk menonjolkan token */
+    color: #FFA500; /* Warna oranye */
 }
 
 /* Peta Kecamatan */
@@ -148,26 +147,72 @@ main {
     text-align: center;
 }
 
-#taskList ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+#taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-#taskList ul li {
-    font-size: 1rem;
-    margin: 10px 0;
-    padding: 12px;
+#taskList h3 {
+    font-size: 1.5rem;
+    color: #FFA500;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.question-item {
     background: #f9f9f9;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 8px;
-    transition: background 0.3s ease, transform 0.2s;
-    cursor: pointer;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#taskList ul li:hover {
-    background: #f0f0f0;
+.question-item:hover {
     transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.question-item p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.question-item input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.question-item input:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Tombol Submit */
+#taskList button {
+    background: #4CAF50;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    align-self: center;
+}
+
+#taskList button:hover {
+    background: #45a049;
+    transform: scale(1.05);
 }
 
 /* Leaderboard */
@@ -215,54 +260,7 @@ main {
     background: #f0f0f0;
 }
 
-/* Clue dan Badge */
-#clue-badge {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    margin-bottom: 20px;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-#clue-badge h2 {
-    color: #4CAF50;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-align: center;
-}
-
-#clueInfo p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555;
-    margin: 0;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background: #4CAF50;
-    color: #fff;
-    margin-top: 20px;
-    width: 100%;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Animasi */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+/* Badge */
 #badges {
     background: #fff;
     border-radius: 10px;
@@ -311,4 +309,27 @@ footer {
 .badge-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #4CAF50;
+    color: #fff;
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animasi */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
