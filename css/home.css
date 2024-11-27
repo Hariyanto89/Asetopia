@@ -12,12 +12,12 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, #f0f8ff, #e6f7ff); /* Gradasi lembut */
+    background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
 }
 
 /* Home Section */
 #home-section {
-    height: 100vh; /* Sesuai dengan tinggi layar */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
