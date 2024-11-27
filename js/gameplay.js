@@ -91,15 +91,16 @@ function displayBadges(user) {
     });
 }
 
+// Fungsi Menggambar Badge di Canvas
 function drawBadgeWithName(badgeImageSrc, playerName) {
     const canvas = document.getElementById("badgeCanvas");
     const ctx = canvas.getContext("2d");
 
     const badgeImage = new Image();
+    badgeImage.crossOrigin = "anonymous"; // Mendukung gambar lintas domain
     badgeImage.src = badgeImageSrc;
 
     badgeImage.onload = function () {
-        // Gambar badge
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Bersihkan canvas
         ctx.drawImage(badgeImage, 0, 0, canvas.width, canvas.height);
 
@@ -109,14 +110,26 @@ function drawBadgeWithName(badgeImageSrc, playerName) {
         ctx.textAlign = "center";
         ctx.fillText(playerName, canvas.width / 2, canvas.height - 20); // Teks di bawah badge
     };
+
+    badgeImage.onerror = function () {
+        alert("Gagal memuat gambar badge. Pastikan URL gambar benar.");
+    };
 }
 
+// Fungsi Mengunduh Badge
 function exportBadge() {
     const canvas = document.getElementById("badgeCanvas");
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx.getImageData(0, 0, canvas.width, canvas.height).data.some(channel => channel !== 0)) {
+        alert("Canvas kosong. Pastikan gambar badge berhasil dimuat.");
+        return;
+    }
+
     const link = document.createElement("a");
-    link.download = "badge_with_name.png"; // Nama file hasil
-    link.href = canvas.toDataURL(); // Konversi canvas ke URL gambar
-    link.click(); // Unduh otomatis
+    link.download = "badge_with_name.png";
+    link.href = canvas.toDataURL();
+    link.click();
 }
 
 document.getElementById("downloadBadgeButton").addEventListener("click", exportBadge);
@@ -129,7 +142,6 @@ function initializeMap() {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Tambahkan marker untuk setiap kecamatan
     kecamatanTasks.forEach((task, index) => {
         L.marker([-3.6403 + index * 0.01, 102.6159 + index * 0.01])
             .addTo(map)
@@ -164,7 +176,7 @@ function displayQuestionsForKecamatan(task) {
     const taskList = document.getElementById("taskList");
     taskList.innerHTML = `<h3>Tantangan di Kecamatan ${task.kecamatan}</h3>`;
 
-    task.tasks.forEach((q, index) => {
+    task.tasks.forEach(q => {
         const questionItem = document.createElement("div");
         questionItem.className = "question-item";
         questionItem.innerHTML = `
@@ -196,7 +208,6 @@ function checkAnswers(task) {
         task.completed = true;
         awardBadge(task.kecamatan, task.password);
 
-        // Buka kecamatan berikutnya
         const nextTask = kecamatanTasks[kecamatanTasks.indexOf(task) + 1];
         if (nextTask) nextTask.unlocked = true;
 
@@ -213,20 +224,18 @@ function awardBadge(kecamatanName, password) {
 
     if (!badge || !currentUser) return;
 
-    // Inisialisasi array badges jika belum ada
     if (!currentUser.badges) currentUser.badges = [];
-    
-    // Tambahkan badge dan token
     currentUser.badges.push({
         kecamatan: kecamatanName,
         image: badge.image,
         description: badge.description,
     });
 
-    currentUser.token = (currentUser.token || 0) + 50; // Tambahkan token
+    currentUser.token = (currentUser.token || 0) + 50;
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
     alert(`Selamat! Anda mendapatkan badge untuk Kecamatan ${kecamatanName}. Password: ${password}`);
+    drawBadgeWithName(badge.image, currentUser.username);
     displayPlayerData(currentUser);
     displayBadges(currentUser);
 }
