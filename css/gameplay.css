@@ -80,6 +80,15 @@ main {
     margin: 5px 0;
 }
 
+#dashboard .stats p strong {
+    color: #4CAF50;
+}
+
+#playerToken {
+    font-weight: bold;
+    color: #FFA500; /* Warna oranye untuk menonjolkan token */
+}
+
 /* Peta Kecamatan */
 #map {
     background: #fff;
@@ -96,7 +105,7 @@ main {
 }
 
 #kepahiangMap {
-    height: 400px;
+    height: 500px;
     background: #e0e0e0;
     border-radius: 10px;
     display: flex;
