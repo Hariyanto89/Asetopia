@@ -5,18 +5,18 @@ function initializeMap(ctx, mapImagePath, callback) {
 
   mapImage.onload = () => {
     console.log("Gambar peta berhasil dimuat:", mapImagePath);
-    ctx.drawImage(mapImage, 0, 0, 800, 400); // Render gambar di canvas
+    ctx.drawImage(mapImage, 0, 0, ctx.canvas.width, ctx.canvas.height); // Render gambar di canvas
     if (callback) callback(); // Panggil callback jika ada
   };
 
   mapImage.onerror = () => {
     console.error("Gagal memuat gambar peta:", mapImagePath);
     ctx.fillStyle = "#e0e0e0"; // Warna latar placeholder
-    ctx.fillRect(0, 0, 800, 400); // Gambar placeholder abu-abu
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Gambar placeholder abu-abu
   };
 }
 
-// Fungsi untuk inisialisasi elemen game
+// Fungsi untuk memperbarui elemen UI utama game
 function initializeGame() {
   updateRubyUI(); // Perbarui UI ruby
   updateProfitUI(); // Perbarui UI profit
@@ -46,7 +46,7 @@ function startGame() {
 
   // Sembunyikan tombol start dan tampilkan game
   document.getElementById("start-container").style.display = "none";
-  document.getElementById("game-container").style.display = "block";
+  document.getElementById("game-container").style.display = "flex";
 
   // Inisialisasi canvas dan context
   const canvas = document.getElementById("mapCanvas");
@@ -77,6 +77,29 @@ function transitionToNextMap(nextMapFunction, mapImagePath) {
   alert("Anda sekarang berada di map berikutnya!");
 }
 
+// Fungsi untuk reset game (opsional untuk testing)
+function resetGame() {
+  ruby = 0; // Reset jumlah ruby
+  profit = 0; // Reset jumlah profit
+  merigiLocations.forEach((loc) => (loc.resource = 100)); // Reset resource di semua lokasi
+  updateRubyUI();
+  updateProfitUI();
+  updateQuestUI("Tidak ada quest aktif");
+  updateLocationUI(merigiLocations); // Reset status lokasi mining
+  updatePetUI(); // Reset pet yang dimiliki
+  alert("Game telah di-reset.");
+  console.log("Game di-reset ke kondisi awal.");
+}
+
+// Fungsi untuk menambahkan interaksi tombol reset game
+function setupResetButton() {
+  const resetButton = document.getElementById("resetButton");
+  resetButton?.addEventListener("click", () => {
+    resetGame(); // Reset seluruh game
+    location.reload(); // Reload halaman
+  });
+}
+
 // Event listener utama saat DOM siap
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM siap. Menunggu interaksi pengguna...");
@@ -85,10 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listener untuk tombol "Mulai Game"
   startButton.addEventListener("click", startGame);
 
-  // Event listener untuk tombol reset game (opsional untuk testing)
-  const resetButton = document.getElementById("resetButton");
-  resetButton?.addEventListener("click", () => {
-    resetGame(); // Reset seluruh game
-    location.reload(); // Reload halaman
-  });
+  // Setup tombol reset game
+  setupResetButton();
 });
