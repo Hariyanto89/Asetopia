@@ -139,15 +139,59 @@ function checkAnswers(task) {
     }
 }
 
+    const badgeData = [
+        {
+            kecamatan: "Merigi",
+            image: "assets/badges/merigi_badge.png",
+            description: "Badge Kecamatan Merigi: Pengelolaan aset sukses!",
+        },
+        {
+            kecamatan: "Ujan Mas",
+            image: "assets/badges/ujanmas_badge.png",
+            description: "Badge Kecamatan Ujan Mas: Pengelolaan aset sukses!",
+        },
+        // Tambahkan kecamatan lainnya...
+    ];
+
 // Fungsi Memberikan Badge dan Token
 function awardBadge(kecamatanName, password) {
+    const badge = badgeData.find(b => b.kecamatan === kecamatanName);
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (currentUser) {
-        alert(`Badge untuk ${kecamatanName} diperoleh! Password: ${password}`);
-        currentUser.token += 50; // Tambahkan token
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
-        displayPlayerData(currentUser);
+
+    if (!badge || !currentUser) return;
+
+    // Simpan badge ke data pengguna
+    if (!currentUser.badges) currentUser.badges = [];
+    currentUser.badges.push({
+        kecamatan: kecamatanName,
+        image: badge.image,
+        description: badge.description,
+    });
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+    alert(`Selamat! Anda mendapatkan badge untuk Kecamatan ${kecamatanName}. Password: ${password}`);
+    displayPlayerData(currentUser);
+    displayBadges(currentUser);
+}
+
+function displayBadges(user) {
+    const badgeContainer = document.getElementById("badgeList");
+    badgeContainer.innerHTML = ""; // Kosongkan container sebelum render
+
+    if (!user.badges || user.badges.length === 0) {
+        badgeContainer.innerHTML = "<p>Belum ada badge yang diperoleh.</p>";
+        return;
     }
+
+    user.badges.forEach(badge => {
+        const badgeItem = document.createElement("div");
+        badgeItem.className = "badge-item";
+        badgeItem.innerHTML = `
+            <img src="${badge.image}" alt="${badge.kecamatan} Badge">
+            <p>${badge.description}</p>
+        `;
+        badgeContainer.appendChild(badgeItem);
+    });
 }
 
 // Fungsi Menampilkan Leaderboard
