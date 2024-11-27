@@ -7,20 +7,30 @@
     <link rel="stylesheet" href="css/character.css">
 </head>
 <body>
-    <section id="characterSelection">
-        <h2>Pilih Karakter</h2>
-        <div class="characters">
-            <div class="character" onclick="selectCharacter('Bujang Aset')">
-                <img src="assets/images/characters/bujang_aset.png" alt="Bujang Aset">
-                <p>Bujang Aset</p>
+    <header>
+        <h1>Pilih Karakter</h1>
+    </header>
+    <main>
+        <section id="characterSelection">
+            <h2>Pilih Karakter untuk Memulai Game</h2>
+            <div class="characters">
+                <!-- Karakter Bujang Aset -->
+                <div class="character" onclick="selectCharacter('Bujang Aset')">
+                    <img src="assets/images/characters/bujang_aset.png" alt="Bujang Aset">
+                    <p>Bujang Aset</p>
+                </div>
+                <!-- Karakter Semulen Aset -->
+                <div class="character" onclick="selectCharacter('Semulen Aset')">
+                    <img src="assets/images/characters/semulen_aset.png" alt="Semulen Aset">
+                    <p>Semulen Aset</p>
+                </div>
             </div>
-            <div class="character" onclick="selectCharacter('Semulen Aset')">
-                <img src="assets/images/characters/semulen_aset.png" alt="Semulen Aset">
-                <p>Semulen Aset</p>
-            </div>
-        </div>
-        <button onclick="startGame()">Mulai Game</button>
-    </section>
+            <button onclick="startGame()">Mulai Game</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto</p>
+    </footer>
 
     <script src="js/game.js"></script>
 </body>
