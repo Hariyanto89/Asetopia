@@ -3,55 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asetopia - Simulasi Manajemen Kota</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>ASETOPIA - Selamat Datang</title>
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-    <header>
-        <h1>Asetopia</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Beranda</a></li>
-                <li><a href="#characters">Pilih Karakter</a></li>
-                <li><a href="#leaderboard">Peringkat</a></li>
-            </ul>
-        </nav>
-    </header>
+    <section id="home-section">
+        <div id="content">
+            <h1>ASETOPIA</h1>
+            <p>Selamat datang di Asetopia, game simulasi manajemen aset daerah!</p>
+            <a href="#auth-section" class="cta-button">Masuk atau Daftar</a>
+        </div>
+    </section>
 
-    <main>
-            <section id="auth-section">
-                <div class="auth-container">
-                    <!-- Login Form -->
-                    <div class="auth-card">
-                        <h2>Masuk</h2>
-                        <form id="loginForm">
-                            <label for="loginUsername">Nama Pengguna</label>
-                            <input type="text" id="loginUsername" placeholder="Masukkan nama pengguna" required>
-                            <label for="loginPassword">Kata Sandi</label>
-                            <input type="password" id="loginPassword" placeholder="Masukkan kata sandi" required>
-                            <button type="submit">Masuk</button>
-                        </form>
-                    </div>
-            
-                    <!-- Register Form -->
-                    <div class="auth-card">
-                        <h2>Daftar</h2>
-                        <form id="registerForm">
-                            <label for="registerUsername">Nama Pengguna</label>
-                            <input type="text" id="registerUsername" placeholder="Buat nama pengguna" required>
-                            <label for="registerPassword">Kata Sandi</label>
-                            <input type="password" id="registerPassword" placeholder="Buat kata sandi" required>
-                            <button type="submit">Daftar</button>
-                        </form>
-                    </div>
-                </div>
-            </section>
-    </main>
-
+    <section id="auth-section">
+        <div class="auth-card">
+            <h2>Masuk atau Daftar</h2>
+            <form id="authForm">
+                <label for="username">Nama Pengguna</label>
+                <input type="text" id="username" placeholder="Masukkan nama pengguna" required>
+                <label for="password">Kata Sandi</label>
+                <input type="password" id="password" placeholder="Masukkan kata sandi" required>
+                <button type="submit" id="authButton">Masuk</button>
+                <p id="toggleAuth">Belum punya akun? <span onclick="toggleAuthMode()">Daftar di sini</span></p>
+            </form>
+        </div>
+    </section>
     <footer>
         <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto</p>
     </footer>
-
-    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
 </body>
 </html>
