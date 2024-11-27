@@ -51,12 +51,12 @@ const kecamatanTasks = [
 const badgeData = [
     {
         kecamatan: "Merigi",
-        image: "assets/badges/merigi_badge.png",
+        image: "assets/images/badges/merigi_badge.png",
         description: "Badge Kecamatan Merigi: Pengelolaan aset sukses!",
     },
     {
         kecamatan: "Ujan Mas",
-        image: "assets/badges/ujanmas_badge.png",
+        image: "assets/images/badges/ujanmas_badge.png",
         description: "Badge Kecamatan Ujan Mas: Pengelolaan aset sukses!",
     },
     // Tambahkan kecamatan lainnya...
