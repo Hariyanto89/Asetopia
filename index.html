@@ -19,29 +19,33 @@
     </header>
 
     <main>
-        <section id="login-register">
-            <h2>Masuk atau Daftar</h2>
-            <div id="authForms">
-                <!-- Login Form -->
-                <form id="loginForm">
-                    <h3>Login</h3>
-                    <label for="loginUsername">Nama Pengguna</label>
-                    <input type="text" id="loginUsername" required>
-                    <label for="loginPassword">Kata Sandi</label>
-                    <input type="password" id="loginPassword" required>
-                    <button type="submit">Masuk</button>
-                </form>
-                <!-- Register Form -->
-                <form id="registerForm">
-                    <h3>Daftar</h3>
-                    <label for="registerUsername">Nama Pengguna</label>
-                    <input type="text" id="registerUsername" required>
-                    <label for="registerPassword">Kata Sandi</label>
-                    <input type="password" id="registerPassword" required>
-                    <button type="submit">Daftar</button>
-                </form>
-            </div>
-        </section>
+            <section id="auth-section">
+                <div class="auth-container">
+                    <!-- Login Form -->
+                    <div class="auth-card">
+                        <h2>Masuk</h2>
+                        <form id="loginForm">
+                            <label for="loginUsername">Nama Pengguna</label>
+                            <input type="text" id="loginUsername" placeholder="Masukkan nama pengguna" required>
+                            <label for="loginPassword">Kata Sandi</label>
+                            <input type="password" id="loginPassword" placeholder="Masukkan kata sandi" required>
+                            <button type="submit">Masuk</button>
+                        </form>
+                    </div>
+            
+                    <!-- Register Form -->
+                    <div class="auth-card">
+                        <h2>Daftar</h2>
+                        <form id="registerForm">
+                            <label for="registerUsername">Nama Pengguna</label>
+                            <input type="text" id="registerUsername" placeholder="Buat nama pengguna" required>
+                            <label for="registerPassword">Kata Sandi</label>
+                            <input type="password" id="registerPassword" placeholder="Buat kata sandi" required>
+                            <button type="submit">Daftar</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
     </main>
 
     <footer>
