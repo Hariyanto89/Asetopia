@@ -19,29 +19,27 @@
     </header>
 
     <main>
-        <section id="home">
-            <h2>Selamat Datang di Asetopia</h2>
-            <p>Jelajahi dan kelola aset Kabupaten Kepahiang dengan strategi terbaik. Pilih karakter Anda dan mulailah membangun kota impian!</p>
-        </section>
-
-        <section id="characters">
-            <h2>Pilih Karakter</h2>
-            <div class="characters">
-                <div class="character" onclick="selectCharacter('Bujang Aset')">
-                    <img src="assets/images/characters/bujang_aset.png" alt="Bujang Aset">
-                    <p>Bujang Aset</p>
-                </div>
-                <div class="character" onclick="selectCharacter('Semulen Aset')">
-                    <img src="assets/images/characters/semulen_aset.png" alt="Semulen Aset">
-                    <p>Semulen Aset</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="leaderboard">
-            <h2>Peringkat Pemain</h2>
-            <div id="leaderboardTable">
-                <p>Memuat data peringkat...</p>
+        <section id="login-register">
+            <h2>Masuk atau Daftar</h2>
+            <div id="authForms">
+                <!-- Login Form -->
+                <form id="loginForm">
+                    <h3>Login</h3>
+                    <label for="loginUsername">Nama Pengguna</label>
+                    <input type="text" id="loginUsername" required>
+                    <label for="loginPassword">Kata Sandi</label>
+                    <input type="password" id="loginPassword" required>
+                    <button type="submit">Masuk</button>
+                </form>
+                <!-- Register Form -->
+                <form id="registerForm">
+                    <h3>Daftar</h3>
+                    <label for="registerUsername">Nama Pengguna</label>
+                    <input type="text" id="registerUsername" required>
+                    <label for="registerPassword">Kata Sandi</label>
+                    <input type="password" id="registerPassword" required>
+                    <button type="submit">Daftar</button>
+                </form>
             </div>
         </section>
     </main>
