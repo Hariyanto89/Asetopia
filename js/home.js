@@ -19,31 +19,64 @@ function toggleAuthMode() {
     }
 }
 
+// Fungsi untuk Simpan Pengguna Baru
+function saveNewUser(username, password) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push({ username, password, score: 0, character: null });
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+// Fungsi untuk Cek Login
+function loginUser(username, password) {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    return users.find(user => user.username === username && user.password === password);
+}
+
+// Fungsi untuk Redirect Berdasarkan Karakter
+function redirectToNextStep(user) {
+    if (user.character) {
+        // Jika karakter sudah dipilih, langsung ke gameplay
+        alert(`Selamat datang kembali, ${user.username} dengan karakter ${user.character}!`);
+        window.location.href = "gameplay.html";
+    } else {
+        // Jika belum memilih karakter, arahkan ke character.html
+        alert(`Selamat datang, ${user.username}! Silakan pilih karakter.`);
+        window.location.href = "character.html";
+    }
+}
+
 // Submit Form
 document.getElementById("authForm").addEventListener("submit", function (event) {
     event.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!username || !password) {
+        alert("Nama pengguna dan kata sandi tidak boleh kosong!");
+        return;
+    }
 
     if (isRegisterMode) {
-        // Daftar
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        if (users.find(user => user.username === username)) {
-            alert("Nama pengguna sudah terdaftar!");
+        // Proses Daftar
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const existingUser = users.find(user => user.username === username);
+
+        if (existingUser) {
+            alert("Nama pengguna sudah terdaftar! Silakan login.");
             return;
         }
-        users.push({ username, password, score: 0 });
-        localStorage.setItem("users", JSON.stringify(users));
+
+        saveNewUser(username, password);
         alert("Pendaftaran berhasil! Silakan login.");
         toggleAuthMode(); // Kembali ke mode login
     } else {
-        // Login
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const user = users.find(user => user.username === username && user.password === password);
+        // Proses Login
+        const user = loginUser(username, password);
+
         if (user) {
-            alert(`Selamat datang, ${username}!`);
             localStorage.setItem("currentUser", JSON.stringify(user));
-            window.location.href = "character.html"; // Arahkan ke halaman karakter
+            redirectToNextStep(user); // Arahkan sesuai karakter
         } else {
             alert("Nama pengguna atau kata sandi salah!");
         }
