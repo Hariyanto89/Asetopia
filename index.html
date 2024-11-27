@@ -1,99 +1,53 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asetopia</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asetopia - Simulasi Manajemen Kota</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Tombol untuk Memulai Game -->
-  <div id="start-container" class="center-screen">
-    <button id="startGameButton" class="start-button">
-      Mulai Game
-    </button>
-  </div>
+    <header>
+        <h1>Asetopia</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#characters">Pilih Karakter</a></li>
+                <li><a href="#gameplay">Mulai Bermain</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- Kontainer Utama -->
-  <div id="game-container" style="display: none;">
-    <!-- Sidebar Kiri -->
-    <aside id="sidebar">
-      <!-- UI Kontainer -->
-      <div id="ui-container">
-        <h2>Info Pemain</h2>
-        <p><strong>Ruby DIPAYANG:</strong> <span id="ruby">0</span></p>
-        <p><strong>Profit:</strong> <span id="profit">0</span></p>
-        <button id="upgradeButton">Upgrade Aset (50 Ruby)</button>
-      </div>
+    <main>
+        <section id="home">
+            <h2>Selamat Datang di Asetopia</h2>
+            <p>Jelajahi dan kelola aset Kabupaten Kepahiang dengan strategi terbaik. Pilih karakter Anda dan mulailah membangun kota impian!</p>
+        </section>
 
-      <!-- Quest Kontainer -->
-      <div id="quest-container">
-        <h3>Quest Aktif:</h3>
-        <p id="active-quest">Tidak ada quest aktif</p>
-      </div>
+        <section id="characters">
+            <h2>Pilih Karakter</h2>
+            <div class="characters">
+                <div class="character" onclick="selectCharacter('Bujang Aset')">
+                    <img src="assets/images/characters/bujang_aset.png" alt="Bujang Aset">
+                    <p>Bujang Aset</p>
+                </div>
+                <div class="character" onclick="selectCharacter('Semulen Aset')">
+                    <img src="assets/images/characters/semulen_aset.png" alt="Semulen Aset">
+                    <p>Semulen Aset</p>
+                </div>
+            </div>
+        </section>
 
-      <!-- Status Lokasi Mining -->
-      <div id="location-status">
-        <h3>Status Lokasi Mining:</h3>
-      </div>
-
-      <!-- Pet Shop -->
-      <div id="pet-shop">
-        <h3>Pet Shop</h3>
-        <div class="pet-option">
-          <img src="assets/images/pet_robot.png" alt="Robot Tambang" class="pet-image">
-          <button onclick="buyPet('robot')">Beli Robot Tambang (50 Ruby)</button>
-        </div>
-        <div class="pet-option">
-          <img src="assets/images/pet_loader.png" alt="Hewan Loader" class="pet-image">
-          <button onclick="buyPet('loader')">Beli Hewan Loader (100 Ruby)</button>
-        </div>
-        <div class="pet-option">
-          <img src="assets/images/pet_drone.png" alt="Drone Eksplorasi" class="pet-image">
-          <button onclick="buyPet('drone')">Beli Drone Eksplorasi (150 Ruby)</button>
-        </div>
-      </div>
-
-      <!-- Status Pet -->
-      <div id="pet-status">
-        <h3>Pet Dimiliki:</h3>
-        <ul id="pet-list"></ul>
-      </div>
-
-      <!-- Tombol Reset -->
-      <button id="resetButton">Reset Game</button>
-    </aside>
-
-    <!-- Area Map -->
-    <main id="map-container">
-      <!-- Kanvas Peta -->
-      <canvas id="mapCanvas"></canvas>
-
-      <!-- Tombol Navigasi Virtual -->
-      <div id="virtual-controls">
-        <div class="control-row">
-          <button class="control-button" data-direction="up">⬆</button>
-        </div>
-        <div class="control-row">
-          <button class="control-button" data-direction="left">⬅</button>
-          <button class="control-button" data-direction="down">⬇</button>
-          <button class="control-button" data-direction="right">➡</button>
-        </div>
-      </div>
+        <section id="gameplay">
+            <h2>Mulai Bermain</h2>
+            <button id="startGameButton" onclick="startGame()">Mulai Permainan</button>
+        </section>
     </main>
-  </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>Game by Hariyanto - 2024</p>
-  </footer>
+    <footer>
+        <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto</p>
+    </footer>
 
-  <!-- Script Game -->
-  <script src="js/main.js"></script>
-  <script src="js/gameLogic.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/pet.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/character.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
