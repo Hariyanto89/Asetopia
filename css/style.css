@@ -64,32 +64,39 @@ body {
 
 /* Map Container */
 #map-container {
-    width: 75%; /* Sisanya digunakan oleh sidebar */
+    width: 75%;
     position: relative;
+    background-color: #f3f4f6;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f3f4f6;
-    overflow: hidden; /* Sembunyikan elemen keluar */
+    overflow: hidden;
 }
 
 /* Map Canvas */
 #mapCanvas {
-    width: 100%; /* Lebar penuh kontainer */
-    height: 100%; /* Tinggi penuh kontainer */
-    background-color: #f5f5f5; /* Latar belakang map */
-    border: 2px solid #000; /* Border map */
+    width: 90%; /* Map memenuhi hampir seluruh kontainer */
+    height: 85%; /* Berikan margin sedikit */
+    background-color: #f5f5f5;
+    border: 2px solid #000;
     display: block;
-    border-radius: 5px; /* Sudut map melengkung */
+    border-radius: 5px;
 }
 
 /* Tombol Navigasi Virtual (Overlay di Map) */
 #virtual-controls {
     position: absolute;
-    bottom: 20px; /* Di bagian bawah map */
-    left: 50%; /* Di tengah horizontal */
+    bottom: 10px;
+    left: 50%;
     transform: translateX(-50%);
-    z-index: 10; /* Pastikan berada di atas map */
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.control-row {
+    display: flex;
+    justify-content: center;
 }
 
 .control-button {
@@ -153,50 +160,6 @@ body {
 
 #quest-container p {
     font-size: 1em;
-}
-
-/* Daftar Pet */
-#pet-list {
-    list-style: none;
-    padding: 0;
-}
-
-#pet-list li {
-    font-size: 1em;
-    margin: 5px 0;
-    color: #555;
-}
-
-/* Status Lokasi Mining */
-#location-status p {
-    font-size: 1em;
-    margin: 5px 0;
-    color: #333;
-}
-
-/* Tombol Mulai Game */
-.start-button {
-    padding: 20px 50px;
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #fff;
-    background: linear-gradient(45deg, #ff6b6b, #f06595);
-    border: none;
-    border-radius: 50px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.start-button:hover {
-    background: linear-gradient(45deg, #f06595, #ff6b6b);
-    transform: scale(1.1);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-}
-
-.start-button:active {
-    transform: scale(0.95);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Footer */
