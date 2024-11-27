@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gameplay - Asetopia</title>
     <link rel="stylesheet" href="css/gameplay.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
 </head>
 <body>
-    <!-- Header -->
     <header>
         <h1>Dashboard Asetopia</h1>
         <nav>
@@ -19,7 +19,6 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main>
         <!-- Dashboard -->
         <section id="dashboard">
@@ -28,33 +27,30 @@
                 <p><strong>Nama:</strong> <span id="playerName">[Nama Pengguna]</span></p>
                 <p><strong>Karakter:</strong> <span id="playerCharacter">[Karakter]</span></p>
                 <p><strong>Level:</strong> <span id="playerLevel">1</span></p>
-                <p><strong>Skor:</strong> <span id="playerScore">0</span></p>
+                <p><strong>DIPAYANG TOKEN:</strong> <span id="playerToken">0</span></p>
             </div>
         </section>
 
         <!-- Peta Kecamatan -->
         <section id="map">
             <h2>Peta Kecamatan</h2>
-            <div id="kepahiangMap">
-                <!-- Peta interaktif atau gambar statis akan ditampilkan di sini -->
-            </div>
+            <div id="kepahiangMap" style="height: 500px; border-radius: 10px;"></div>
         </section>
 
         <!-- Tugas -->
         <section id="tasks">
             <h2>Tugas Pengelolaan Aset</h2>
             <div id="taskList">
-                <!-- Tugas dinamis akan dirender di sini -->
+                <p>Tidak ada tugas saat ini.</p>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto</p>
     </footer>
 
-    <!-- Script -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="js/gameplay.js"></script>
 </body>
 </html>
