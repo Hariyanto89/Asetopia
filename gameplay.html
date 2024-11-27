@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gameplay - Asetopia</title>
+    <link rel="stylesheet" href="css/gameplay.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard Asetopia</h1>
+        <nav>
+            <ul>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#map">Peta Kecamatan</a></li>
+                <li><a href="#tasks">Tugas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Dashboard -->
+        <section id="dashboard">
+            <h2>Status Pemain</h2>
+            <div class="stats">
+                <p>Nama: <span id="playerName">[Nama Pengguna]</span></p>
+                <p>Karakter: <span id="playerCharacter">[Karakter]</span></p>
+                <p>Level: <span id="playerLevel">1</span></p>
+                <p>Skor: <span id="playerScore">0</span></p>
+            </div>
+        </section>
+
+        <!-- Peta Kecamatan -->
+        <section id="map">
+            <h2>Peta Kecamatan</h2>
+            <div id="kepahiangMap">
+                <!-- Peta interaktif akan di sini -->
+            </div>
+        </section>
+
+        <!-- Tugas -->
+        <section id="tasks">
+            <h2>Tugas Pengelolaan Aset</h2>
+            <div id="taskList">
+                <p>Tidak ada tugas saat ini.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto</p>
+    </footer>
+
+    <script src="js/gameplay.js"></script>
+</body>
+</html>
