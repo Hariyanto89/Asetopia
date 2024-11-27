@@ -26,8 +26,8 @@ const kecamatanTasks = [
         kecamatan: "Merigi",
         unlocked: true,
         tasks: [
-            { id: 1, question: "Berapa jumlah sekolah di Merigi?", answer: "15" },
-            { id: 2, question: "Apa alat utama yang digunakan di Merigi?", answer: "cangkul" }
+            { id: 1, question: "Nomor berapa Peraturan Menteri Dalam Negeri yang mengatur Pengelolaan Barang Milik Daerah yang dikeluarkan tahun 2016?", answer: "16" },
+            { id: 2, question: "Siapa nama kepala bidang aset Badan Keuangan Daerah Kabupaten Kepahiang?", answer: "Herwin Noviansyah" }
         ],
         clue: "ASRI",
         password: "MERIGI2024",
@@ -37,8 +37,8 @@ const kecamatanTasks = [
         kecamatan: "Ujan Mas",
         unlocked: false,
         tasks: [
-            { id: 3, question: "Berapa jumlah desa di Ujan Mas?", answer: "12" },
-            { id: 4, question: "Apa potensi utama di Ujan Mas?", answer: "kopi" }
+            { id: 3, question: "Siapa laki laki yang paling tampan di Bidang Aset Badan Keuangan Daerah Kabupaten Kepahiang?", answer: "Hariyanto" },
+            { id: 4, question: "Siapa asisten UX pada pembuatan aplikasi Digitalisasi Pengamanan Aset Kepahiang?", answer: "Robby Kurniawan J" }
         ],
         clue: "SEJAHTERA",
         password: "UJANMAS2024",
