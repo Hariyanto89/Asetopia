@@ -91,6 +91,36 @@ function displayBadges(user) {
     });
 }
 
+function drawBadgeWithName(badgeImageSrc, playerName) {
+    const canvas = document.getElementById("badgeCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const badgeImage = new Image();
+    badgeImage.src = badgeImageSrc;
+
+    badgeImage.onload = function () {
+        // Gambar badge
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Bersihkan canvas
+        ctx.drawImage(badgeImage, 0, 0, canvas.width, canvas.height);
+
+        // Tambahkan nama pemain
+        ctx.font = "bold 20px Arial";
+        ctx.fillStyle = "#FFA500"; // Warna teks
+        ctx.textAlign = "center";
+        ctx.fillText(playerName, canvas.width / 2, canvas.height - 20); // Teks di bawah badge
+    };
+}
+
+function exportBadge() {
+    const canvas = document.getElementById("badgeCanvas");
+    const link = document.createElement("a");
+    link.download = "badge_with_name.png"; // Nama file hasil
+    link.href = canvas.toDataURL(); // Konversi canvas ke URL gambar
+    link.click(); // Unduh otomatis
+}
+
+document.getElementById("downloadBadgeButton").addEventListener("click", exportBadge);
+
 // Fungsi Inisialisasi Peta
 function initializeMap() {
     const map = L.map('kepahiangMap').setView([-3.6403, 102.6159], 12);
