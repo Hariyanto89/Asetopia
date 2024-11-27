@@ -18,6 +18,12 @@ function toggleAuthMode() {
         toggleText.innerHTML = `Belum punya akun? <span onclick="toggleAuthMode()">Daftar di sini</span>`;
     }
 }
+// Fungsi untuk Simpan Pengguna Baru
+function saveNewUser(username, password) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push({ username, password, token: 0, character: null });
+    localStorage.setItem("users", JSON.stringify(users));
+}
 
 // Fungsi untuk Simpan Pengguna Baru
 function saveNewUser(username, password) {
