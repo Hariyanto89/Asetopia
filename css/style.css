@@ -61,18 +61,12 @@ h1, h2 {
     margin-bottom: 10px;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #45a049;
+#leaderboardTable {
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 footer {
