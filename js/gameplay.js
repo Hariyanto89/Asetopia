@@ -83,3 +83,21 @@ function displayTasks(user) {
     taskList.innerHTML = ""; // Kosongkan elemen sebelum render
     taskList.appendChild(ul);
 }
+
+function displayLeaderboard() {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const sortedUsers = users.sort((a, b) => b.token - a.token); // Urutkan berdasarkan token
+
+    const leaderboardData = document.getElementById("leaderboardData");
+    leaderboardData.innerHTML = ""; // Kosongkan tabel sebelum render
+
+    sortedUsers.forEach((user, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${user.username}</td>
+            <td>${user.token}</td>
+        `;
+        leaderboardData.appendChild(row);
+    });
+}
