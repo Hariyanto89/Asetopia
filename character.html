@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Karakter - Asetopia</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <section id="characterSelection">
+        <h2>Pilih Karakter</h2>
+        <div class="characters">
+            <div class="character" onclick="selectCharacter('Bujang Aset')">
+                <img src="assets/images/characters/bujang_aset.png" alt="Bujang Aset">
+                <p>Bujang Aset</p>
+            </div>
+            <div class="character" onclick="selectCharacter('Semulen Aset')">
+                <img src="assets/images/characters/semulen_aset.png" alt="Semulen Aset">
+                <p>Semulen Aset</p>
+            </div>
+        </div>
+        <button onclick="startGame()">Mulai Game</button>
+    </section>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
