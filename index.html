@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asetopia - Simulasi Manajemen Kota</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
@@ -13,7 +13,7 @@
             <ul>
                 <li><a href="#home">Beranda</a></li>
                 <li><a href="#characters">Pilih Karakter</a></li>
-                <li><a href="#gameplay">Mulai Bermain</a></li>
+                <li><a href="#leaderboard">Peringkat</a></li>
             </ul>
         </nav>
     </header>
@@ -38,9 +38,11 @@
             </div>
         </section>
 
-        <section id="gameplay">
-            <h2>Mulai Bermain</h2>
-            <button id="startGameButton" onclick="startGame()">Mulai Permainan</button>
+        <section id="leaderboard">
+            <h2>Peringkat Pemain</h2>
+            <div id="leaderboardTable">
+                <p>Memuat data peringkat...</p>
+            </div>
         </section>
     </main>
 
@@ -48,6 +50,6 @@
         <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
