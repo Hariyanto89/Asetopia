@@ -6,8 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Tampilkan data pengguna
+    // Tampilkan data pengguna dan badge
     displayPlayerData(currentUser);
+    displayBadges(currentUser);
 
     // Inisialisasi Peta
     initializeMap();
@@ -46,12 +47,48 @@ const kecamatanTasks = [
     // Tambahkan kecamatan lainnya...
 ];
 
+// Data Badge
+const badgeData = [
+    {
+        kecamatan: "Merigi",
+        image: "assets/badges/merigi_badge.png",
+        description: "Badge Kecamatan Merigi: Pengelolaan aset sukses!",
+    },
+    {
+        kecamatan: "Ujan Mas",
+        image: "assets/badges/ujanmas_badge.png",
+        description: "Badge Kecamatan Ujan Mas: Pengelolaan aset sukses!",
+    },
+    // Tambahkan kecamatan lainnya...
+];
+
 // Fungsi Menampilkan Data Pemain
 function displayPlayerData(user) {
     document.getElementById("playerName").textContent = user.username;
     document.getElementById("playerCharacter").textContent = user.character || "[Belum Dipilih]";
-    document.getElementById("playerLevel").textContent = Math.floor(user.token / 100) + 1;
+    document.getElementById("playerLevel").textContent = Math.floor((user.token || 0) / 100) + 1;
     document.getElementById("playerToken").textContent = user.token || 0;
+}
+
+// Fungsi Menampilkan Badge
+function displayBadges(user) {
+    const badgeContainer = document.getElementById("badgeList");
+    badgeContainer.innerHTML = ""; // Kosongkan container sebelum render
+
+    if (!user.badges || user.badges.length === 0) {
+        badgeContainer.innerHTML = "<p>Belum ada badge yang diperoleh.</p>";
+        return;
+    }
+
+    user.badges.forEach(badge => {
+        const badgeItem = document.createElement("div");
+        badgeItem.className = "badge-item";
+        badgeItem.innerHTML = `
+            <img src="${badge.image}" alt="${badge.kecamatan} Badge">
+            <p>${badge.description}</p>
+        `;
+        badgeContainer.appendChild(badgeItem);
+    });
 }
 
 // Fungsi Inisialisasi Peta
@@ -139,20 +176,6 @@ function checkAnswers(task) {
     }
 }
 
-    const badgeData = [
-        {
-            kecamatan: "Merigi",
-            image: "assets/badges/merigi_badge.png",
-            description: "Badge Kecamatan Merigi: Pengelolaan aset sukses!",
-        },
-        {
-            kecamatan: "Ujan Mas",
-            image: "assets/badges/ujanmas_badge.png",
-            description: "Badge Kecamatan Ujan Mas: Pengelolaan aset sukses!",
-        },
-        // Tambahkan kecamatan lainnya...
-    ];
-
 // Fungsi Memberikan Badge dan Token
 function awardBadge(kecamatanName, password) {
     const badge = badgeData.find(b => b.kecamatan === kecamatanName);
@@ -160,79 +183,23 @@ function awardBadge(kecamatanName, password) {
 
     if (!badge || !currentUser) return;
 
-    // Simpan badge ke data pengguna
+    // Inisialisasi array badges jika belum ada
     if (!currentUser.badges) currentUser.badges = [];
+    
+    // Tambahkan badge dan token
     currentUser.badges.push({
         kecamatan: kecamatanName,
         image: badge.image,
         description: badge.description,
     });
+
+    currentUser.token = (currentUser.token || 0) + 50; // Tambahkan token
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
     alert(`Selamat! Anda mendapatkan badge untuk Kecamatan ${kecamatanName}. Password: ${password}`);
     displayPlayerData(currentUser);
     displayBadges(currentUser);
 }
-
-function displayBadges(user) {
-    const badgeContainer = document.getElementById("badgeList");
-    badgeContainer.innerHTML = ""; // Kosongkan container sebelum render
-
-    if (!user.badges || user.badges.length === 0) {
-        badgeContainer.innerHTML = "<p>Belum ada badge yang diperoleh.</p>";
-        return;
-    }
-
-    user.badges.forEach(badge => {
-        const badgeItem = document.createElement("div");
-        badgeItem.className = "badge-item";
-        badgeItem.innerHTML = `
-            <img src="${badge.image}" alt="${badge.kecamatan} Badge">
-            <p>${badge.description}</p>
-        `;
-        badgeContainer.appendChild(badgeItem);
-    });
-}
-
-function drawBadgeWithName(badgeImageSrc, playerName) {
-    const canvas = document.getElementById("badgeCanvas");
-    const ctx = canvas.getContext("2d");
-
-    // Muat gambar badge
-    const badgeImage = new Image();
-    badgeImage.src = badgeImageSrc;
-
-    badgeImage.onload = function () {
-        // Gambar badge ke canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Bersihkan canvas
-        ctx.drawImage(badgeImage, 0, 0, canvas.width, canvas.height);
-
-        // Tambahkan nama pemain
-        ctx.font = "bold 20px Arial";
-        ctx.fillStyle = "#FFA500"; // Warna teks
-        ctx.textAlign = "center";
-        ctx.fillText(playerName, canvas.width / 2, canvas.height - 20); // Teks di bawah badge
-    };
-}
-
-// Contoh penggunaan
-const badgeImageSrc = "assets/badges/merigi_badge.png";
-const playerName = "Bujang Aset"; // Ambil nama pemain dari data pengguna
-drawBadgeWithName(badgeImageSrc, playerName);
-
-function exportBadge() {
-    const canvas = document.getElementById("badgeCanvas");
-    const link = document.createElement("a");
-    link.download = "badge_with_name.png"; // Nama file hasil
-    link.href = canvas.toDataURL(); // Konversi canvas ke URL gambar
-    link.click(); // Unduh otomatis
-}
-
-// Tambahkan tombol unduh
-const exportButton = document.createElement("button");
-exportButton.textContent = "Unduh Badge";
-exportButton.onclick = exportBadge;
-document.getElementById("badgePreview").appendChild(exportButton);
 
 // Fungsi Menampilkan Leaderboard
 function displayLeaderboard() {
@@ -247,7 +214,7 @@ function displayLeaderboard() {
         row.innerHTML = `
             <td>${index + 1}</td>
             <td>${user.username}</td>
-            <td>${user.token}</td>
+            <td>${user.token || 0}</td>
         `;
         leaderboardData.appendChild(row);
     });
