@@ -220,6 +220,20 @@ const badgeImageSrc = "assets/badges/merigi_badge.png";
 const playerName = "Bujang Aset"; // Ambil nama pemain dari data pengguna
 drawBadgeWithName(badgeImageSrc, playerName);
 
+function exportBadge() {
+    const canvas = document.getElementById("badgeCanvas");
+    const link = document.createElement("a");
+    link.download = "badge_with_name.png"; // Nama file hasil
+    link.href = canvas.toDataURL(); // Konversi canvas ke URL gambar
+    link.click(); // Unduh otomatis
+}
+
+// Tambahkan tombol unduh
+const exportButton = document.createElement("button");
+exportButton.textContent = "Unduh Badge";
+exportButton.onclick = exportBadge;
+document.getElementById("badgePreview").appendChild(exportButton);
+
 // Fungsi Menampilkan Leaderboard
 function displayLeaderboard() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
