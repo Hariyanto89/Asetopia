@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/gameplay.css">
 </head>
 <body>
+    <!-- Header -->
     <header>
         <h1>Dashboard Asetopia</h1>
         <nav>
@@ -18,15 +19,16 @@
         </nav>
     </header>
 
+    <!-- Main Content -->
     <main>
         <!-- Dashboard -->
         <section id="dashboard">
             <h2>Status Pemain</h2>
             <div class="stats">
-                <p>Nama: <span id="playerName">[Nama Pengguna]</span></p>
-                <p>Karakter: <span id="playerCharacter">[Karakter]</span></p>
-                <p>Level: <span id="playerLevel">1</span></p>
-                <p>Skor: <span id="playerScore">0</span></p>
+                <p><strong>Nama:</strong> <span id="playerName">[Nama Pengguna]</span></p>
+                <p><strong>Karakter:</strong> <span id="playerCharacter">[Karakter]</span></p>
+                <p><strong>Level:</strong> <span id="playerLevel">1</span></p>
+                <p><strong>Skor:</strong> <span id="playerScore">0</span></p>
             </div>
         </section>
 
@@ -34,7 +36,7 @@
         <section id="map">
             <h2>Peta Kecamatan</h2>
             <div id="kepahiangMap">
-                <!-- Peta interaktif akan di sini -->
+                <!-- Peta interaktif atau gambar statis akan ditampilkan di sini -->
             </div>
         </section>
 
@@ -42,15 +44,17 @@
         <section id="tasks">
             <h2>Tugas Pengelolaan Aset</h2>
             <div id="taskList">
-                <p>Tidak ada tugas saat ini.</p>
+                <!-- Tugas dinamis akan dirender di sini -->
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto</p>
     </footer>
 
+    <!-- Script -->
     <script src="js/gameplay.js"></script>
 </body>
 </html>
