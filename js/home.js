@@ -1,12 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Periksa apakah ada pengguna yang sudah login
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    // Jika sudah login, arahkan langsung ke game
+    // Jika ada pengguna yang login
     if (currentUser) {
         if (currentUser.character) {
-            window.location.href = "gameplay.html"; // Jika karakter sudah dipilih
+            // Jika karakter sudah dipilih, langsung ke gameplay
+            window.location.href = "gameplay.html";
         } else {
-            window.location.href = "character.html"; // Jika karakter belum dipilih
+            // Jika belum memilih karakter, arahkan ke character.html
+            window.location.href = "character.html";
         }
         return;
     }
