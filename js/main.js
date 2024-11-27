@@ -42,8 +42,9 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
         alert(`Selamat datang, ${username}!`);
         localStorage.setItem("currentUser", JSON.stringify(user)); // Simpan data sesi
         document.getElementById("loginForm").reset(); // Bersihkan form
-        window.location.href = "game.html"; // Pindahkan ke halaman game
+        window.location.href = "character.html"; // Arahkan ke halaman pemilihan karakter
     } else {
         alert("Nama pengguna atau kata sandi salah!");
     }
 });
+
