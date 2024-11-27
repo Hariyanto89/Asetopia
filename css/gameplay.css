@@ -262,3 +262,53 @@ footer {
         transform: translateY(0);
     }
 }
+
+#badges {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+#badges h2 {
+    color: #4CAF50;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#badgeList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.badge-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid #4CAF50;
+}
+
+.badge-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
