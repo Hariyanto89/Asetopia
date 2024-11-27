@@ -1,3 +1,19 @@
+// Fungsi Simpan Data
+function saveUser(username, password) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push({ username, password, score: 0 });
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+// Fungsi Daftar
+document.getElementById("registerForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const username = document.getElementById("registerUsername").value;
+    const password = document.getElementById("registerPassword").value;
+    saveUser(username, password);
+    alert("Pendaftaran berhasil!");
+});
+
 // Mock database untuk menyimpan pengguna sementara
 const users = [];
 
