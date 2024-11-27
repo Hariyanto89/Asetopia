@@ -1,3 +1,45 @@
+// Mock database untuk menyimpan pengguna sementara
+const users = [];
+
+// Fungsi Daftar
+document.getElementById("registerForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const username = document.getElementById("registerUsername").value;
+    const password = document.getElementById("registerPassword").value;
+
+    // Cek jika pengguna sudah ada
+    const existingUser = users.find(user => user.username === username);
+    if (existingUser) {
+        alert("Nama pengguna sudah terdaftar!");
+        return;
+    }
+
+    // Tambahkan pengguna baru
+    users.push({ username, password, score: 0 });
+    alert("Pendaftaran berhasil! Silakan login.");
+    console.log(users); // Debugging untuk melihat daftar pengguna
+});
+
+// Fungsi Login
+document.getElementById("loginForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const username = document.getElementById("loginUsername").value;
+    const password = document.getElementById("loginPassword").value;
+
+    // Cek kredensial
+    const user = users.find(user => user.username === username && user.password === password);
+    if (user) {
+        alert(`Selamat datang, ${username}!`);
+        // Simpan data pengguna untuk sesi game
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        console.log("Login berhasil:", user); // Debugging
+    } else {
+        alert("Nama pengguna atau kata sandi salah!");
+    }
+});
+
 // Global Variables
 let selectedCharacter = null;
 const leaderboardData = [
