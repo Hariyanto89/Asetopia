@@ -194,6 +194,32 @@ function displayBadges(user) {
     });
 }
 
+function drawBadgeWithName(badgeImageSrc, playerName) {
+    const canvas = document.getElementById("badgeCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Muat gambar badge
+    const badgeImage = new Image();
+    badgeImage.src = badgeImageSrc;
+
+    badgeImage.onload = function () {
+        // Gambar badge ke canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Bersihkan canvas
+        ctx.drawImage(badgeImage, 0, 0, canvas.width, canvas.height);
+
+        // Tambahkan nama pemain
+        ctx.font = "bold 20px Arial";
+        ctx.fillStyle = "#FFA500"; // Warna teks
+        ctx.textAlign = "center";
+        ctx.fillText(playerName, canvas.width / 2, canvas.height - 20); // Teks di bawah badge
+    };
+}
+
+// Contoh penggunaan
+const badgeImageSrc = "assets/badges/merigi_badge.png";
+const playerName = "Bujang Aset"; // Ambil nama pemain dari data pengguna
+drawBadgeWithName(badgeImageSrc, playerName);
+
 // Fungsi Menampilkan Leaderboard
 function displayLeaderboard() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
