@@ -74,7 +74,7 @@ function initializeKecamatanData() {
             },
             {
                 id: 4,
-                question: "Barang milik daerah yang tidak digunakan harus:",
+                question: "Barang milik daerah yang tidak digunakan harus?",
                 options: ["Dibiarkan sampai ada keperluan", "Dijual secara langsung", "Dioptimalkan pemanfaatannya atau dijual melalui mekanisme lelang"],
                 answer: "Dioptimalkan pemanfaatannya atau dijual melalui mekanisasi lelang",
                 xp: 30,
@@ -154,7 +154,7 @@ function initializeKecamatanData() {
             },
             {
                 id: 14,
-                question: "Aset tidak bergerak seperti tanah di kecamatan Merigi harus:",
+                question: "Aset tidak bergerak seperti tanah di kecamatan Merigi harus?",
                 options: ["Segera dijual untuk dana tambahan", "Diinventarisasi dan dimanfaatkan sesuai kebutuhan", "Tidak perlu dioptimalkan"],
                 answer: "Diinventarisasi dan dimanfaatkan sesuai kebutuhan",
                 xp: 30,
@@ -202,7 +202,7 @@ function initializeKecamatanData() {
             },
             {
                 id: 20,
-                question: "Aset pertanian seperti irigasi di kecamatan Merigi harus:",
+                question: "Aset pertanian seperti irigasi di kecamatan Merigi harus?",
                 options: ["Diserahkan kepada pihak swasta", "Dimanfaatkan untuk kepentingan masyarakat", "Dijadikan sebagai aset cadangan"],
                 answer: "Dimanfaatkan untuk kepentingan masyarakat",
                 xp: 25,
@@ -210,7 +210,7 @@ function initializeKecamatanData() {
             },
             {
                 id: 21,
-                question: "Dalam kasus penghapusan aset, langkah yang harus diambil adalah:",
+                question: "Dalam kasus penghapusan aset, langkah yang harus diambil adalah?",
                 options: ["Melakukan penjualan langsung", "Mekanisme lelang sesuai peraturan", "Mengabaikan aset tersebut"],
                 answer: "Mekanisme lelang sesuai peraturan",
                 xp: 30,
@@ -274,7 +274,7 @@ function initializeKecamatanData() {
             },
             {
                 id: 29,
-                question: "Dalam kasus irigasi di Merigi yang rusak, langkah pertama adalah:",
+                question: "Dalam kasus irigasi di Merigi yang rusak, langkah pertama adalah?",
                 options: ["Segera mengganti dengan yang baru", "Melakukan evaluasi untuk perbaikan", "Mengabaikan kerusakan"],
                 answer: "Melakukan evaluasi untuk perbaikan",
                 xp: 20,
