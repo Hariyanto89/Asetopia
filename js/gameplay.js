@@ -40,7 +40,6 @@ const kecamatanTasks = [
         ],
         completed: false
     },
-    // Tambahkan kecamatan lainnya...
 ];
 
 // Data Badge
@@ -55,7 +54,6 @@ const badgeData = [
         image: "assets/images/badges/ujanmas_badge.png",
         description: "Badge Kecamatan Ujan Mas: Pengelolaan aset sukses!"
     },
-    // Tambahkan kecamatan lainnya...
 ];
 
 // Fungsi Menampilkan Data Pemain
@@ -105,10 +103,6 @@ function drawBadgeWithName(badgeImageSrc, playerName) {
         ctx.fillStyle = "#FFA500";
         ctx.textAlign = "center";
         ctx.fillText(playerName, canvas.width / 2, canvas.height - 20);
-    };
-
-    badgeImage.onerror = function () {
-        alert("Gagal memuat gambar badge.");
     };
 }
 
@@ -205,11 +199,31 @@ function checkAnswers(task) {
         if (nextTask) nextTask.unlocked = true;
 
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        awardBadge(task.kecamatan);
         displayPlayerData(currentUser);
         displayTasksByKecamatan(currentUser);
     } else {
         alert("Jawaban Anda belum benar. Silakan coba lagi.");
     }
+}
+
+// Fungsi Memberikan Badge
+function awardBadge(kecamatanName) {
+    const badge = badgeData.find(b => b.kecamatan === kecamatanName);
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!badge || !currentUser) return;
+
+    if (!currentUser.badges) currentUser.badges = [];
+    currentUser.badges.push({
+        kecamatan: kecamatanName,
+        image: badge.image,
+        description: badge.description,
+    });
+
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    alert(`Selamat! Anda mendapatkan badge untuk Kecamatan ${kecamatanName}.`);
+    displayBadges(currentUser);
 }
 
 // Fungsi Menampilkan Leaderboard
