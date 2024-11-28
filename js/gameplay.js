@@ -6,6 +6,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const map = L.map('kepahiangMap').setView([-3.6403, 102.6159], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+});
+
     // Tampilkan data pemain
     displayPlayerData(currentUser);
     displayBadges(currentUser);
