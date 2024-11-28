@@ -66,7 +66,7 @@ main {
     padding-bottom: 20px;
 }
 
-/* Icon untuk Status Pemain */
+/* Ikon Status Pemain */
 #playerStatusIcon {
     position: fixed;
     bottom: 20px;
@@ -83,7 +83,6 @@ main {
     font-size: 1.5rem;
     cursor: pointer;
     transition: transform 0.3s ease, background 0.3s ease;
-    z-index: 20;
 }
 
 #playerStatusIcon:hover {
@@ -108,7 +107,7 @@ main {
 }
 
 #playerStatusPopup.active {
-    display: block; /* Popup terlihat ketika kelas 'active' ditambahkan */
+    display: block; /* Menampilkan popup dengan kelas active */
 }
 
 #playerStatusPopup h3 {
@@ -132,17 +131,6 @@ main {
     font-size: 1.2rem;
     color: #888;
     cursor: pointer;
-}
-
-/* Dashboard */
-#dashboard {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    margin-bottom: 20px;
-    animation: fadeIn 0.8s ease-in-out;
-    display: none; /* Sembunyikan dashboard dari layar utama */
 }
 
 /* Peta Kecamatan */
