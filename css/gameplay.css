@@ -66,6 +66,69 @@ main {
     padding-bottom: 20px;
 }
 
+/* Icon untuk Status Pemain */
+#playerStatusIcon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+#playerStatusIcon:hover {
+    transform: scale(1.1);
+    background: #45a049;
+}
+
+/* Popup Status Pemain */
+#playerStatusPopup {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    width: 250px;
+    padding: 20px;
+    z-index: 50;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+#playerStatusPopup h3 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+#playerStatusPopup p {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #555;
+}
+
+#playerStatusPopup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #888;
+    cursor: pointer;
+}
+
 /* Dashboard */
 #dashboard {
     background: #fff;
@@ -74,33 +137,7 @@ main {
     padding: 20px;
     margin-bottom: 20px;
     animation: fadeIn 0.8s ease-in-out;
-}
-
-#dashboard h2 {
-    color: #4CAF50;
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-#dashboard .stats {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-#dashboard .stats p {
-    flex: 1 1 45%;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin: 8px 0;
-    text-align: center;
-}
-
-#playerToken {
-    font-weight: bold;
-    color: #FFA500; /* Warna oranye */
+    display: none; /* Sembunyikan dashboard dari layar utama */
 }
 
 /* Peta Kecamatan */
@@ -122,7 +159,7 @@ main {
 }
 
 #kepahiangMap {
-    height: 300px;
+    height: 250px; /* Ukuran lebih kecil agar tidak mendominasi */
     width: 100%;
     border-radius: 10px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -132,13 +169,13 @@ main {
 /* Responsif Peta */
 @media (min-width: 768px) {
     #kepahiangMap {
-        height: 400px;
+        height: 300px;
     }
 }
 
 @media (min-width: 1024px) {
     #kepahiangMap {
-        height: 450px;
+        height: 350px;
     }
 }
 
@@ -152,27 +189,6 @@ main {
     animation: fadeIn 0.8s ease-in-out;
 }
 
-#tasks h2 {
-    color: #4CAF50;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-align: center;
-}
-
-#taskList {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-#taskList h3 {
-    font-size: 1.5rem;
-    color: #FFA500;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
 .question-item {
     background: #f9f9f9;
     border: 2px solid #ddd;
@@ -180,27 +196,25 @@ main {
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.question-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.question-item p {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 10px;
-    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .question-item input[type="radio"] {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .question-item label {
     font-size: 1rem;
     color: #333;
+    cursor: pointer;
+}
+
+.question-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Tombol Submit */
@@ -220,27 +234,6 @@ main {
 #taskList button:hover {
     background: #45a049;
     transform: scale(1.05);
-}
-
-/* Leaderboard */
-#leaderboard {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    margin-bottom: 20px;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-#leaderboard table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#leaderboard th, #leaderboard td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
 }
 
 /* Badge */
