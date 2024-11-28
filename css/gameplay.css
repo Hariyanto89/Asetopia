@@ -178,36 +178,42 @@ main {
     animation: fadeIn 0.8s ease-in-out;
 }
 
-.question-item {
+#currentTask {
     background: #f9f9f9;
     border: 2px solid #ddd;
     border-radius: 8px;
-    padding: 15px;
+    padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
-.question-item input[type="radio"] {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.question-item label {
-    font-size: 1rem;
+#currentTask h3 {
+    font-size: 1.2rem;
     color: #333;
+    text-align: center;
+}
+
+#currentTask div label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.question-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+#currentTask div label:hover {
+    background: #e6f7ff;
+    padding: 5px;
+    border-radius: 5px;
 }
 
-/* Tombol Submit */
-#taskList button {
+#currentTask button {
+    align-self: center;
     background: #4CAF50;
     color: #fff;
     font-size: 1.2rem;
@@ -216,11 +222,10 @@ main {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
-    margin-top: 20px;
-    align-self: center;
+    margin-top: 10px;
 }
 
-#taskList button:hover {
+#currentTask button:hover {
     background: #45a049;
     transform: scale(1.05);
 }
@@ -232,20 +237,60 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 20px;
     margin-bottom: 20px;
+    display: none; /* Hanya tampil saat diakses melalui status pemain */
 }
 
-#badgeList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
+#badgePreview {
+    display: none; /* Popup Preview Badge */
+    position: fixed;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 320px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
 }
 
-.badge-item img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
+#badgePreview button {
+    margin-top: 10px;
+}
+
+/* Leaderboard */
+#leaderboard {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#leaderboard table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#leaderboard th, #leaderboard td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#leaderboard th {
+    background: #4CAF50;
+    color: #fff;
+}
+
+#leaderboard tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+#leaderboard tr:hover {
+    background: #f1f1f1;
 }
 
 /* Footer */
