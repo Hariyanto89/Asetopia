@@ -6,31 +6,31 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Tampilkan data pengguna dan badge
+    // Tampilkan data pemain
     displayPlayerData(currentUser);
     displayBadges(currentUser);
 
-    // Inisialisasi Peta
+    // Inisialisasi peta
     initializeMap();
-
-    // Tampilkan tugas pertama berdasarkan urutan kecamatan
-    displayTasksByKecamatan(currentUser);
 
     // Tampilkan leaderboard
     displayLeaderboard();
 
-    // Event Listener untuk tombol Status Pemain
+    // Tombol Status Pemain
     document.getElementById("showStatusButton").addEventListener("click", togglePlayerStatusPopup);
     document.getElementById("closeStatusButton").addEventListener("click", togglePlayerStatusPopup);
+
+    // Inisialisasi tugas
+    initializeTasks(currentUser);
 });
 
-// Fungsi Tampilkan atau Sembunyikan Popup Status Pemain
+// Fungsi Toggle Status Pemain
 function togglePlayerStatusPopup() {
     const popup = document.getElementById("playerStatusPopup");
     popup.classList.toggle("hidden");
 }
 
-// Data Tugas Per Kecamatan
+// Data Tugas per Kecamatan
 const kecamatanTasks = [
     {
         kecamatan: "Merigi",
@@ -344,23 +344,9 @@ const kecamatanTasks = [
     }
 ];
 
-// Data Badge
-const badgeData = [
-    {
-        kecamatan: "Merigi",
-        image: "assets/images/badges/merigi_badge.png",
-        description: "Bronze Badge Agro Visionary: Pengelolaan aset sukses!"
-    },
-    {
-        kecamatan: "Ujan Mas",
-        image: "assets/images/badges/ujanmas_badge.png",
-        description: "Badge Kecamatan Ujan Mas: Pengelolaan aset sukses!"
-    }
-];
-
 // Fungsi Menampilkan Data Pemain
 function displayPlayerData(user) {
-    document.getElementById("playerName").textContent = user.username;
+    document.getElementById("playerName").textContent = user.username || "[Nama Pengguna]";
     document.getElementById("playerCharacter").textContent = user.character || "[Belum Dipilih]";
     document.getElementById("playerLevel").textContent = Math.floor((user.xp || 0) / 100) + 1;
     document.getElementById("playerXP").textContent = `${user.xp || 0} / 100`;
@@ -378,66 +364,34 @@ function displayBadges(user) {
         return;
     }
 
-    user.badges.forEach(badge => {
+    user.badges.forEach((badge) => {
         const badgeItem = document.createElement("div");
         badgeItem.className = "badge-item";
         badgeItem.innerHTML = `
-            <img src="${badge.image}" alt="${badge.kecamatan} Badge" class="clickable-badge">
+            <img src="${badge.image}" alt="${badge.kecamatan} Badge">
             <p>${badge.description}</p>
         `;
-        badgeItem.onclick = () => {
-            drawBadgeWithName(badge.image, user.username, badge.level, badge.dateObtained);
-        };
         badgeContainer.appendChild(badgeItem);
     });
 }
 
-// Fungsi Menggambar Badge di Canvas
-function drawBadgeWithName(badgeImageSrc, playerName, playerLevel, dateObtained) {
-    const canvas = document.getElementById("badgeCanvas");
-    const ctx = canvas.getContext("2d");
-
-    const badgeImage = new Image();
-    badgeImage.crossOrigin = "anonymous";
-    badgeImage.src = badgeImageSrc;
-
-    badgeImage.onload = function () {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(badgeImage, 0, 0, canvas.width, canvas.height);
-
-        ctx.font = "bold 16px Arial";
-        ctx.fillStyle = "#FFA500";
-        ctx.textAlign = "center";
-        ctx.fillText(playerName, canvas.width / 2, canvas.height - 60);
-        ctx.fillText(`Level: ${playerLevel}`, canvas.width / 2, canvas.height - 40);
-        ctx.fillText(`Tanggal: ${dateObtained}`, canvas.width / 2, canvas.height - 20);
-    };
-}
-
-// Fungsi Mengunduh Badge
-function exportBadge() {
-    const canvas = document.getElementById("badgeCanvas");
-    const link = document.createElement("a");
-    link.download = "badge_with_name.png";
-    link.href = canvas.toDataURL();
-    link.click();
-}
-
-document.getElementById("downloadBadgeButton").addEventListener("click", exportBadge);
-
-// Fungsi Inisialisasi Peta
+// Fungsi Menginisialisasi Peta
 function initializeMap() {
-    const map = L.map('kepahiangMap').setView([-3.6403, 102.6159], 12);
+    const map = L.map("kepahiangMap").setView([-3.6403, 102.6159], 12);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
     }).addTo(map);
 
-    kecamatanTasks.forEach((task, index) => {
-        L.marker([-3.6403 + index * 0.01, 102.6159 + index * 0.01])
+    kecamatanTasks.forEach((task) => {
+        const lat = -3.6403 + Math.random() * 0.02;
+        const lng = 102.6159 + Math.random() * 0.02;
+        L.marker([lat, lng])
             .addTo(map)
-            .bindPopup(`<strong>${task.kecamatan}</strong><br>Status: ${task.unlocked ? "Terbuka" : "Terkunci"}`)
-            .on('click', () => onKecamatanClick(task));
+            .bindPopup(
+                `<strong>${task.kecamatan}</strong><br>Status: ${task.unlocked ? "Terbuka" : "Terkunci"}`
+            )
+            .on("click", () => onKecamatanClick(task));
     });
 }
 
@@ -447,64 +401,66 @@ function onKecamatanClick(task) {
         alert(`Kecamatan ${task.kecamatan} masih terkunci.`);
         return;
     }
-
-    displayQuestionsForKecamatan(task);
+    startTask(task);
 }
 
-// Fungsi Menampilkan Pertanyaan untuk Kecamatan
-function displayQuestionsForKecamatan(task) {
-    const taskList = document.getElementById("taskContainer");
-    taskList.innerHTML = "";
+// Fungsi Memulai Tugas
+function startTask(task) {
+    const taskContainer = document.getElementById("taskContainer");
+    taskContainer.innerHTML = "";
 
-    task.tasks.forEach((q, index) => {
-        const questionContainer = document.createElement("div");
-        questionContainer.className = "question-item";
-        questionContainer.innerHTML = `
-            <p>${q.question}</p>
-            <div>
-                ${q.options
-                    .map(
-                        option => `
-                    <label>
-                        <input type="radio" name="question-${q.id}" value="${option}"> ${option}
-                    </label>
-                `
-                    )
-                    .join("")}
-            </div>
-        `;
-        taskList.appendChild(questionContainer);
+    const question = task.tasks.shift();
+    if (!question) {
+        alert(`Selamat! Anda telah menyelesaikan semua tugas di kecamatan ${task.kecamatan}.`);
+        task.completed = true;
+        return;
+    }
+
+    const taskElement = document.createElement("div");
+    taskElement.className = "question-item";
+    taskElement.innerHTML = `
+        <h3>${question.question}</h3>
+        <div>
+            ${question.options
+                .map(
+                    (option) =>
+                        `<label><input type="radio" name="taskOption" value="${option}"> ${option}</label>`
+                )
+                .join("")}
+        </div>
+        <button id="submitTaskButton">Submit</button>
+    `;
+    taskContainer.appendChild(taskElement);
+
+    document.getElementById("submitTaskButton").addEventListener("click", () => {
+        checkAnswer(task, question);
     });
 }
 
 // Fungsi Memeriksa Jawaban
-function checkAnswers(task) {
-    let allCorrect = true;
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-    task.tasks.forEach(q => {
-        const selectedOption = document.querySelector(`input[name="question-${q.id}"]:checked`);
-        if (!selectedOption || selectedOption.value !== q.answer) {
-            allCorrect = false;
-        } else {
-            currentUser.xp = (currentUser.xp || 0) + q.xp;
-            currentUser.token = (currentUser.token || 0) + q.token;
-        }
-    });
-
-    if (allCorrect) {
-        alert("Tugas selesai! Anda mendapatkan XP dan Token.");
-        task.completed = true;
-
-        const nextTask = kecamatanTasks[kecamatanTasks.indexOf(task) + 1];
-        if (nextTask) nextTask.unlocked = true;
-
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
-        displayPlayerData(currentUser);
-        displayTasksByKecamatan(currentUser);
-    } else {
-        alert("Beberapa jawaban salah. Silakan coba lagi.");
+function checkAnswer(task, question) {
+    const selectedOption = document.querySelector("input[name='taskOption']:checked");
+    if (!selectedOption) {
+        alert("Pilih jawaban terlebih dahulu.");
+        return;
     }
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (selectedOption.value === question.answer) {
+        alert("Jawaban benar! Anda mendapatkan XP dan token.");
+        currentUser.xp = (currentUser.xp || 0) + question.xp;
+        currentUser.token = (currentUser.token || 0) + question.token;
+    } else {
+        alert("Jawaban salah.");
+        currentUser.lives = (currentUser.lives || 5) - 1;
+        if (currentUser.lives === 0) {
+            alert("Nyawa habis! Tunggu 24 jam atau beli nyawa dengan token.");
+        }
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    displayPlayerData(currentUser);
+    startTask(task);
 }
 
 // Fungsi Menampilkan Leaderboard
