@@ -16,7 +16,6 @@
                 <li><a href="#map">Peta Kecamatan</a></li>
                 <li><a href="#tasks">Tugas</a></li>
                 <li><a href="#leaderboard">Leaderboard</a></li>
-                <li><a href="#badges">Badge Anda</a></li>
             </ul>
         </nav>
     </header>
@@ -27,12 +26,16 @@
             <button id="closeStatusButton" class="close-btn">×</button>
             <h2>Status Pemain</h2>
             <div class="stats">
-                <p><strong>Nama:</strong> <span id="playerName">[Nama Pengguna]</span></p>
+                <p><strong>Nama:</strong> <span id="playerName">[Nama Pemain]</span></p>
                 <p><strong>Karakter:</strong> <span id="playerCharacter">[Karakter]</span></p>
                 <p><strong>Level:</strong> <span id="playerLevel">1</span></p>
                 <p><strong>XP:</strong> <span id="playerXP">0 / 100</span></p>
                 <p><strong>DIPAYANG TOKEN:</strong> <span id="playerToken">0</span></p>
                 <p><strong>Nyawa:</strong> <span id="playerLives">5</span></p>
+                <h3>Badge Anda</h3>
+                <div id="badgeList">
+                    <p>Belum ada badge yang diperoleh.</p>
+                </div>
             </div>
         </div>
 
@@ -46,10 +49,13 @@
         <section id="tasks">
             <h2>Tugas Pengelolaan Aset</h2>
             <div id="taskContainer">
+                <!-- Pertanyaan Aktif -->
                 <div id="currentTask" class="hidden">
                     <h3 id="currentTaskQuestion"></h3>
                     <div id="taskOptions"></div>
+                    <button id="submitAnswerButton">Kirim Jawaban</button>
                 </div>
+                <!-- Umpan Balik -->
                 <div id="taskFeedback" class="hidden">
                     <p id="taskFeedbackText"></p>
                     <button id="nextQuestionButton" class="hidden">Pertanyaan Berikutnya</button>
@@ -74,16 +80,9 @@
             </table>
         </section>
 
-        <!-- Badge -->
-        <section id="badges">
-            <h2>Badge Anda</h2>
-            <div id="badgeList">
-                <p>Belum ada badge yang diperoleh.</p>
-            </div>
-        </section>
-
         <!-- Preview Badge -->
-        <section id="badgePreview" class="hidden">
+        <div id="badgePreview" class="popup hidden">
+            <button id="closeBadgePreview" class="close-btn">×</button>
             <h2>Preview Badge</h2>
             <canvas id="badgeCanvas" width="300" height="300"></canvas>
             <div class="share-buttons">
@@ -93,7 +92,7 @@
                 <button id="shareWhatsApp">Bagikan ke WhatsApp</button>
             </div>
             <button id="downloadBadgeButton">Unduh Badge</button>
-        </section>
+        </div>
     </main>
 
     <footer>
