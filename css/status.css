@@ -1,0 +1,108 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Umum */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #f0f8ff, #e6f7ff); /* Gradasi biru muda */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    background: #4CAF50;
+    color: #fff;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+header nav ul li a:hover {
+    background: #45a049;
+}
+
+/* Popup Status Pemain */
+.popup {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    padding: 20px;
+    z-index: 50;
+    display: none;
+}
+
+.popup h2 {
+    color: #4CAF50;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.popup p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #888;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
