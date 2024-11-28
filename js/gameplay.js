@@ -22,23 +22,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Data Tugas Per Kecamatan
 const kecamatanTasks = [
+    {
+        kecamatan: "Merigi",
+        unlocked: true,
+        tasks: [ 
             {
-                kecamatan: "Merigi",
-                unlocked: true,
-                tasks: [
-                        {
                 id: 1,
-                question: "Berapa jumlah sekolah di Merigi?",
-                options: ["12", "15", "18"],
-                answer: "15",
-                xp: 20,
-                token: 10
+                question: "Dalam kategori apakah traktor dicatat sebagai Barang Milik Daerah (BMD)?",
+                options: ["Peralatan dan Mesin", "Tanah", "Gedung dan Bangunan"],
+                answer: "Peralatan dan Mesin",
+                xp: 25,
+                token: 15
             },
             {
                 id: 2,
-                question: "Apa alat utama yang digunakan di Merigi?",
-                options: ["Cangkul", "Traktor", "Parang"],
-                answer: "Cangkul",
+                question: "Apa langkah yang harus dilakukan terhadap pompa air rusak di Kecamatan Merigi?",
+                options: ["Dilakukan penghapusan aset melalui persetujuan pejabat berwenang", "Dijual langsung kepada masyarakat", "Diberikan kepada kepala desa secara informal"],
+                answer: "Dilakukan penghapusan aset melalui persetujuan pejabat berwenang",
                 xp: 30,
                 token: 20
             },
