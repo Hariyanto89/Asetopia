@@ -16,7 +16,7 @@
                 <li><a href="#map">Peta Kecamatan</a></li>
                 <li><a href="#tasks">Tugas</a></li>
                 <li><a href="#leaderboard">Leaderboard</a></li>
-                <li><a href="#badges">Badge</a></li>
+                <li><a href="#badges">Badge Anda</a></li>
             </ul>
         </nav>
     </header>
@@ -29,15 +29,15 @@
                 <p><strong>Nama:</strong> <span id="playerName">[Nama Pengguna]</span></p>
                 <p><strong>Karakter:</strong> <span id="playerCharacter">[Karakter]</span></p>
                 <p><strong>Level:</strong> <span id="playerLevel">1</span></p>
+                <p><strong>XP:</strong> <span id="playerXP">0 / 100</span></p>
                 <p><strong>DIPAYANG TOKEN:</strong> <span id="playerToken">0</span></p>
-                <p><strong>Experience (XP):</strong> <span id="playerXP">0 / 100</span></p>
             </div>
         </section>
 
         <!-- Peta Kecamatan -->
         <section id="map">
             <h2>Peta Kecamatan</h2>
-            <div id="kepahiangMap" style="height: 500px; border-radius: 10px;"></div>
+            <div id="kepahiangMap"></div>
         </section>
 
         <!-- Tugas -->
@@ -65,7 +65,7 @@
             </table>
         </section>
 
-        <!-- Badge Galeri -->
+        <!-- Badge -->
         <section id="badges">
             <h2>Badge Anda</h2>
             <div id="badgeList">
@@ -76,8 +76,8 @@
         <!-- Preview Badge -->
         <section id="badgePreview">
             <h2>Preview Badge</h2>
-            <canvas id="badgeCanvas" width="300" height="300" style="border: 1px solid #ccc; border-radius: 10px;"></canvas>
-            <button id="downloadBadgeButton" style="margin-top: 10px;">Unduh Badge</button>
+            <canvas id="badgeCanvas" width="300" height="300"></canvas>
+            <button id="downloadBadgeButton">Unduh Badge</button>
         </section>
     </main>
 
