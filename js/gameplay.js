@@ -105,9 +105,9 @@ function drawBadgeWithName(badgeImageSrc, playerName, playerLevel, dateObtained)
         ctx.font = "bold 16px Arial";
         ctx.fillStyle = "#FFA500";
         ctx.textAlign = "center";
-        ctx.fillText(playerName, canvas.width / 2, canvas.height - 60); // Nama
-        ctx.fillText(`Level: ${playerLevel}`, canvas.width / 2, canvas.height - 40); // Level
-        ctx.fillText(`Tanggal: ${dateObtained}`, canvas.width / 2, canvas.height - 20); // Tanggal
+        ctx.fillText(playerName, canvas.width / 2, canvas.height - 60);
+        ctx.fillText(`Level: ${playerLevel}`, canvas.width / 2, canvas.height - 40);
+        ctx.fillText(`Tanggal: ${dateObtained}`, canvas.width / 2, canvas.height - 20);
     };
 }
 
@@ -221,7 +221,6 @@ function awardBadge(kecamatanName) {
 
     if (!currentUser.badges) currentUser.badges = [];
 
-    // Cek apakah badge sudah diperoleh
     if (currentUser.badges.find(b => b.kecamatan === kecamatanName)) {
         alert("Anda sudah memiliki badge ini.");
         return;
