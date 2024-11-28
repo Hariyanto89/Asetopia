@@ -8,7 +8,7 @@
 /* Umum */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #f0f8ff, #e6f7ff); /* Gradasi biru muda */
+    background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
     color: #333;
     display: flex;
     flex-direction: column;
@@ -66,44 +66,24 @@ main {
     padding-bottom: 20px;
 }
 
-/* Ikon Status Pemain */
-#playerStatusIcon {
+/* Popup Umum */
+.popup {
+    display: none;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #4CAF50;
-    color: #fff;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.3s ease, background 0.3s ease;
-}
-
-#playerStatusIcon:hover {
-    transform: scale(1.1);
-    background: #45a049;
-}
-
-/* Popup Status Pemain */
-#playerStatusPopup {
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
     background: #fff;
     border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    width: 300px;
     padding: 20px;
-    z-index: 50;
-    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    z-index: 100;
     animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Status Pemain */
+#playerStatusPopup {
+    bottom: 100px;
+    right: 20px;
+    width: 300px;
 }
 
 #playerStatusPopup h3 {
@@ -118,17 +98,6 @@ main {
     color: #555;
 }
 
-#playerStatusPopup .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #888;
-    cursor: pointer;
-}
-
 /* Peta Kecamatan */
 #map {
     background: #fff;
@@ -136,33 +105,12 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 15px;
     margin-bottom: 20px;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-#map h2 {
-    color: #4CAF50;
-    font-size: 1.6rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 10px;
 }
 
 #kepahiangMap {
-    height: 350px; /* Ukuran lebih kecil agar tidak mendominasi */
+    height: 50vh; /* Tinggi fleksibel */
     width: 100%;
-}
-
-/* Responsif Peta */
-@media (min-width: 768px) {
-    #kepahiangMap {
-        height: 300px;
-    }
-}
-
-@media (min-width: 1024px) {
-    #kepahiangMap {
-        height: 350px;
-    }
+    border-radius: 10px;
 }
 
 /* Tugas */
@@ -172,7 +120,11 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 20px;
     margin-bottom: 20px;
-    animation: fadeIn 0.8s ease-in-out;
+}
+
+#tasks h2 {
+    color: #4CAF50;
+    text-align: center;
 }
 
 #currentTask {
@@ -181,80 +133,34 @@ main {
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-#currentTask h3 {
-    font-size: 1.2rem;
-    color: #333;
-    text-align: center;
-}
-
-#currentTask div label {
+#currentTask label {
+    font-size: 1rem;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    font-size: 1rem;
-    color: #555;
-    margin: 5px 0;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-#currentTask div label:hover {
-    background: #e6f7ff;
-    padding: 5px;
-    border-radius: 5px;
+    gap: 10px;
 }
 
 #currentTask button {
     align-self: center;
     background: #4CAF50;
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-    margin-top: 10px;
+    transition: transform 0.2s ease, background 0.3s ease;
 }
 
 #currentTask button:hover {
     background: #45a049;
     transform: scale(1.05);
-}
-
-/* Badge */
-#badges {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    margin-bottom: 20px;
-    display: none; /* Hanya tampil saat diakses melalui status pemain */
-}
-
-#badgePreview {
-    display: none; /* Popup Preview Badge */
-    position: fixed;
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    width: 320px;
-    height: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-}
-
-#badgePreview button {
-    margin-top: 10px;
 }
 
 /* Leaderboard */
@@ -263,7 +169,6 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 20px;
-    margin-bottom: 20px;
 }
 
 #leaderboard table {
@@ -287,7 +192,14 @@ main {
 }
 
 #leaderboard tr:hover {
-    background: #f1f1f1;
+    background: #e6f7ff;
+}
+
+/* Badge */
+#badgeList img {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
 }
 
 /* Footer */
@@ -295,8 +207,9 @@ footer {
     text-align: center;
     background: #4CAF50;
     color: #fff;
-    padding: 10px 0;
+    padding: 15px 0;
     width: 100%;
+    margin-top: 20px;
 }
 
 /* Animasi */
