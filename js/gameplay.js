@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Ambil data pengguna dari localStorage
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser) {
         alert("Anda belum login! Kembali ke halaman login.");
@@ -6,39 +7,20 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Inisialisasi Map
-    const map = L.map('kepahiangMap').setView([-3.6403, 102.6159], 12);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-});
-
-    // Tampilkan data pemain
+    // Inisialisasi elemen dan fitur utama
+    initializeMap();
     displayPlayerData(currentUser);
     displayBadges(currentUser);
-
-    // Inisialisasi peta
-    initializeMap();
-
-    // Tampilkan leaderboard
     displayLeaderboard();
-
-    // Tombol Status Pemain
-    document.getElementById("showStatusButton").addEventListener("click", togglePlayerStatusPopup);
-    document.getElementById("closeStatusButton").addEventListener("click", togglePlayerStatusPopup);
-
-    // Inisialisasi tugas
     initializeTasks(currentUser);
+
+    // Tombol event listener
+    setupEventListeners();
 });
 
-// Fungsi Toggle Status Pemain
-function togglePlayerStatusPopup() {
-    const popup = document.getElementById("playerStatusPopup");
-    popup.classList.toggle("hidden");
-}
-
-// Data Tugas per Kecamatan
+/**
+ * Data Tugas per Kecamatan
+ */
 const kecamatanTasks = [
     {
         kecamatan: "Merigi",
@@ -352,7 +334,31 @@ const kecamatanTasks = [
     }
 ];
 
-// Fungsi Menampilkan Data Pemain
+/**
+ * Fungsi untuk inisialisasi map
+ */
+function initializeMap() {
+    const map = L.map("kepahiangMap").setView([-3.6403, 102.6159], 12);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+    }).addTo(map);
+
+    kecamatanTasks.forEach((task) => {
+        const lat = -3.6403 + Math.random() * 0.02;
+        const lng = 102.6159 + Math.random() * 0.02;
+        L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup(
+                `<strong>${task.kecamatan}</strong><br>Status: ${task.unlocked ? "Terbuka" : "Terkunci"}`
+            )
+            .on("click", () => onKecamatanClick(task));
+    });
+}
+
+/**
+ * Fungsi untuk menampilkan data pemain
+ */
 function displayPlayerData(user) {
     document.getElementById("playerName").textContent = user.username || "[Nama Pengguna]";
     document.getElementById("playerCharacter").textContent = user.character || "[Belum Dipilih]";
@@ -362,7 +368,9 @@ function displayPlayerData(user) {
     document.getElementById("playerLives").textContent = user.lives || 5;
 }
 
-// Fungsi Menampilkan Badge
+/**
+ * Fungsi untuk menampilkan badge pemain
+ */
 function displayBadges(user) {
     const badgeContainer = document.getElementById("badgeList");
     badgeContainer.innerHTML = "";
@@ -383,36 +391,41 @@ function displayBadges(user) {
     });
 }
 
-// Fungsi Menginisialisasi Peta
-function initializeMap() {
-    const map = L.map("kepahiangMap").setView([-3.6403, 102.6159], 12);
+/**
+ * Fungsi untuk menampilkan leaderboard
+ */
+function displayLeaderboard() {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const sortedUsers = users.sort((a, b) => b.token - a.token);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "© OpenStreetMap contributors",
-    }).addTo(map);
+    const leaderboardData = document.getElementById("leaderboardData");
+    leaderboardData.innerHTML = "";
 
-    kecamatanTasks.forEach((task) => {
-        const lat = -3.6403 + Math.random() * 0.02;
-        const lng = 102.6159 + Math.random() * 0.02;
-        L.marker([lat, lng])
-            .addTo(map)
-            .bindPopup(
-                `<strong>${task.kecamatan}</strong><br>Status: ${task.unlocked ? "Terbuka" : "Terkunci"}`
-            )
-            .on("click", () => onKecamatanClick(task));
+    sortedUsers.forEach((user, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${user.username}</td>
+            <td>${user.token || 0}</td>
+        `;
+        leaderboardData.appendChild(row);
     });
 }
 
-// Fungsi Klik Kecamatan
-function onKecamatanClick(task) {
-    if (!task.unlocked) {
-        alert(`Kecamatan ${task.kecamatan} masih terkunci.`);
-        return;
-    }
-    startTask(task);
+/**
+ * Fungsi untuk inisialisasi tugas
+ */
+function initializeTasks(user) {
+    kecamatanTasks.forEach((task) => {
+        if (!task.completed && task.unlocked) {
+            startTask(task);
+        }
+    });
 }
 
-// Fungsi Memulai Tugas
+/**
+ * Fungsi untuk memulai tugas
+ */
 function startTask(task) {
     const taskContainer = document.getElementById("taskContainer");
     taskContainer.innerHTML = "";
@@ -445,7 +458,9 @@ function startTask(task) {
     });
 }
 
-// Fungsi Memeriksa Jawaban
+/**
+ * Fungsi untuk memeriksa jawaban
+ */
 function checkAnswer(task, question) {
     const selectedOption = document.querySelector("input[name='taskOption']:checked");
     if (!selectedOption) {
@@ -461,7 +476,7 @@ function checkAnswer(task, question) {
     } else {
         alert("Jawaban salah.");
         currentUser.lives = (currentUser.lives || 5) - 1;
-        if (currentUser.lives === 0) {
+        if (currentUser.lives <= 0) {
             alert("Nyawa habis! Tunggu 24 jam atau beli nyawa dengan token.");
         }
     }
@@ -471,21 +486,29 @@ function checkAnswer(task, question) {
     startTask(task);
 }
 
-// Fungsi Menampilkan Leaderboard
-function displayLeaderboard() {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const sortedUsers = users.sort((a, b) => b.token - a.token);
+/**
+ * Fungsi untuk menangani klik pada kecamatan
+ */
+function onKecamatanClick(task) {
+    if (!task.unlocked) {
+        alert(`Kecamatan ${task.kecamatan} masih terkunci.`);
+        return;
+    }
+    startTask(task);
+}
 
-    const leaderboardData = document.getElementById("leaderboardData");
-    leaderboardData.innerHTML = "";
+/**
+ * Fungsi untuk mengatur event listener tombol
+ */
+function setupEventListeners() {
+    document.getElementById("showStatusButton").addEventListener("click", togglePlayerStatusPopup);
+    document.getElementById("closeStatusButton").addEventListener("click", togglePlayerStatusPopup);
+}
 
-    sortedUsers.forEach((user, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${user.username}</td>
-            <td>${user.token || 0}</td>
-        `;
-        leaderboardData.appendChild(row);
-    });
+/**
+ * Fungsi untuk toggle popup status pemain
+ */
+function togglePlayerStatusPopup() {
+    const popup = document.getElementById("playerStatusPopup");
+    popup.classList.toggle("hidden");
 }
