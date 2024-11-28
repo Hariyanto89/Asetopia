@@ -8,10 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
     displayPlayerData(currentUser);
     displayBadges(currentUser);
 
-    // Tombol event listener
-    setupEventListeners();
+    // Simpan data awal ke localStorage
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
     localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+
+    // Tombol event listener
+    setupEventListeners();
 });
 
 // Fungsi inisialisasi pengguna jika data tidak ditemukan
@@ -26,7 +28,7 @@ function initializeUser() {
     };
 }
 
-// Fungsi inisialisasi kecamatan
+// Fungsi inisialisasi data kecamatan jika tidak ditemukan
 function initializeKecamatanData() {
     return [
         {
@@ -42,22 +44,26 @@ function initializeKecamatanData() {
                 image: "assets/images/merigi_badge.png",
             },
             tasks: [
-            {
-                id: 1,
-                question: "Dalam kategori apakah traktor dicatat sebagai Barang Milik Daerah (BMD)?",
-                options: ["Peralatan dan Mesin", "Tanah", "Gedung dan Bangunan"],
-                answer: "Peralatan dan Mesin",
-                xp: 25,
-                token: 15
-            },
-            {
-                id: 2,
-                question: "Apa langkah yang harus dilakukan terhadap pompa air rusak di Kecamatan Merigi?",
-                options: ["Dilakukan penghapusan aset melalui persetujuan pejabat berwenang", "Dijual langsung kepada masyarakat", "Diberikan kepada kepala desa secara informal"],
-                answer: "Dilakukan penghapusan aset melalui persetujuan pejabat berwenang",
-                xp: 30,
-                token: 20
-            },
+                {
+                    id: 1,
+                    question: "Dalam kategori apakah traktor dicatat sebagai Barang Milik Daerah (BMD)?",
+                    options: ["Peralatan dan Mesin", "Tanah", "Gedung dan Bangunan"],
+                    answer: "Peralatan dan Mesin",
+                    xp: 25,
+                    token: 15,
+                },
+                {
+                    id: 2,
+                    question: "Apa langkah yang harus dilakukan terhadap pompa air rusak di Kecamatan Merigi?",
+                    options: [
+                        "Dilakukan penghapusan aset melalui persetujuan pejabat berwenang",
+                        "Dijual langsung kepada masyarakat",
+                        "Diberikan kepada kepala desa secara informal",
+                    ],
+                    answer: "Dilakukan penghapusan aset melalui persetujuan pejabat berwenang",
+                    xp: 30,
+                    token: 20,
+                },
             {
                 id: 3,
                 question: "Apa tujuan utama dari pengelolaan barang milik daerah (BMD)?",
@@ -322,9 +328,10 @@ function initializeKecamatanData() {
                 xp: 25,
                 token: 20
             },
-   ],
-   },
-        }
+],
+        },
+    ];
+}
 
 // Fungsi inisialisasi map
 function initializeMap(kecamatanData) {
@@ -338,7 +345,13 @@ function initializeMap(kecamatanData) {
         L.marker([kecamatan.lat, kecamatan.lng])
             .addTo(map)
             .bindPopup(`<strong>${kecamatan.kecamatan}</strong>`)
-            .on("click", () => startTask(kecamatan));
+            .on("click", () => {
+                if (kecamatan.unlocked) {
+                    startTask(kecamatan);
+                } else {
+                    alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
+                }
+            });
     });
 }
 
@@ -387,6 +400,7 @@ function startTask(kecamatan) {
         // Simpan perubahan
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
         localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+        displayBadges(currentUser);
         return;
     }
 
