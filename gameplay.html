@@ -12,7 +12,7 @@
         <h1>ASETOPIA</h1>
         <nav>
             <ul>
-                <li><a href="#" id="showStatusButton">Status Pemain</a></li>
+                <li><a href="status.html">Status Pemain</a></li>
                 <li><a href="#map">Peta Kecamatan</a></li>
                 <li><a href="#tasks">Tugas</a></li>
                 <li><a href="#leaderboard">Leaderboard</a></li>
@@ -21,24 +21,6 @@
     </header>
 
     <main>
-        <!-- Popup Status Pemain -->
-        <div id="playerStatusPopup" class="popup hidden">
-            <button id="closeStatusButton" class="close-btn">×</button>
-            <h2>Status Pemain</h2>
-            <div class="stats">
-                <p><strong>Nama:</strong> <span id="playerName">[Nama Pemain]</span></p>
-                <p><strong>Karakter:</strong> <span id="playerCharacter">[Karakter]</span></p>
-                <p><strong>Level:</strong> <span id="playerLevel">1</span></p>
-                <p><strong>XP:</strong> <span id="playerXP">0 / 100</span></p>
-                <p><strong>DIPAYANG TOKEN:</strong> <span id="playerToken">0</span></p>
-                <p><strong>Nyawa:</strong> <span id="playerLives">5</span></p>
-                <h3>Badge Anda</h3>
-                <div id="badgeList">
-                    <p>Belum ada badge yang diperoleh.</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Peta Kecamatan -->
         <section id="map">
             <h2>Peta Kecamatan</h2>
@@ -79,20 +61,6 @@
                 </tbody>
             </table>
         </section>
-
-        <!-- Preview Badge -->
-        <div id="badgePreview" class="popup hidden">
-            <button id="closeBadgePreview" class="close-btn">×</button>
-            <h2>Preview Badge</h2>
-            <canvas id="badgeCanvas" width="300" height="300"></canvas>
-            <div class="share-buttons">
-                <button id="shareLinkedIn">Bagikan ke LinkedIn</button>
-                <button id="shareTwitter">Bagikan ke Twitter</button>
-                <button id="shareFacebook">Bagikan ke Facebook</button>
-                <button id="shareWhatsApp">Bagikan ke WhatsApp</button>
-            </div>
-            <button id="downloadBadgeButton">Unduh Badge</button>
-        </div>
     </main>
 
     <footer>
