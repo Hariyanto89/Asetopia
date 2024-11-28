@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Pemain - Asetopia</title>
+    <link rel="stylesheet" href="css/status.css">
+</head>
+<body>
+    <header>
+        <h1>ASETOPIA</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="showStatusButton">Status Pemain</a></li>
+                <li><a href="#tasks">Tugas</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Popup Status Pemain -->
+    <div id="playerStatusPopup" class="popup hidden">
+        <button id="closeStatusButton" class="close-btn">×</button>
+        <h2>Status Pemain</h2>
+        <div class="stats">
+            <p><strong>Nama:</strong> <span id="playerName">[Nama Pengguna]</span></p>
+            <p><strong>Karakter:</strong> <span id="playerCharacter">[Karakter]</span></p>
+            <p><strong>Level:</strong> <span id="playerLevel">1</span></p>
+            <p><strong>XP:</strong> <span id="playerXP">0 / 100</span></p>
+            <p><strong>DIPAYANG TOKEN:</strong> <span id="playerToken">0</span></p>
+            <p><strong>Nyawa:</strong> <span id="playerLives">5</span></p>
+            <p><strong>Badge:</strong> <span id="playerBadges">[Daftar Badge]</span></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto</p>
+    </footer>
+
+    <script src="js/status.js"></script>
+</body>
+</html>
