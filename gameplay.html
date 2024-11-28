@@ -9,10 +9,10 @@
 </head>
 <body>
     <header>
-        <h1>Dashboard Asetopia</h1>
+        <h1>ASETOPIA</h1>
         <nav>
             <ul>
-                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#" id="showStatusButton">Status Pemain</a></li>
                 <li><a href="#map">Peta Kecamatan</a></li>
                 <li><a href="#tasks">Tugas</a></li>
                 <li><a href="#leaderboard">Leaderboard</a></li>
@@ -22,8 +22,9 @@
     </header>
 
     <main>
-        <!-- Dashboard -->
-        <section id="dashboard">
+        <!-- Popup Status Pemain -->
+        <div id="playerStatusPopup" class="popup hidden">
+            <button id="closeStatusButton" class="close-btn">×</button>
             <h2>Status Pemain</h2>
             <div class="stats">
                 <p><strong>Nama:</strong> <span id="playerName">[Nama Pengguna]</span></p>
@@ -31,8 +32,9 @@
                 <p><strong>Level:</strong> <span id="playerLevel">1</span></p>
                 <p><strong>XP:</strong> <span id="playerXP">0 / 100</span></p>
                 <p><strong>DIPAYANG TOKEN:</strong> <span id="playerToken">0</span></p>
+                <p><strong>Nyawa:</strong> <span id="playerLives">5</span></p>
             </div>
-        </section>
+        </div>
 
         <!-- Peta Kecamatan -->
         <section id="map">
@@ -43,8 +45,15 @@
         <!-- Tugas -->
         <section id="tasks">
             <h2>Tugas Pengelolaan Aset</h2>
-            <div id="taskList">
-                <p>Pilih kecamatan di peta untuk melihat tugasnya.</p>
+            <div id="taskContainer">
+                <div id="currentTask" class="hidden">
+                    <h3 id="currentTaskQuestion"></h3>
+                    <div id="taskOptions"></div>
+                </div>
+                <div id="taskFeedback" class="hidden">
+                    <p id="taskFeedbackText"></p>
+                    <button id="nextQuestionButton" class="hidden">Pertanyaan Berikutnya</button>
+                </div>
             </div>
         </section>
 
@@ -74,9 +83,15 @@
         </section>
 
         <!-- Preview Badge -->
-        <section id="badgePreview">
+        <section id="badgePreview" class="hidden">
             <h2>Preview Badge</h2>
             <canvas id="badgeCanvas" width="300" height="300"></canvas>
+            <div class="share-buttons">
+                <button id="shareLinkedIn">Bagikan ke LinkedIn</button>
+                <button id="shareTwitter">Bagikan ke Twitter</button>
+                <button id="shareFacebook">Bagikan ke Facebook</button>
+                <button id="shareWhatsApp">Bagikan ke WhatsApp</button>
+            </div>
             <button id="downloadBadgeButton">Unduh Badge</button>
         </section>
     </main>
