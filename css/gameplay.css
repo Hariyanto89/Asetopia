@@ -106,10 +106,6 @@ main {
     animation: fadeIn 0.5s ease-in-out;
 }
 
-#playerStatusPopup.active {
-    display: block; /* Menampilkan popup dengan kelas active */
-}
-
 #playerStatusPopup h3 {
     text-align: center;
     color: #4CAF50;
@@ -227,6 +223,29 @@ main {
 #taskList button:hover {
     background: #45a049;
     transform: scale(1.05);
+}
+
+/* Badge */
+#badges {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#badgeList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.badge-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
 }
 
 /* Footer */
