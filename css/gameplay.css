@@ -40,7 +40,8 @@ header nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
     padding: 0;
 }
 
@@ -82,14 +83,19 @@ main {
     text-align: center;
 }
 
+#dashboard .stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+}
+
 #dashboard .stats p {
+    flex: 1 1 45%;
     font-size: 1.1rem;
     line-height: 1.8;
     margin: 8px 0;
-}
-
-#dashboard .stats p strong {
-    color: #4CAF50;
+    text-align: center;
 }
 
 #playerToken {
@@ -102,31 +108,38 @@ main {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 20px;
+    padding: 15px;
     margin-bottom: 20px;
     animation: fadeIn 0.8s ease-in-out;
 }
 
 #map h2 {
     color: #4CAF50;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
+    font-size: 1.6rem;
     font-weight: bold;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 #kepahiangMap {
-    height: 450px;
-    background: #e0e0e0;
+    height: 300px;
+    width: 100%;
     border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #555;
-    font-size: 1.2rem;
-    font-weight: bold;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+/* Responsif Peta */
+@media (min-width: 768px) {
+    #kepahiangMap {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #kepahiangMap {
+        height: 450px;
+    }
 }
 
 /* Tugas */
@@ -175,25 +188,19 @@ main {
 }
 
 .question-item p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #333;
     margin-bottom: 10px;
     font-weight: bold;
 }
 
-.question-item input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+.question-item input[type="radio"] {
+    margin-right: 10px;
 }
 
-.question-item input:focus {
-    border-color: #4CAF50;
-    outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+.question-item label {
+    font-size: 1rem;
+    color: #333;
 }
 
 /* Tombol Submit */
@@ -225,39 +232,15 @@ main {
     animation: fadeIn 0.8s ease-in-out;
 }
 
-#leaderboard h2 {
-    color: #4CAF50;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-align: center;
-}
-
 #leaderboard table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
 }
 
 #leaderboard th, #leaderboard td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
-    font-size: 1rem;
-}
-
-#leaderboard th {
-    background: #f1f1f1;
-    font-weight: bold;
-    color: #4CAF50;
-}
-
-#leaderboard tbody tr:nth-child(odd) {
-    background: #f9f9f9;
-}
-
-#leaderboard tbody tr:hover {
-    background: #f0f0f0;
 }
 
 /* Badge */
@@ -267,99 +250,29 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 20px;
     margin-bottom: 20px;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-#badges h2 {
-    color: #4CAF50;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-align: center;
 }
 
 #badgeList {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
 }
 
-.badge-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    width: 150px;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
 .badge-item img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     margin-bottom: 10px;
-    border: 3px solid #4CAF50;
-}
-
-.badge-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-#badgePreview {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-#badgePreview h2 {
-    color: #4CAF50;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-
-#badgeCanvas {
-    display: block;
-    margin: 0 auto;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background: #f9f9f9;
-}
-
-#downloadBadgeButton {
-    background: #4CAF50;
-    color: #fff;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-#downloadBadgeButton:hover {
-    background: #45a049;
 }
 
 /* Footer */
 footer {
     text-align: center;
-    padding: 10px 0;
     background: #4CAF50;
     color: #fff;
-    margin-top: 20px;
+    padding: 10px 0;
     width: 100%;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Animasi */
