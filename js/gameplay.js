@@ -79,15 +79,18 @@ function displayBadges(user) {
         const badgeItem = document.createElement("div");
         badgeItem.className = "badge-item";
         badgeItem.innerHTML = `
-            <img src="${badge.image}" alt="${badge.kecamatan} Badge">
+            <img src="${badge.image}" alt="${badge.kecamatan} Badge" class="clickable-badge">
             <p>${badge.description}</p>
         `;
+        badgeItem.onclick = () => {
+            drawBadgeWithName(badge.image, user.username, badge.level, badge.dateObtained);
+        };
         badgeContainer.appendChild(badgeItem);
     });
 }
 
 // Fungsi Menggambar Badge di Canvas
-function drawBadgeWithName(badgeImageSrc, playerName) {
+function drawBadgeWithName(badgeImageSrc, playerName, playerLevel, dateObtained) {
     const canvas = document.getElementById("badgeCanvas");
     const ctx = canvas.getContext("2d");
 
@@ -99,10 +102,12 @@ function drawBadgeWithName(badgeImageSrc, playerName) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(badgeImage, 0, 0, canvas.width, canvas.height);
 
-        ctx.font = "bold 20px Arial";
+        ctx.font = "bold 16px Arial";
         ctx.fillStyle = "#FFA500";
         ctx.textAlign = "center";
-        ctx.fillText(playerName, canvas.width / 2, canvas.height - 20);
+        ctx.fillText(playerName, canvas.width / 2, canvas.height - 60); // Nama
+        ctx.fillText(`Level: ${playerLevel}`, canvas.width / 2, canvas.height - 40); // Level
+        ctx.fillText(`Tanggal: ${dateObtained}`, canvas.width / 2, canvas.height - 20); // Tanggal
     };
 }
 
@@ -215,10 +220,20 @@ function awardBadge(kecamatanName) {
     if (!badge || !currentUser) return;
 
     if (!currentUser.badges) currentUser.badges = [];
+
+    // Cek apakah badge sudah diperoleh
+    if (currentUser.badges.find(b => b.kecamatan === kecamatanName)) {
+        alert("Anda sudah memiliki badge ini.");
+        return;
+    }
+
+    const dateObtained = new Date().toLocaleDateString();
     currentUser.badges.push({
         kecamatan: kecamatanName,
         image: badge.image,
         description: badge.description,
+        level: Math.floor((currentUser.xp || 0) / 100) + 1,
+        dateObtained,
     });
 
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
