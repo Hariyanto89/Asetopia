@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-document.addEventListener("DOMContentLoaded", function () {
+    // Inisialisasi Map
     const map = L.map('kepahiangMap').setView([-3.6403, 102.6159], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
