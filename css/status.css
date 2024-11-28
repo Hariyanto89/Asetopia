@@ -26,6 +26,8 @@ header {
     text-align: center;
     position: sticky;
     top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
@@ -38,6 +40,7 @@ header nav ul {
     display: flex;
     justify-content: center;
     gap: 20px;
+    padding: 0;
 }
 
 header nav ul li a {
@@ -46,26 +49,30 @@ header nav ul li a {
     font-size: 1rem;
     padding: 8px 15px;
     border-radius: 5px;
-    transition: background 0.3s;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 header nav ul li a:hover {
     background: #45a049;
+    transform: scale(1.05);
 }
 
 /* Popup Status Pemain */
 .popup {
     position: fixed;
-    bottom: 100px;
-    right: 20px;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    width: 300px;
+    width: 320px;
+    max-width: 90%;
     padding: 20px;
     z-index: 50;
     display: none;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .popup h2 {
@@ -74,10 +81,15 @@ header nav ul li a:hover {
     text-align: center;
 }
 
-.popup p {
+.popup .stats p {
     margin: 10px 0;
     font-size: 1rem;
     color: #555;
+    line-height: 1.5;
+}
+
+.popup .stats p strong {
+    color: #333;
 }
 
 .popup .close-btn {
@@ -86,13 +98,68 @@ header nav ul li a:hover {
     right: 10px;
     background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #888;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.hidden {
-    display: none;
+.popup .close-btn:hover {
+    color: #4CAF50;
+}
+
+/* Badge List */
+#badgeList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#badgeList p {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Tombol */
+button {
+    background: #4CAF50;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: #45a049;
+    transform: scale(1.05);
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header nav ul li a {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+
+    .popup {
+        width: 90%;
+        max-width: 300px;
+    }
 }
 
 /* Animasi */
@@ -105,4 +172,8 @@ header nav ul li a:hover {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.hidden {
+    display: none !important;
 }
