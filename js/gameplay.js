@@ -76,7 +76,7 @@ function initializeKecamatanData() {
                 id: 4,
                 question: "Barang milik daerah yang tidak digunakan harus?",
                 options: ["Dibiarkan sampai ada keperluan", "Dijual secara langsung", "Dioptimalkan pemanfaatannya atau dijual melalui mekanisme lelang"],
-                answer: "Dioptimalkan pemanfaatannya atau dijual melalui mekanisasi lelang",
+                answer: "Dioptimalkan pemanfaatannya atau dijual melalui mekanisasme lelang",
                 xp: 30,
                 token: 20
             },
