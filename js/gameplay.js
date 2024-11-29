@@ -28,6 +28,40 @@ function initializeUser() {
     };
 }
 
+function placeMarkers(kecamatanData) {
+    const mapElement = document.getElementById("kepahiangMap");
+
+    kecamatanData.forEach((kecamatan) => {
+        const marker = document.createElement("div");
+        marker.className = "marker";
+        marker.style.top = `${kecamatan.y}px`; // Posisi vertikal (y)
+        marker.style.left = `${kecamatan.x}px`; // Posisi horizontal (x)
+        marker.textContent = "📍";
+
+        // Tambahkan event click untuk marker
+        marker.addEventListener("click", () => {
+            if (kecamatan.unlocked) {
+                alert(`Klik pada kecamatan: ${kecamatan.kecamatan}`);
+                // Tambahkan logika untuk tugas atau aksi lainnya
+            } else {
+                alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
+            }
+        });
+
+        mapElement.appendChild(marker);
+    });
+}
+
+// Data Kecamatan dengan Posisi x dan y pada Gambar
+const kecamatanData = [
+    { kecamatan: "Merigi", x: 150, y: 200, unlocked: true },
+    { kecamatan: "Ujan Mas", x: 300, y: 400, unlocked: false },
+    // Tambahkan kecamatan lainnya
+];
+
+// Panggil fungsi untuk menempatkan marker
+placeMarkers(kecamatanData);
+
 // Fungsi inisialisasi data kecamatan jika tidak ditemukan
 function initializeKecamatanData() {
     return [
