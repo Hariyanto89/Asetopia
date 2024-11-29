@@ -138,6 +138,15 @@ main {
     gap: 15px;
 }
 
+#taskOptions input {
+    accent-color: #007BFF; /* Warna custom untuk tombol radio */
+}
+
+#taskOptions label {
+    font-size: 16px;
+    color: #333; /* Warna teks label */
+}
+
 #currentTask label {
     font-size: 1rem;
     cursor: pointer;
