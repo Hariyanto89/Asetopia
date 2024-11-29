@@ -506,18 +506,17 @@ function showPopup(title, message) {
     popup.querySelector("p").textContent = message;
     popup.classList.remove("hidden");
 
-    // Tambahkan event listener untuk tombol tutup
     const closeButton = document.getElementById("closePopupButton");
     closeButton.onclick = () => {
         popup.classList.add("hidden");
     };
 
-    // Tambahkan timeout untuk otomatis menghilang
+    // Tambahkan timeout otomatis
     setTimeout(() => {
         if (!popup.classList.contains("hidden")) {
             popup.classList.add("hidden");
         }
-    }, 3000); // Tutup otomatis setelah 3 detik
+    }, 3000); // 3 detik timeout
 }
 
 // Fungsi simpan data ke localStorage
