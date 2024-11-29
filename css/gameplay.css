@@ -20,7 +20,7 @@ body {
 /* Header */
 header {
     font-family: 'Orbitron', sans-serif;
-    background: #4CAF50;
+    background: #000080;
     color: #fff;
     width: 100%;
     padding: 15px 0;
@@ -59,7 +59,7 @@ header nav ul li a {
 }
 
 header nav ul li a:hover {
-    background: #45a049;
+    background: #191970;
 }
 
 /* Main Content */
