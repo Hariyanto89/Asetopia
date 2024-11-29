@@ -7,7 +7,7 @@
 
 /* Umum */
 body {
-    font-family: 'fantasy', sans-serif;
+    font-family: 'Press Start 2P', cursive;
     background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
     color: #333;
     display: flex;
@@ -19,6 +19,7 @@ body {
 
 /* Header */
 header {
+    font-family: 'Press Start 2P', cursive;
     background: #4CAF50;
     color: #fff;
     width: 100%;
@@ -31,13 +32,14 @@ header {
 }
 
 header h1 {
-    font-family: Papyrus, fantasy, cursive;
+    font-family: 'Press Start 2P', cursive;
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 header nav ul {
+    font-family: 'Press Start 2P', cursive;
     list-style: none;
     display: flex;
     justify-content: center;
@@ -47,6 +49,7 @@ header nav ul {
 }
 
 header nav ul li a {
+    font-family: 'Press Start 2P', cursive;
     text-decoration: none;
     color: #fff;
     padding: 8px 15px;
