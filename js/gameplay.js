@@ -335,7 +335,7 @@ function initializeKecamatanData() {
 
 // Fungsi inisialisasi map
 function initializeMap(kecamatanData) {
-    const map = L.map("kepahiangMap").setView([-3.6403, 102.6159], 12);
+    const map = L.map("kepahiangMap").setView([-3.504305, 102.517364], 12);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
