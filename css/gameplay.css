@@ -123,6 +123,19 @@ main {
     border-radius: 10px;
 }
 
+.marker {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+}
+
 /* Tugas */
 #tasks {
     background: #fff;
