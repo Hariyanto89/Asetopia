@@ -421,21 +421,21 @@ function displayTask(kecamatan, taskIndex) {
     const task = kecamatan.tasks[taskIndex];
     const taskContainer = document.getElementById("taskContainer");
 
-    taskContainer.innerHTML = 
+    taskContainer.innerHTML = `
         <h3>${task.question}</h3>
         <div id="taskOptions">
             ${task.options
                 .map(
                     (option, index) =>
-                        <label for="option${index}">
+                        `<label for="option${index}">
                             <input type="radio" id="option${index}" name="taskOption" value="${option}">
                             ${option}
-                        </label>
+                        </label>`
                 )
                 .join("")}
         </div>
         <button id="submitTaskButton">Kirim Jawaban</button>
-    ;
+    `;
 
     document.getElementById("submitTaskButton").addEventListener("click", () => {
         checkAnswer(kecamatan, taskIndex, task);
@@ -455,7 +455,7 @@ function checkAnswer(kecamatan, taskIndex, task) {
 
     if (selectedOption.value === task.answer) {
         // Tampilkan pop-up benar
-        showPopup("Jawaban benar!", XP: +${task.xp}, Token: +${task.token});
+        showPopup("Jawaban benar!", `XP: +${task.xp}, Token: +${task.token}`);
         currentUser.xp += task.xp;
         currentUser.token += task.token;
         kecamatan.lastTaskIndex++;
@@ -468,7 +468,7 @@ function checkAnswer(kecamatan, taskIndex, task) {
         if (kecamatan.lastTaskIndex < kecamatan.tasks.length) {
             setTimeout(() => displayTask(kecamatan, kecamatan.lastTaskIndex), 2000); // Tunggu 2 detik
         } else {
-            showPopup("Tugas Selesai!", Anda mendapatkan badge: ${kecamatan.badge.name});
+            showPopup("Tugas Selesai!", `Anda mendapatkan badge: ${kecamatan.badge.name}`);
             kecamatan.completed = true;
             currentUser.badges.push(kecamatan.badge);
 
@@ -478,7 +478,7 @@ function checkAnswer(kecamatan, taskIndex, task) {
     } else {
         // Tampilkan pop-up salah
         currentUser.lives--;
-        showPopup("Jawaban salah!", Nyawa: ${currentUser.lives});
+        showPopup("Jawaban salah!", `Nyawa: ${currentUser.lives}`);
 
         // Simpan perubahan
         if (currentUser.lives <= 0) {
@@ -514,7 +514,7 @@ function showPopup(title, message) {
         if (!popup.classList.contains("hidden")) {
             popup.classList.add("hidden");
         }
-    }, 500);
+    }, 2000);
 }
 
 // Fungsi setup tombol
