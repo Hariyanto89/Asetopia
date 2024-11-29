@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Ambil data pengguna dan data kecamatan dari localStorage
+    // Ambil data pengguna dari localStorage
     const currentUser = JSON.parse(localStorage.getItem("currentUser")) || initializeUser();
     const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks")) || initializeKecamatanData();
 
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     displayPlayerData(currentUser);
     displayBadges(currentUser);
 
-    // Simpan data awal ke localStorage jika belum ada
+    // Simpan data awal ke localStorage
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
     localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
 
@@ -27,40 +27,6 @@ function initializeUser() {
         badges: [],
     };
 }
-
-function placeMarkers(kecamatanData) {
-    const mapElement = document.getElementById("kepahiangMap");
-
-    kecamatanData.forEach((kecamatan) => {
-        const marker = document.createElement("div");
-        marker.className = "marker";
-        marker.style.top = `${kecamatan.y}px`; // Posisi vertikal (y)
-        marker.style.left = `${kecamatan.x}px`; // Posisi horizontal (x)
-        marker.textContent = "📍";
-
-        // Tambahkan event click untuk marker
-        marker.addEventListener("click", () => {
-            if (kecamatan.unlocked) {
-                alert(`Klik pada kecamatan: ${kecamatan.kecamatan}`);
-                // Tambahkan logika untuk tugas atau aksi lainnya
-            } else {
-                alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
-            }
-        });
-
-        mapElement.appendChild(marker);
-    });
-}
-
-// Data Kecamatan dengan Posisi x dan y pada Gambar
-const kecamatanData = [
-    { kecamatan: "Merigi", x: 150, y: 200, unlocked: true },
-    { kecamatan: "Ujan Mas", x: 300, y: 400, unlocked: false },
-    // Tambahkan kecamatan lainnya
-];
-
-// Panggil fungsi untuk menempatkan marker
-placeMarkers(kecamatanData);
 
 // Fungsi inisialisasi data kecamatan jika tidak ditemukan
 function initializeKecamatanData() {
@@ -361,38 +327,32 @@ function initializeKecamatanData() {
                 answer: "Melakukan validasi dan konsolidasi data",
                 xp: 25,
                 token: 20
-                },
-            ],
+            },
+],
         },
     ];
 }
 
 // Fungsi inisialisasi map
 function initializeMap(kecamatanData) {
-    const map = document.querySelector(".custom-map");
-    if (!map) {
-        console.error("Map container tidak ditemukan.");
-        return;
-    }
+    const map = L.map("kepahiangMap").setView([-3.6403, 102.6159], 12);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+    }).addTo(map);
 
     kecamatanData.forEach((kecamatan) => {
-        const marker = document.createElement("div");
-        marker.className = "marker";
-        marker.style.top = `${Math.random() * 80 + 10}%`; // Simulasi posisi marker
-        marker.style.left = `${Math.random() * 80 + 10}%`;
-        marker.dataset.kecamatan = kecamatan.kecamatan;
-        marker.addEventListener("click", () => handleMarkerClick(kecamatan));
-        map.appendChild(marker);
+        L.marker([kecamatan.lat, kecamatan.lng])
+            .addTo(map)
+            .bindPopup(`<strong>${kecamatan.kecamatan}</strong>`)
+            .on("click", () => {
+                if (kecamatan.unlocked) {
+                    startTask(kecamatan);
+                } else {
+                    alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
+                }
+            });
     });
-}
-
-// Fungsi menangani klik pada marker
-function handleMarkerClick(kecamatan) {
-    if (kecamatan.unlocked) {
-        startTask(kecamatan);
-    } else {
-        alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
-    }
 }
 
 // Fungsi menampilkan data pemain
