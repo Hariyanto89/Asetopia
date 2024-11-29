@@ -20,7 +20,7 @@ body {
 /* Header */
 header {
     background: #7FFF00;
-    color: #fff;
+    color: #191970;
     width: 100%;
     padding: 15px 0;
     text-align: center;
@@ -183,6 +183,6 @@ footer {
     text-align: center;
     padding: 15px 0;
     background: #7FFF00;
-    color: #fff;
+    color: #191970;
     margin-top: 20px;
 }
