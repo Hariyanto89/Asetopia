@@ -454,31 +454,58 @@ function checkAnswer(kecamatan, taskIndex, task) {
     const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
 
     if (selectedOption.value === task.answer) {
-        alert("Jawaban benar!");
+        // Tampilkan pop-up benar
+        showPopup("Jawaban benar!", `XP: +${task.xp}, Token: +${task.token}`);
         currentUser.xp += task.xp;
         currentUser.token += task.token;
         kecamatan.lastTaskIndex++;
+
+        // Simpan perubahan
+        saveDataToLocalStorage("currentUser", currentUser);
+        saveDataToLocalStorage("kecamatanTasks", kecamatanData);
+
+        // Tampilkan pertanyaan berikutnya
+        if (kecamatan.lastTaskIndex < kecamatan.tasks.length) {
+            setTimeout(() => displayTask(kecamatan, kecamatan.lastTaskIndex), 2000); // Tunggu 2 detik
+        } else {
+            showPopup("Tugas Selesai!", `Anda mendapatkan badge: ${kecamatan.badge.name}`);
+            kecamatan.completed = true;
+            currentUser.badges.push(kecamatan.badge);
+
+            saveDataToLocalStorage("currentUser", currentUser);
+            displayBadges(currentUser);
+        }
     } else {
-        alert("Jawaban salah!");
+        // Tampilkan pop-up salah
         currentUser.lives--;
+        showPopup("Jawaban salah!", `Nyawa: ${currentUser.lives}`);
+
+        // Simpan perubahan
         if (currentUser.lives <= 0) {
             const useToken = confirm("Nyawa habis! Gunakan 10 token untuk menambah nyawa?");
             if (useToken && currentUser.token >= 10) {
                 currentUser.token -= 10;
-                currentUser.lives = 5; // Isi ulang nyawa
+                currentUser.lives = 5;
             } else {
                 alert("Tunggu 24 jam atau kumpulkan token lebih banyak!");
-                return;
             }
         }
+
+        saveDataToLocalStorage("currentUser", currentUser);
+        displayPlayerData(currentUser);
     }
+}
 
-    // Simpan perubahan
-    saveDataToLocalStorage("currentUser", currentUser);
-    saveDataToLocalStorage("kecamatanTasks", kecamatanData);
-    displayPlayerData(currentUser);
+// Fungsi menampilkan popup
+function showPopup(title, message) {
+    const popup = document.getElementById("popupMessage");
+    popup.querySelector("h3").textContent = title;
+    popup.querySelector("p").textContent = message;
+    popup.classList.remove("hidden");
 
-    startTask(kecamatan);
+    setTimeout(() => {
+        popup.classList.add("hidden");
+    }, 2000); // Tampilkan selama 2 detik
 }
 
 // Fungsi setup tombol
