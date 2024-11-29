@@ -330,8 +330,6 @@ function initializeKecamatanData() {
             },
 		],
         },
-    ];
-}
 
 // Fungsi inisialisasi map
 function initializeMap(kecamatanData) {
