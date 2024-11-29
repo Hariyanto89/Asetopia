@@ -327,9 +327,11 @@ function initializeKecamatanData() {
                 answer: "Melakukan validasi dan konsolidasi data",
                 xp: 25,
                 token: 20
-            },
-		],
+          },
+	],
         },
+    ];
+}
 
 // Fungsi inisialisasi map
 function initializeMap(kecamatanData) {
