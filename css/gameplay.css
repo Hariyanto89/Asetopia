@@ -113,6 +113,7 @@ main {
     border-radius: 10px;
 }
 
+/* Gambar Peta Statis */
 .custom-map {
     width: 100%; /* Atur lebar peta */
     height: 500px; /* Atur tinggi peta */
@@ -123,6 +124,7 @@ main {
     border-radius: 10px;
 }
 
+/* Marker */
 .marker {
     position: absolute;
     width: 20px;
