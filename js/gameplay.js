@@ -344,7 +344,7 @@ function initializeKecamatanData() {
 
 // Fungsi inisialisasi map
 function initializeMap(kecamatanData) {
-    const map = L.map("kepahiangMap").setView([-3.504305, 102.517364], 12);
+    const map = L.map("kepahiangMap").setView([-3.6403, 102.6159], 12);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
@@ -388,7 +388,7 @@ function displayBadges(user) {
         const badgeItem = document.createElement("div");
         badgeItem.className = "badge-item";
         badgeItem.innerHTML = `
-            <img src="${badge.image}" alt="${badge.name}" title="${badge.description}">
+            <img src="${badge.image}" alt="${badge.name}">
             <p>${badge.name}</p>
         `;
         badgeContainer.appendChild(badgeItem);
@@ -407,8 +407,8 @@ function startTask(kecamatan) {
         currentUser.badges.push(kecamatan.badge);
 
         // Simpan perubahan
-        saveDataToLocalStorage("currentUser", currentUser);
-        saveDataToLocalStorage("kecamatanTasks", kecamatanData);
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
         displayBadges(currentUser);
         return;
     }
@@ -420,17 +420,13 @@ function startTask(kecamatan) {
 function displayTask(kecamatan, taskIndex) {
     const task = kecamatan.tasks[taskIndex];
     const taskContainer = document.getElementById("taskContainer");
-
     taskContainer.innerHTML = `
         <h3>${task.question}</h3>
-        <div id="taskOptions">
+        <div>
             ${task.options
                 .map(
-                    (option, index) =>
-                        `<label for="option${index}">
-                            <input type="radio" id="option${index}" name="taskOption" value="${option}">
-                            ${option}
-                        </label>`
+                    (option) =>
+                        `<label><input type="radio" name="taskOption" value="${option}"> ${option}</label>`
                 )
                 .join("")}
         </div>
@@ -454,67 +450,25 @@ function checkAnswer(kecamatan, taskIndex, task) {
     const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
 
     if (selectedOption.value === task.answer) {
-        // Tampilkan pop-up benar
-        showPopup("Jawaban benar!", `XP: +${task.xp}, Token: +${task.token}`);
+        alert("Jawaban benar!");
         currentUser.xp += task.xp;
         currentUser.token += task.token;
         kecamatan.lastTaskIndex++;
-
-        // Simpan perubahan
-        saveDataToLocalStorage("currentUser", currentUser);
-        saveDataToLocalStorage("kecamatanTasks", kecamatanData);
-
-        // Tampilkan pertanyaan berikutnya
-        if (kecamatan.lastTaskIndex < kecamatan.tasks.length) {
-            setTimeout(() => displayTask(kecamatan, kecamatan.lastTaskIndex), 2000); // Tunggu 2 detik
-        } else {
-            showPopup("Tugas Selesai!", `Anda mendapatkan badge: ${kecamatan.badge.name}`);
-            kecamatan.completed = true;
-            currentUser.badges.push(kecamatan.badge);
-
-            saveDataToLocalStorage("currentUser", currentUser);
-            displayBadges(currentUser);
-        }
     } else {
-        // Tampilkan pop-up salah
+        alert("Jawaban salah!");
         currentUser.lives--;
-        showPopup("Jawaban salah!", `Nyawa: ${currentUser.lives}`);
-
-        // Simpan perubahan
         if (currentUser.lives <= 0) {
-            const useToken = confirm("Nyawa habis! Gunakan 10 token untuk menambah nyawa?");
-            if (useToken && currentUser.token >= 10) {
-                currentUser.token -= 10;
-                currentUser.lives = 5;
-            } else {
-                alert("Tunggu 24 jam atau kumpulkan token lebih banyak!");
-            }
+            alert("Nyawa habis! Tunggu 24 jam atau gunakan token untuk menambah nyawa.");
+            return;
         }
-
-        saveDataToLocalStorage("currentUser", currentUser);
-        displayPlayerData(currentUser);
     }
-}
 
-// Fungsi menampilkan popup
-function showPopup(title, message) {
-    const popup = document.getElementById("popupMessage");
-    popup.querySelector("h3").textContent = title;
-    popup.querySelector("p").textContent = message;
-    popup.classList.remove("hidden");
+    // Simpan perubahan
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+    displayPlayerData(currentUser);
 
-    // Tambahkan event listener untuk tombol tutup
-    const closeButton = document.getElementById("closePopupButton");
-    closeButton.onclick = () => {
-        popup.classList.add("hidden");
-    };
-
-    // Tambahkan timeout untuk otomatis menghilang
-    setTimeout(() => {
-        if (!popup.classList.contains("hidden")) {
-            popup.classList.add("hidden");
-        }
-    }, 2000);
+    startTask(kecamatan);
 }
 
 // Fungsi setup tombol
