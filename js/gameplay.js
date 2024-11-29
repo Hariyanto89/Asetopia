@@ -42,8 +42,8 @@ function initializeKecamatanData() {
     return [
         {
             kecamatan: "Merigi",
-            lat: -3.6403,
-            lng: 102.6159,
+            lat: -3.504305,
+            lng: 102.517364,
             unlocked: true,
             completed: false,
             lastTaskIndex: 0,
