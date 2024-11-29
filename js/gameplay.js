@@ -450,47 +450,50 @@ function checkAnswer(kecamatan, taskIndex, task) {
         return;
     }
 
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+    const currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks")) || {};
 
     if (selectedOption.value === task.answer) {
-        // Tampilkan pop-up benar
-        showPopup("Jawaban benar!", `XP: +${task.xp}, Token: +${task.token}`);
-        currentUser.xp += task.xp;
-        currentUser.token += task.token;
+        // Tampilkan pop-up untuk jawaban benar
+        showPopup("Jawaban Benar!", `XP: +${task.xp}, Token: +${task.token}`);
+        currentUser.xp = (currentUser.xp || 0) + task.xp;
+        currentUser.token = (currentUser.token || 0) + task.token;
         kecamatan.lastTaskIndex++;
 
         // Simpan perubahan
         saveDataToLocalStorage("currentUser", currentUser);
         saveDataToLocalStorage("kecamatanTasks", kecamatanData);
 
-        // Tampilkan pertanyaan berikutnya
+        // Lanjutkan ke pertanyaan berikutnya
         if (kecamatan.lastTaskIndex < kecamatan.tasks.length) {
-            setTimeout(() => displayTask(kecamatan, kecamatan.lastTaskIndex), 2000); // Tunggu 2 detik
+            setTimeout(() => displayTask(kecamatan, kecamatan.lastTaskIndex), 2000);
         } else {
+            // Semua tugas selesai
             showPopup("Tugas Selesai!", `Anda mendapatkan badge: ${kecamatan.badge.name}`);
             kecamatan.completed = true;
+            currentUser.badges = currentUser.badges || [];
             currentUser.badges.push(kecamatan.badge);
 
             saveDataToLocalStorage("currentUser", currentUser);
             displayBadges(currentUser);
         }
     } else {
-        // Tampilkan pop-up salah
-        currentUser.lives--;
-        showPopup("Jawaban salah!", `Nyawa: ${currentUser.lives}`);
+        // Jawaban salah
+        currentUser.lives = (currentUser.lives || 3) - 1;
+        showPopup("Jawaban Salah!", `Nyawa: ${currentUser.lives}`);
 
-        // Simpan perubahan
         if (currentUser.lives <= 0) {
             const useToken = confirm("Nyawa habis! Gunakan 10 token untuk menambah nyawa?");
             if (useToken && currentUser.token >= 10) {
                 currentUser.token -= 10;
                 currentUser.lives = 5;
+                alert("Nyawa Anda ditambah menjadi 5!");
             } else {
-                alert("Tunggu 24 jam atau kumpulkan token lebih banyak!");
+                alert("Nyawa habis! Tunggu 24 jam atau kumpulkan token lebih banyak.");
             }
         }
 
+        // Simpan perubahan
         saveDataToLocalStorage("currentUser", currentUser);
         displayPlayerData(currentUser);
     }
@@ -514,17 +517,15 @@ function showPopup(title, message) {
         if (!popup.classList.contains("hidden")) {
             popup.classList.add("hidden");
         }
-    }, 2000);
+    }, 3000); // Tutup otomatis setelah 3 detik
 }
 
-// Fungsi setup tombol
-function setupEventListeners() {
-    document.getElementById("showStatusButton").addEventListener("click", togglePlayerStatusPopup);
-    document.getElementById("closeStatusButton").addEventListener("click", togglePlayerStatusPopup);
+// Fungsi simpan data ke localStorage
+function saveDataToLocalStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
 }
 
-// Fungsi toggle popup status pemain
-function togglePlayerStatusPopup() {
-    const popup = document.getElementById("playerStatusPopup");
-    popup.classList.toggle("hidden");
+// Fungsi menampilkan data pemain
+function displayPlayerData(player) {
+    // Implementasi menampilkan status pemain di UI
 }
