@@ -40,7 +40,6 @@ header nav ul {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 0;
 }
 
 header nav ul li a {
@@ -151,6 +150,11 @@ button:hover {
         font-size: 1.5rem;
     }
 
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     header nav ul li a {
         font-size: 0.9rem;
         padding: 6px 12px;
@@ -170,6 +174,7 @@ footer {
     padding: 15px 0;
     width: 100%;
     margin-top: 20px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Animasi */
