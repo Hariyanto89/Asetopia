@@ -529,3 +529,15 @@ function saveDataToLocalStorage(key, data) {
 function displayPlayerData(player) {
     // Implementasi menampilkan status pemain di UI
 }
+
+// Fungsi setup tombol
+function setupEventListeners() {
+    document.getElementById("showStatusButton").addEventListener("click", togglePlayerStatusPopup);
+    document.getElementById("closeStatusButton").addEventListener("click", togglePlayerStatusPopup);
+}
+
+// Fungsi toggle popup status pemain
+function togglePlayerStatusPopup() {
+    const popup = document.getElementById("playerStatusPopup");
+    popup.classList.toggle("hidden");
+}
