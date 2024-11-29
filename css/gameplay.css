@@ -108,26 +108,9 @@ main {
 }
 
 #kepahiangMap {
-    position: relative; /* Penting untuk menempatkan marker */
-    width: 100%; /* Lebar penuh */
-    height: 500px; /* Tinggi tetap atau sesuai ukuran gambar */
-    background: url("assets/map/merigi.png") no-repeat center center;
-    background-size: cover; /* Menyesuaikan ukuran gambar */
-    border: 2px solid #ddd;
+    height: 50vh; /* Tinggi fleksibel */
+    width: 100%;
     border-radius: 10px;
-}
-
-.marker {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: red;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 20px;
-    color: white;
-    font-size: 12px;
-    cursor: pointer;
 }
 
 /* Tugas */
