@@ -114,19 +114,6 @@ main {
 }
 
 /* Tugas */
-#tasks {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-#tasks h2 {
-    color: #4CAF50;
-    text-align: center;
-}
-
 #currentTask {
     background: #f9f9f9;
     border: 2px solid #ddd;
@@ -134,27 +121,29 @@ main {
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Susunan vertikal */
     gap: 15px;
 }
 
+/* Styling untuk Opsi */
+#taskOptions {
+    display: flex;
+    flex-direction: column; /* Susun opsi ke bawah */
+    gap: 10px; /* Jarak antar opsi */
+}
+
 #taskOptions input {
-    accent-color: #007BFF; /* Warna custom untuk tombol radio */
+    accent-color: #007BFF; /* Warna tombol radio */
 }
 
 #taskOptions label {
     font-size: 16px;
-    color: #333; /* Warna teks label */
-}
-
-#currentTask label {
-    font-size: 1rem;
+    color: #333; /* Warna teks */
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: inline; /* Jangan gunakan flex di sini untuk opsi */
 }
 
+/* Tombol Submit */
 #currentTask button {
     align-self: center;
     background: #4CAF50;
