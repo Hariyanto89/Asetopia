@@ -421,21 +421,21 @@ function displayTask(kecamatan, taskIndex) {
     const task = kecamatan.tasks[taskIndex];
     const taskContainer = document.getElementById("taskContainer");
 
-    taskContainer.innerHTML = `
+    taskContainer.innerHTML = 
         <h3>${task.question}</h3>
         <div id="taskOptions">
             ${task.options
                 .map(
                     (option, index) =>
-                        `<label for="option${index}">
+                        <label for="option${index}">
                             <input type="radio" id="option${index}" name="taskOption" value="${option}">
                             ${option}
-                        </label>`
+                        </label>
                 )
                 .join("")}
         </div>
         <button id="submitTaskButton">Kirim Jawaban</button>
-    `;
+    ;
 
     document.getElementById("submitTaskButton").addEventListener("click", () => {
         checkAnswer(kecamatan, taskIndex, task);
@@ -450,50 +450,47 @@ function checkAnswer(kecamatan, taskIndex, task) {
         return;
     }
 
-    const currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
-    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks")) || {};
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
 
     if (selectedOption.value === task.answer) {
-        // Tampilkan pop-up untuk jawaban benar
-        showPopup("Jawaban Benar!", `XP: +${task.xp}, Token: +${task.token}`);
-        currentUser.xp = (currentUser.xp || 0) + task.xp;
-        currentUser.token = (currentUser.token || 0) + task.token;
+        // Tampilkan pop-up benar
+        showPopup("Jawaban benar!", XP: +${task.xp}, Token: +${task.token});
+        currentUser.xp += task.xp;
+        currentUser.token += task.token;
         kecamatan.lastTaskIndex++;
 
         // Simpan perubahan
         saveDataToLocalStorage("currentUser", currentUser);
         saveDataToLocalStorage("kecamatanTasks", kecamatanData);
 
-        // Lanjutkan ke pertanyaan berikutnya
+        // Tampilkan pertanyaan berikutnya
         if (kecamatan.lastTaskIndex < kecamatan.tasks.length) {
-            setTimeout(() => displayTask(kecamatan, kecamatan.lastTaskIndex), 2000);
+            setTimeout(() => displayTask(kecamatan, kecamatan.lastTaskIndex), 2000); // Tunggu 2 detik
         } else {
-            // Semua tugas selesai
-            showPopup("Tugas Selesai!", `Anda mendapatkan badge: ${kecamatan.badge.name}`);
+            showPopup("Tugas Selesai!", Anda mendapatkan badge: ${kecamatan.badge.name});
             kecamatan.completed = true;
-            currentUser.badges = currentUser.badges || [];
             currentUser.badges.push(kecamatan.badge);
 
             saveDataToLocalStorage("currentUser", currentUser);
             displayBadges(currentUser);
         }
     } else {
-        // Jawaban salah
-        currentUser.lives = (currentUser.lives || 3) - 1;
-        showPopup("Jawaban Salah!", `Nyawa: ${currentUser.lives}`);
+        // Tampilkan pop-up salah
+        currentUser.lives--;
+        showPopup("Jawaban salah!", Nyawa: ${currentUser.lives});
 
+        // Simpan perubahan
         if (currentUser.lives <= 0) {
             const useToken = confirm("Nyawa habis! Gunakan 10 token untuk menambah nyawa?");
             if (useToken && currentUser.token >= 10) {
                 currentUser.token -= 10;
                 currentUser.lives = 5;
-                alert("Nyawa Anda ditambah menjadi 5!");
             } else {
-                alert("Nyawa habis! Tunggu 24 jam atau kumpulkan token lebih banyak.");
+                alert("Tunggu 24 jam atau kumpulkan token lebih banyak!");
             }
         }
 
-        // Simpan perubahan
         saveDataToLocalStorage("currentUser", currentUser);
         displayPlayerData(currentUser);
     }
@@ -506,27 +503,18 @@ function showPopup(title, message) {
     popup.querySelector("p").textContent = message;
     popup.classList.remove("hidden");
 
+    // Tambahkan event listener untuk tombol tutup
     const closeButton = document.getElementById("closePopupButton");
     closeButton.onclick = () => {
         popup.classList.add("hidden");
     };
 
-    // Tambahkan timeout otomatis
+    // Tambahkan timeout untuk otomatis menghilang
     setTimeout(() => {
         if (!popup.classList.contains("hidden")) {
             popup.classList.add("hidden");
         }
-    }, 3000); // 3 detik timeout
-}
-
-// Fungsi simpan data ke localStorage
-function saveDataToLocalStorage(key, data) {
-    localStorage.setItem(key, JSON.stringify(data));
-}
-
-// Fungsi menampilkan data pemain
-function displayPlayerData(player) {
-    // Implementasi menampilkan status pemain di UI
+    }, 500);
 }
 
 // Fungsi setup tombol
