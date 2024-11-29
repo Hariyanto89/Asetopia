@@ -113,6 +113,16 @@ main {
     border-radius: 10px;
 }
 
+.custom-map {
+    width: 100%; /* Atur lebar peta */
+    height: 500px; /* Atur tinggi peta */
+    background-image: url("assets/map/merigi.png");
+    background-size: cover; /* Gambar akan menyesuaikan ukuran div */
+    background-position: center;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}
+
 /* Tugas */
 #tasks {
     background: #fff;
