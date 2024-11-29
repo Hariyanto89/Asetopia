@@ -79,6 +79,32 @@ main {
     animation: fadeIn 0.5s ease-in-out;
 }
 
+#popupMessage {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 2px solid #4CAF50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+#popupMessage h3 {
+    color: #4CAF50;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#popupMessage p {
+    font-size: 1rem;
+    color: #333;
+}
+
 /* Status Pemain */
 #playerStatusPopup {
     bottom: 100px;
