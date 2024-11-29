@@ -57,6 +57,35 @@ header nav ul li a:hover {
     transform: scale(1.05);
 }
 
+.stats table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.stats td {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+}
+
+.stats tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.stats tr:hover {
+    background-color: #f1f1f1;
+}
+
+.stats td:first-child {
+    font-weight: bold;
+    text-align: left;
+    width: 30%;
+}
+
+.stats td:last-child {
+    text-align: right;
+}
+
 /* Popup Status Pemain */
 .popup {
     position: fixed;
