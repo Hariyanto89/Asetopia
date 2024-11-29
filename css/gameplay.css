@@ -31,7 +31,7 @@ header {
 }
 
 header h1 {
-    font-family: 'fantasy', sans-serif;
+    font-family: Papyrus, fantasy, cursive;
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
