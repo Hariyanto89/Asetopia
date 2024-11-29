@@ -19,7 +19,7 @@ body {
 
 /* Header */
 header {
-    background: #4CAF50;
+    background: #7FFF00;
     color: #fff;
     width: 100%;
     padding: 15px 0;
@@ -176,4 +176,13 @@ button:hover {
 
 .hidden {
     display: none !important;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background: #7FFF00;
+    color: #fff;
+    margin-top: 20px;
 }
