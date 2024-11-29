@@ -114,6 +114,20 @@ main {
 }
 
 /* Tugas */
+#tasks {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#tasks h2 {
+    color: #4CAF50;
+    text-align: center;
+}
+
+/* Pertanyaan Aktif */
 #currentTask {
     background: #f9f9f9;
     border: 2px solid #ddd;
@@ -122,29 +136,28 @@ main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column; /* Susunan vertikal */
-    gap: 15px;
+    gap: 20px; /* Jarak antar elemen */
 }
 
-/* Styling untuk Opsi */
+/* Opsi Jawaban */
 #taskOptions {
     display: flex;
-    flex-direction: column; /* Susun opsi ke bawah */
+    flex-direction: column; /* Susun opsi secara vertikal */
     gap: 10px; /* Jarak antar opsi */
 }
 
-#taskOptions input {
+#taskOptions input[type="radio"] {
     accent-color: #007BFF; /* Warna tombol radio */
 }
 
 #taskOptions label {
     font-size: 16px;
-    color: #333; /* Warna teks */
+    color: #333;
     cursor: pointer;
-    display: inline; /* Jangan gunakan flex di sini untuk opsi */
 }
 
-/* Tombol Submit */
-#currentTask button {
+/* Tombol Kirim */
+#submitAnswerButton {
     align-self: center;
     background: #4CAF50;
     color: #fff;
@@ -156,8 +169,40 @@ main {
     transition: transform 0.2s ease, background 0.3s ease;
 }
 
-#currentTask button:hover {
+#submitAnswerButton:hover {
     background: #45a049;
+    transform: scale(1.05);
+}
+
+/* Umpan Balik */
+#taskFeedback {
+    background: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#taskFeedbackText {
+    font-size: 16px;
+    color: #555;
+}
+
+#nextQuestionButton {
+    align-self: center;
+    background: #007BFF;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+#nextQuestionButton:hover {
+    background: #0056b3;
     transform: scale(1.05);
 }
 
