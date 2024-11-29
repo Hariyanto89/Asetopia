@@ -7,7 +7,7 @@
 
 /* Umum */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
     color: #333;
     display: flex;
@@ -19,7 +19,8 @@ body {
 
 /* Header */
 header {
-    background: #4CAF50;
+    font-family: 'Orbitron', sans-serif;
+    background: #000080;
     color: #fff;
     width: 100%;
     padding: 15px 0;
@@ -31,12 +32,14 @@ header {
 }
 
 header h1 {
-    font-size: 2rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 header nav ul {
+    font-family: 'Orbitron', sans-serif;
     list-style: none;
     display: flex;
     justify-content: center;
@@ -46,6 +49,7 @@ header nav ul {
 }
 
 header nav ul li a {
+    font-family: 'Orbitron', sans-serif;
     text-decoration: none;
     color: #fff;
     padding: 8px 15px;
@@ -55,7 +59,7 @@ header nav ul li a {
 }
 
 header nav ul li a:hover {
-    background: #45a049;
+    background: #191970;
 }
 
 /* Main Content */
@@ -79,11 +83,38 @@ main {
     animation: fadeIn 0.5s ease-in-out;
 }
 
+#popupMessage {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 2px solid #4CAF50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+#popupMessage h3 {
+    color: #4CAF50;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#popupMessage p {
+    font-size: 1rem;
+    color: #333;
+}
+
 /* Status Pemain */
 #playerStatusPopup {
     bottom: 100px;
     right: 20px;
     width: 300px;
+    position: fixed;
 }
 
 #playerStatusPopup h3 {
@@ -108,14 +139,15 @@ main {
 }
 
 #kepahiangMap {
-    height: 50vh; /* Tinggi fleksibel */
+    height: 50vh;
     width: 100%;
     border-radius: 10px;
 }
 
 /* Tugas */
 #tasks {
-    background: #fff;
+    font-family: "Courier New", monospace;
+    background: #B0E0E6;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 20px;
@@ -123,11 +155,13 @@ main {
 }
 
 #tasks h2 {
-    color: #4CAF50;
+    color: #800080;
     text-align: center;
 }
 
+/* Pertanyaan Aktif */
 #currentTask {
+    font-family: "Courier New", monospace;
     background: #f9f9f9;
     border: 2px solid #ddd;
     border-radius: 8px;
@@ -135,20 +169,65 @@ main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
-#currentTask label {
-    font-size: 1rem;
-    cursor: pointer;
+/* Opsi Jawaban */
+#taskOptions {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
 }
 
-#currentTask button {
+#taskOptions input[type="radio"] {
+    accent-color: #007BFF;
+}
+
+#taskOptions label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Tombol Kirim */
+#submitAnswerButton {
     align-self: center;
-    background: #4CAF50;
+    background: #FF4500;
+    color: #fff; /* Warna putih */
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+#submitAnswerButton:hover {
+    background: #FF4500;
+    transform: scale(1.05);
+}
+
+/* Umpan Balik */
+#taskFeedback {
+    background: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#taskFeedbackText {
+    font-size: 16px;
+    color: #555;
+}
+
+#nextQuestionButton {
+    align-self: center;
+    background: #007BFF;
     color: #fff;
     font-size: 1rem;
     padding: 10px 20px;
@@ -158,41 +237,9 @@ main {
     transition: transform 0.2s ease, background 0.3s ease;
 }
 
-#currentTask button:hover {
-    background: #45a049;
+#nextQuestionButton:hover {
+    background: #0056b3;
     transform: scale(1.05);
-}
-
-/* Leaderboard */
-#leaderboard {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-}
-
-#leaderboard table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#leaderboard th, #leaderboard td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-#leaderboard th {
-    background: #4CAF50;
-    color: #fff;
-}
-
-#leaderboard tr:nth-child(even) {
-    background: #f9f9f9;
-}
-
-#leaderboard tr:hover {
-    background: #e6f7ff;
 }
 
 /* Badge */
@@ -202,10 +249,19 @@ main {
     margin: 5px;
 }
 
+#badgeList .badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+}
+
 /* Footer */
 footer {
+    font-family: 'Orbitron', sans-serif;
     text-align: center;
-    background: #4CAF50;
+    background: #191970;
     color: #fff;
     padding: 15px 0;
     width: 100%;
@@ -221,5 +277,18 @@ footer {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+h1 {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+    }
+    50% {
+        text-shadow: 0 0 20px #FFFFFF, 0 0 30px #FFFFFF;
     }
 }
