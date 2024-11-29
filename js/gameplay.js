@@ -503,9 +503,18 @@ function showPopup(title, message) {
     popup.querySelector("p").textContent = message;
     popup.classList.remove("hidden");
 
-    setTimeout(() => {
+    // Tambahkan event listener untuk tombol tutup
+    const closeButton = document.getElementById("closePopupButton");
+    closeButton.onclick = () => {
         popup.classList.add("hidden");
-    }, 2000); // Tampilkan selama 2 detik
+    };
+
+    // Tambahkan timeout untuk otomatis menghilang
+    setTimeout(() => {
+        if (!popup.classList.contains("hidden")) {
+            popup.classList.add("hidden");
+        }
+    }, 2000);
 }
 
 // Fungsi setup tombol
