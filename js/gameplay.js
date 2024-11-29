@@ -9,12 +9,21 @@ document.addEventListener("DOMContentLoaded", function () {
     displayBadges(currentUser);
 
     // Simpan data awal ke localStorage
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+    saveDataToLocalStorage("currentUser", currentUser);
+    saveDataToLocalStorage("kecamatanTasks", kecamatanData);
 
     // Tombol event listener
     setupEventListeners();
 });
+
+// Fungsi menyimpan data ke localStorage
+function saveDataToLocalStorage(key, data) {
+    if (key && data) {
+        localStorage.setItem(key, JSON.stringify(data));
+    } else {
+        console.error("Gagal menyimpan data. Key atau data tidak valid.");
+    }
+}
 
 // Fungsi inisialisasi pengguna jika data tidak ditemukan
 function initializeUser() {
@@ -326,9 +335,9 @@ function initializeKecamatanData() {
                 options: ["Menghapus semua data aset", "Melakukan validasi dan konsolidasi data", "Mengabaikan aset ganda"],
                 answer: "Melakukan validasi dan konsolidasi data",
                 xp: 25,
-                token: 20
-            },
-],
+                token: 20,
+                },
+            ],
         },
     ];
 }
@@ -379,7 +388,7 @@ function displayBadges(user) {
         const badgeItem = document.createElement("div");
         badgeItem.className = "badge-item";
         badgeItem.innerHTML = `
-            <img src="${badge.image}" alt="${badge.name}">
+            <img src="${badge.image}" alt="${badge.name}" title="${badge.description}">
             <p>${badge.name}</p>
         `;
         badgeContainer.appendChild(badgeItem);
@@ -398,8 +407,8 @@ function startTask(kecamatan) {
         currentUser.badges.push(kecamatan.badge);
 
         // Simpan perubahan
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
-        localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+        saveDataToLocalStorage("currentUser", currentUser);
+        saveDataToLocalStorage("kecamatanTasks", kecamatanData);
         displayBadges(currentUser);
         return;
     }
@@ -411,13 +420,17 @@ function startTask(kecamatan) {
 function displayTask(kecamatan, taskIndex) {
     const task = kecamatan.tasks[taskIndex];
     const taskContainer = document.getElementById("taskContainer");
+
     taskContainer.innerHTML = `
         <h3>${task.question}</h3>
-        <div>
+        <div id="taskOptions">
             ${task.options
                 .map(
-                    (option) =>
-                        `<label><input type="radio" name="taskOption" value="${option}"> ${option}</label>`
+                    (option, index) =>
+                        `<label for="option${index}">
+                            <input type="radio" id="option${index}" name="taskOption" value="${option}">
+                            ${option}
+                        </label>`
                 )
                 .join("")}
         </div>
@@ -449,14 +462,20 @@ function checkAnswer(kecamatan, taskIndex, task) {
         alert("Jawaban salah!");
         currentUser.lives--;
         if (currentUser.lives <= 0) {
-            alert("Nyawa habis! Tunggu 24 jam atau gunakan token untuk menambah nyawa.");
-            return;
+            const useToken = confirm("Nyawa habis! Gunakan 10 token untuk menambah nyawa?");
+            if (useToken && currentUser.token >= 10) {
+                currentUser.token -= 10;
+                currentUser.lives = 5; // Isi ulang nyawa
+            } else {
+                alert("Tunggu 24 jam atau kumpulkan token lebih banyak!");
+                return;
+            }
         }
     }
 
     // Simpan perubahan
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+    saveDataToLocalStorage("currentUser", currentUser);
+    saveDataToLocalStorage("kecamatanTasks", kecamatanData);
     displayPlayerData(currentUser);
 
     startTask(kecamatan);
