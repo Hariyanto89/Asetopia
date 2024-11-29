@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
     setupEventListeners();
 });
 
+document.querySelectorAll(".marker").forEach((marker) => {
+    marker.addEventListener("click", () => {
+        alert("Anda mengklik marker!");
+    });
+});
+
 // Fungsi inisialisasi pengguna jika data tidak ditemukan
 function initializeUser() {
     return {
