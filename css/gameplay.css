@@ -195,8 +195,8 @@ main {
 /* Tombol Kirim */
 #submitAnswerButton {
     align-self: center;
-    background: #4CAF50;
-    color: #fff;
+    background: #006400; /* Warna hijau tua */
+    color: #fff; /* Warna putih */
     font-size: 1rem;
     padding: 10px 20px;
     border: none;
@@ -206,7 +206,7 @@ main {
 }
 
 #submitAnswerButton:hover {
-    background: #45a049;
+    background: #004d00; /* Hijau yang lebih gelap saat hover */
     transform: scale(1.05);
 }
 
