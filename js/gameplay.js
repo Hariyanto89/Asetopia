@@ -337,9 +337,9 @@ function initializeKecamatanData() {
 function initializeMap(kecamatanData) {
     const map = L.map("kepahiangMap").setView([-3.6403, 102.6159], 12);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "© OpenStreetMap contributors",
-    }).addTo(map);
+L.tileLayer("https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors",
+}).addTo(map);
 
     kecamatanData.forEach((kecamatan) => {
         L.marker([kecamatan.lat, kecamatan.lng])
