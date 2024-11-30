@@ -149,23 +149,17 @@ main {
 /* Marker */
 .marker {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background-color: red;
     border-radius: 50%;
-    border: 2px solid white;
     cursor: pointer;
-    transform: translate(-50%, -50%);
+    transition: background-color 0.3s;
 }
 
-.marker:hover {
-    background-color: #ff4500;
-    transform: scale(1.2);
-}
-
-/* Marker selesai */
 .marker.completed {
-    background-color: green; /* Warna hijau untuk marker yang sudah selesai */
+    background-color: green; /* Warna marker selesai */
+    cursor: not-allowed;
 }
 
 /* Tugas */
