@@ -1,16 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Ambil data pengguna dari localStorage atau inisialisasi data default
-    const currentUser = JSON.parse(localStorage.getItem("currentUser")) || initializeUser();
-    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks")) || initializeKecamatanData();
+    console.log("DOM content loaded. Memulai inisialisasi...");
 
-    // Inisialisasi elemen utama
-    initializeMarkers(kecamatanData);
-    displayPlayerData(currentUser);
+    // Ambil data pengguna dari localStorage atau buat data default
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
 
-    // Simpan data awal ke localStorage
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+    // Validasi atau inisialisasi data jika diperlukan
+    if (!currentUser) {
+        console.warn("Data pengguna tidak ditemukan. Membuat data baru...");
+        currentUser = initializeUser();
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    }
+
+    if (!kecamatanData || !Array.isArray(kecamatanData) || kecamatanData.length === 0) {
+        console.warn("Data kecamatan tidak ditemukan atau tidak valid. Membuat data baru...");
+        kecamatanData = initializeKecamatanData();
+        localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+    }
+
+    // Inisialisasi elemen utama (marker dan data pengguna)
+    try {
+        initializeMarkers(kecamatanData);
+        displayPlayerData(currentUser);
+        console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
+    } catch (error) {
+        console.error("Terjadi kesalahan selama inisialisasi:", error);
+    }
 });
+
 
 // Fungsi inisialisasi pengguna jika data tidak ditemukan
 function initializeUser() {
