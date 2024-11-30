@@ -130,14 +130,17 @@ main {
 }
 
 /* Peta Statis */
+/* Peta Statis */
 .map-container {
     position: relative; /* Untuk mengatur posisi marker di atas peta */
-    width: 800px; /* Sesuaikan ukuran peta */
-    height: 600px; /* Sesuaikan ukuran peta */
+    width: 100%; /* Membuat peta responsif terhadap lebar layar */
+    max-width: 800px; /* Batas maksimal lebar peta */
+    aspect-ratio: 16 / 9; /* Menjaga rasio gambar tetap landscape */
     margin: 20px auto; /* Tengah secara horizontal */
     border: 2px solid #ddd;
     background-image: url('assets/map/Merigi.png'); /* Gambar peta statis */
-    background-size: cover;
+    background-size: contain; /* Gambar sepenuhnya terlihat tanpa terpotong */
+    background-repeat: no-repeat; /* Hindari pengulangan gambar */
     background-position: center;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -374,3 +377,16 @@ h1 {
         text-shadow: 0 0 20px #FFFFFF, 0 0 30px #FFFFFF;
     }
 }
+
+@media (max-width: 768px) {
+    .map-container {
+        max-width: 100%; /* Gunakan lebar penuh untuk layar kecil */
+        height: auto; /* Tinggi disesuaikan dengan lebar */
+    }
+
+    .marker {
+        width: 15px; /* Perkecil marker */
+        height: 15px;
+    }
+}
+
