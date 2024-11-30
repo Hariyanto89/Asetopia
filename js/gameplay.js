@@ -420,6 +420,36 @@ function startTask(kecamatan) {
         <button id="submitTaskButton">Kirim Jawaban</button>
     `;
 
+    function displayTask(task) {
+    const taskContainer = document.getElementById("taskContainer");
+
+    if (!taskContainer) {
+        console.error("Elemen taskContainer tidak ditemukan.");
+        return;
+    }
+
+    // Update HTML dengan soal dan opsi jawaban
+    taskContainer.innerHTML = `
+        <h3>${task.question}</h3>
+        <div>
+            ${task.options
+                .map(option => 
+                    `<label>
+                        <input type="radio" name="taskOption" value="${option}"> ${option}
+                    </label>`
+                )
+                .join("")}
+        </div>
+        <button id="submitTaskButton">Kirim Jawaban</button>
+    `;
+
+    console.log(`Tugas ditampilkan: ${task.question}`);
+
+    // Tambahkan event listener ke tombol submit
+    const submitButton = document.getElementById("submitTaskButton");
+    submitButton.addEventListener("click", () => checkAnswer(task));
+}
+
     // Tambahkan event listener untuk tombol submit
     const submitButton = document.getElementById("submitTaskButton");
     if (submitButton) {
