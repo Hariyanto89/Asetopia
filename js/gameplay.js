@@ -336,12 +336,13 @@ function initializeMarkers(kecamatanData) {
         marker.classList.add("marker");
 
         // Ubah posisi marker berdasarkan peta
-        marker.style.top = `${30 + index * 8}%`; // Perbaiki nilai sesuai peta
+        marker.style.top = `${30 + index * 8}%`; // Atur nilai sesuai peta
         marker.style.left = `${40 + index * 8}%`;
 
         marker.dataset.kecamatan = kecamatan.kecamatan;
 
         marker.addEventListener("click", function () {
+            console.log(`Marker diklik: ${kecamatan.kecamatan}`);
             if (kecamatan.unlocked) {
                 startTask(kecamatan);
             } else {
@@ -355,7 +356,12 @@ function initializeMarkers(kecamatanData) {
 
 // Fungsi menampilkan data pemain
 function displayPlayerData(user) {
-    document.getElementById("taskMessage").textContent = `Selamat datang, ${user.username}! Pilih lokasi di peta untuk memulai tugas.`;
+    const taskMessageElement = document.getElementById("taskMessage");
+    if (taskMessageElement) {
+        taskMessageElement.textContent = `Selamat datang, ${user.username}! Pilih lokasi di peta untuk memulai tugas.`;
+    } else {
+        console.error("Elemen taskMessage tidak ditemukan.");
+    }
 }
 
 // Fungsi memulai tugas
@@ -389,10 +395,13 @@ function startTask(kecamatan) {
 
     // Hapus event lama sebelum menambahkan baru
     const submitButton = document.getElementById("submitTaskButton");
-    submitButton.removeEventListener("click", handleTaskSubmit); // Pastikan tidak ada duplikasi
-    submitButton.addEventListener("click", () => {
-        checkAnswer(kecamatan, currentTaskIndex, task);
-    });
+    if (submitButton) {
+        submitButton.replaceWith(submitButton.cloneNode(true)); // Hapus semua event listener sebelumnya
+        const newSubmitButton = document.getElementById("submitTaskButton");
+        newSubmitButton.addEventListener("click", () => {
+            checkAnswer(kecamatan, currentTaskIndex, task);
+        });
+    }
 }
 
 // Fungsi memeriksa jawaban
@@ -428,11 +437,18 @@ function checkAnswer(kecamatan, taskIndex, task) {
     startTask(kecamatan);
 }
 
-marker.addEventListener("click", function () {
-    console.log(`Marker diklik: ${kecamatan.kecamatan}`);
-    if (kecamatan.unlocked) {
-        startTask(kecamatan);
+// Fungsi pembaruan status pemain
+function updatePlayerStatus(user) {
+    const statusElement = document.getElementById("playerStatus");
+    if (statusElement) {
+        statusElement.innerHTML = `
+            <p>Nama: ${user.username}</p>
+            <p>Karakter: ${user.character}</p>
+            <p>XP: ${user.xp}</p>
+            <p>Token: ${user.token}</p>
+            <p>Nyawa: ${user.lives}</p>
+        `;
     } else {
-        alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
+        console.error("Elemen playerStatus tidak ditemukan.");
     }
-});
+}
