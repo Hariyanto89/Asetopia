@@ -428,7 +428,7 @@ function displayTask(task) {
         return;
     }
 
-    // Perbarui isi container dengan soal dan pilihan jawaban
+    // Tampilkan soal dan opsi jawaban
     taskContainer.innerHTML = `
         <h3>${task.question}</h3>
         <div>
@@ -443,9 +443,7 @@ function displayTask(task) {
         <button id="submitTaskButton">Kirim Jawaban</button>
     `;
 
-    console.log(`Tugas ditampilkan: ${task.question}`);
-
-    // Tambahkan event listener ke tombol submit
+    // Tambahkan event listener ke tombol "Kirim Jawaban"
     const submitButton = document.getElementById("submitTaskButton");
     submitButton.addEventListener("click", () => checkAnswer(task));
 }
