@@ -1,26 +1,11 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM content loaded. Memulai inisialisasi...");
-
-    // Modal setup
-    const modal = document.getElementById("taskModal");
-    const closeModal = document.querySelector(".close");
-
-    // Tutup modal ketika tombol "X" diklik
-    closeModal.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    // Tutup modal ketika area luar modal diklik
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
 
     // Ambil data pengguna dari localStorage atau buat data default
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     let kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
 
+    // Validasi atau inisialisasi data jika diperlukan
     if (!currentUser) {
         console.warn("Data pengguna tidak ditemukan. Membuat data baru...");
         currentUser = initializeUser();
@@ -32,31 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         kecamatanData = initializeKecamatanData();
         localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
     }
-
-    // Inisialisasi marker
-    initializeMarkers(kecamatanData);
-
-    // Event listener untuk marker
-    const markers = document.querySelectorAll(".marker");
-    markers.forEach(marker => {
-        marker.addEventListener("click", function () {
-            const taskId = this.dataset.taskId;
-            const task = kecamatanData
-                .flatMap(kecamatan => kecamatan.tasks)
-                .find(task => task.id === parseInt(taskId));
-            
-            if (task) {
-                displayTask(task); // Buka modal dengan tugas
-            } else {
-                console.error(`Tugas dengan ID ${taskId} tidak ditemukan.`);
-            }
-        });
-    });
-
-    displayPlayerData(currentUser); // Tampilkan data pemain
-    console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
-});
-
 
     // Inisialisasi elemen utama (marker dan data pengguna)
     try {
@@ -459,39 +419,7 @@ function displayPlayerData(user) {
 // Fungsi Menampilkan Tugas
 // ========================
 
-function displayTaskInModal(task) {
-    const modal = document.getElementById("taskModal");
-    const modalTaskContainer = document.getElementById("modalTaskContainer");
-
-    if (!modal || !modalTaskContainer) {
-        console.error("Elemen modal atau kontainer tugas tidak ditemukan.");
-        return;
-    }
-
-    // Tampilkan modal
-    modal.style.display = "block";
-
-    // Perbarui konten modal dengan soal dan pilihan jawaban
-    modalTaskContainer.innerHTML = `
-        <h3>${task.question}</h3>
-        <div>
-            ${task.options
-                .map(option => 
-                    `<label>
-                        <input type="radio" name="taskOption" value="${option}"> ${option}
-                    </label>`
-                )
-                .join("")}
-        </div>
-        <button id="submitTaskButton">Kirim Jawaban</button>
-    `;
-
-    // Tambahkan event listener ke tombol "Kirim Jawaban"
-    const submitButton = document.getElementById("submitTaskButton");
-    submitButton.addEventListener("click", () => checkAnswer(task));
-}
-
-function displayTaskInContainer(task) {
+function displayTask(task) {
     const taskContainer = document.getElementById("taskContainer");
 
     if (!taskContainer) {
@@ -499,7 +427,7 @@ function displayTaskInContainer(task) {
         return;
     }
 
-    // Perbarui konten kontainer dengan soal dan pilihan jawaban
+    // Tampilkan soal dan opsi jawaban
     taskContainer.innerHTML = `
         <h3>${task.question}</h3>
         <div>
@@ -524,12 +452,16 @@ function displayTaskInContainer(task) {
 // ========================
 function checkAnswer(task) {
     const selectedOption = document.querySelector("input[name='taskOption']:checked");
-    const marker = document.querySelector(`.marker[data-task-id="${task.id}"]`);
-    const modal = document.getElementById("taskModal");
 
     // Periksa apakah pengguna telah memilih jawaban
     if (!selectedOption) {
         alert("Pilih jawaban terlebih dahulu.");
+        return;
+    }
+
+    const taskContainer = document.getElementById("taskContainer");
+    if (!taskContainer) {
+        console.error("Elemen taskContainer tidak ditemukan.");
         return;
     }
 
@@ -538,39 +470,24 @@ function checkAnswer(task) {
         alert("Jawaban benar!");
         console.log(`Jawaban benar: ${task.answer}`);
 
-        // Ubah tampilan marker sebagai selesai
-        if (marker) {
-            marker.style.backgroundColor = "green"; // Warna hijau untuk menandai selesai
-            marker.classList.add("completed");
-        }
+        // Perbarui tampilan setelah jawaban benar
+        taskContainer.innerHTML = `
+            <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
+            <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
+        `;
 
-        // Tutup modal (jika modal aktif)
-        if (modal) {
-            modal.style.display = "none";
-        }
+        // Tambahkan event untuk tombol "Lanjutkan ke tugas berikutnya"
+        const nextTaskButton = document.getElementById("nextTaskButton");
+        nextTaskButton.addEventListener("click", () => {
+            taskContainer.innerHTML = `<p>Pilih tugas baru di peta!</p>`;
+        });
 
-        // Perbarui data kecamatan di localStorage
+        // Tandai tugas sebagai selesai dan perbarui kecamatanData
         const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-        const kecamatan = kecamatanData.find(kec => kec.tasks.some(t => t.id === task.id));
+        const kecamatan = kecamatanData.find(kec => kec.tasks.includes(task));
         if (kecamatan) {
             kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id); // Hapus tugas dari daftar
             localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
-        }
-
-        // Perbarui UI dengan pesan sukses
-        const taskContainer = document.getElementById("taskContainer");
-        if (taskContainer) {
-            taskContainer.innerHTML = `
-                <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
-                <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
-            `;
-
-            const nextTaskButton = document.getElementById("nextTaskButton");
-            if (nextTaskButton) {
-                nextTaskButton.addEventListener("click", () => {
-                    taskContainer.innerHTML = `<p>Pilih tugas baru di peta!</p>`;
-                });
-            }
         }
     } 
     // Jika jawaban salah
@@ -578,35 +495,14 @@ function checkAnswer(task) {
         alert("Jawaban salah!");
         console.log(`Jawaban salah: ${selectedOption.value}`);
 
-        // Perbarui UI untuk menampilkan pesan kesalahan
-        const taskContainer = document.getElementById("taskContainer");
-        if (taskContainer) {
-            taskContainer.innerHTML = `
-                <p>Jawaban salah! Silakan coba lagi.</p>
-                <button id="retryTaskButton">Coba Lagi</button>
-            `;
+        taskContainer.innerHTML = `
+            <p>Jawaban salah! Silakan coba lagi.</p>
+            <button id="retryTaskButton">Coba Lagi</button>
+        `;
 
-            const retryTaskButton = document.getElementById("retryTaskButton");
-            if (retryTaskButton) {
-                retryTaskButton.addEventListener("click", () => displayTask(task));
-            }
-        }
-
-        // Jika modal aktif, tetap tampilkan modal
-        if (modal) {
-            const modalTaskContainer = document.getElementById("modalTaskContainer");
-            if (modalTaskContainer) {
-                modalTaskContainer.innerHTML = `
-                    <p>Jawaban salah! Silakan coba lagi.</p>
-                    <button id="retryModalTaskButton">Coba Lagi</button>
-                `;
-
-                const retryModalTaskButton = document.getElementById("retryModalTaskButton");
-                if (retryModalTaskButton) {
-                    retryModalTaskButton.addEventListener("click", () => displayTask(task));
-                }
-            }
-        }
+        // Tambahkan event untuk tombol "Coba Lagi"
+        const retryTaskButton = document.getElementById("retryTaskButton");
+        retryTaskButton.addEventListener("click", () => displayTask(task));
     }
 }
 
