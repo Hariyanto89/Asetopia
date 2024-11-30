@@ -359,15 +359,18 @@ function initializeMarkers(kecamatanData) {
         marker.dataset.kecamatan = kecamatan.kecamatan;
 
         marker.addEventListener("click", function () {
-            console.log(`Marker diklik. Task ID: ${this.dataset.taskId}`);
-            const taskId = parseInt(this.dataset.taskId, 10);
-            const kecamatan = kecamatanData.find((item) => item.tasks.some((task) => task.id === taskId));
-            if (kecamatan) {
-                startTask(kecamatan);
-            } else {
-                console.error(`Kecamatan atau tugas tidak ditemukan untuk Task ID: ${taskId}`);
-            }
-        });
+                console.log(`Marker diklik. Task ID: ${this.dataset.taskId}`);
+                const taskId = parseInt(this.dataset.taskId, 10);
+                const kecamatan = kecamatanData.find((item) => 
+                    item.tasks.some((task) => task.id === taskId)
+                );
+            
+                if (kecamatan) {
+                    startTask(kecamatan);
+                } else {
+                    console.error(`Kecamatan atau tugas tidak ditemukan untuk Task ID: ${taskId}`);
+                }
+            });
 
         mapContainer.appendChild(marker);
     });
@@ -391,14 +394,17 @@ function startTask(kecamatan) {
         return;
     }
 
-    const currentTaskIndex = kecamatan.lastTaskIndex;
-    if (currentTaskIndex >= kecamatan.tasks.length) {
+    const taskIndex = kecamatan.tasks.findIndex(
+        (task) => task.id === kecamatan.lastTaskIndex + 1
+    );
+
+    if (taskIndex === -1 || taskIndex >= kecamatan.tasks.length) {
         alert(`Selamat! Semua tugas di kecamatan ${kecamatan.kecamatan} telah selesai.`);
         kecamatan.completed = true;
         return;
     }
 
-    const task = kecamatan.tasks[currentTaskIndex];
+    const task = kecamatan.tasks[taskIndex];
     taskContainer.innerHTML = `
         <h3>${task.question}</h3>
         <div>
@@ -411,6 +417,17 @@ function startTask(kecamatan) {
         </div>
         <button id="submitTaskButton">Kirim Jawaban</button>
     `;
+
+    // Tambahkan event listener untuk tombol submit
+    const submitButton = document.getElementById("submitTaskButton");
+    if (submitButton) {
+        submitButton.replaceWith(submitButton.cloneNode(true)); // Hapus semua listener sebelumnya
+        const newSubmitButton = document.getElementById("submitTaskButton");
+        newSubmitButton.addEventListener("click", () => {
+            checkAnswer(kecamatan, taskIndex, task);
+        });
+    }
+}
 
     // Hapus event lama sebelum menambahkan baru
     const submitButton = document.getElementById("submitTaskButton");
@@ -470,4 +487,21 @@ function updatePlayerStatus(user) {
     } else {
         console.error("Elemen playerStatus tidak ditemukan.");
     }
+}
+
+const taskContainer = document.getElementById("taskContainer");
+if (!taskContainer) {
+    console.error("Elemen taskContainer tidak ditemukan.");
+    return;
+}
+
+try {
+    currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+} catch (error) {
+    console.error("Data di localStorage tidak valid. Inisialisasi ulang data...");
+    currentUser = initializeUser();
+    kecamatanData = initializeKecamatanData();
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
 }
