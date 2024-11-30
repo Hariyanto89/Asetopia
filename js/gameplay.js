@@ -1,11 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM content loaded. Memulai inisialisasi...");
+
+    // Modal setup
+    const modal = document.getElementById("taskModal");
+    const closeModal = document.querySelector(".close");
+
+    // Tutup modal ketika tombol "X" diklik
+    closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    // Tutup modal ketika area luar modal diklik
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
 
     // Ambil data pengguna dari localStorage atau buat data default
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     let kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
 
-    // Validasi atau inisialisasi data jika diperlukan
     if (!currentUser) {
         console.warn("Data pengguna tidak ditemukan. Membuat data baru...");
         currentUser = initializeUser();
@@ -17,6 +32,31 @@ document.addEventListener("DOMContentLoaded", function () {
         kecamatanData = initializeKecamatanData();
         localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
     }
+
+    // Inisialisasi marker
+    initializeMarkers(kecamatanData);
+
+    // Event listener untuk marker
+    const markers = document.querySelectorAll(".marker");
+    markers.forEach(marker => {
+        marker.addEventListener("click", function () {
+            const taskId = this.dataset.taskId;
+            const task = kecamatanData
+                .flatMap(kecamatan => kecamatan.tasks)
+                .find(task => task.id === parseInt(taskId));
+            
+            if (task) {
+                displayTask(task); // Buka modal dengan tugas
+            } else {
+                console.error(`Tugas dengan ID ${taskId} tidak ditemukan.`);
+            }
+        });
+    });
+
+    displayPlayerData(currentUser); // Tampilkan data pemain
+    console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
+});
+
 
     // Inisialisasi elemen utama (marker dan data pengguna)
     try {
