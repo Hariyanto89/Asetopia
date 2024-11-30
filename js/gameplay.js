@@ -342,11 +342,13 @@ function initializeMarkers(kecamatanData) {
         marker.dataset.kecamatan = kecamatan.kecamatan;
 
         marker.addEventListener("click", function () {
-            console.log(`Marker diklik: ${kecamatan.kecamatan}`);
-            if (kecamatan.unlocked) {
+            console.log(`Marker diklik. Task ID: ${this.dataset.taskId}`);
+            const taskId = parseInt(this.dataset.taskId, 10);
+            const kecamatan = kecamatanData.find((item) => item.tasks.some((task) => task.id === taskId));
+            if (kecamatan) {
                 startTask(kecamatan);
             } else {
-                alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
+                console.error(`Kecamatan atau tugas tidak ditemukan untuk Task ID: ${taskId}`);
             }
         });
 
