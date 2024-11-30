@@ -524,16 +524,12 @@ function displayTaskInContainer(task) {
 // ========================
 function checkAnswer(task) {
     const selectedOption = document.querySelector("input[name='taskOption']:checked");
+    const marker = document.querySelector(`.marker[data-task-id="${task.id}"]`);
+    const modal = document.getElementById("taskModal");
 
     // Periksa apakah pengguna telah memilih jawaban
     if (!selectedOption) {
         alert("Pilih jawaban terlebih dahulu.");
-        return;
-    }
-
-    const taskContainer = document.getElementById("taskContainer");
-    if (!taskContainer) {
-        console.error("Elemen taskContainer tidak ditemukan.");
         return;
     }
 
@@ -542,24 +538,39 @@ function checkAnswer(task) {
         alert("Jawaban benar!");
         console.log(`Jawaban benar: ${task.answer}`);
 
-        // Perbarui tampilan setelah jawaban benar
-        taskContainer.innerHTML = `
-            <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
-            <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
-        `;
+        // Ubah tampilan marker sebagai selesai
+        if (marker) {
+            marker.style.backgroundColor = "green"; // Warna hijau untuk menandai selesai
+            marker.classList.add("completed");
+        }
 
-        // Tambahkan event untuk tombol "Lanjutkan ke tugas berikutnya"
-        const nextTaskButton = document.getElementById("nextTaskButton");
-        nextTaskButton.addEventListener("click", () => {
-            taskContainer.innerHTML = `<p>Pilih tugas baru di peta!</p>`;
-        });
+        // Tutup modal (jika modal aktif)
+        if (modal) {
+            modal.style.display = "none";
+        }
 
-        // Tandai tugas sebagai selesai dan perbarui kecamatanData
+        // Perbarui data kecamatan di localStorage
         const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-        const kecamatan = kecamatanData.find(kec => kec.tasks.includes(task));
+        const kecamatan = kecamatanData.find(kec => kec.tasks.some(t => t.id === task.id));
         if (kecamatan) {
             kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id); // Hapus tugas dari daftar
             localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
+        }
+
+        // Perbarui UI dengan pesan sukses
+        const taskContainer = document.getElementById("taskContainer");
+        if (taskContainer) {
+            taskContainer.innerHTML = `
+                <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
+                <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
+            `;
+
+            const nextTaskButton = document.getElementById("nextTaskButton");
+            if (nextTaskButton) {
+                nextTaskButton.addEventListener("click", () => {
+                    taskContainer.innerHTML = `<p>Pilih tugas baru di peta!</p>`;
+                });
+            }
         }
     } 
     // Jika jawaban salah
@@ -567,14 +578,35 @@ function checkAnswer(task) {
         alert("Jawaban salah!");
         console.log(`Jawaban salah: ${selectedOption.value}`);
 
-        taskContainer.innerHTML = `
-            <p>Jawaban salah! Silakan coba lagi.</p>
-            <button id="retryTaskButton">Coba Lagi</button>
-        `;
+        // Perbarui UI untuk menampilkan pesan kesalahan
+        const taskContainer = document.getElementById("taskContainer");
+        if (taskContainer) {
+            taskContainer.innerHTML = `
+                <p>Jawaban salah! Silakan coba lagi.</p>
+                <button id="retryTaskButton">Coba Lagi</button>
+            `;
 
-        // Tambahkan event untuk tombol "Coba Lagi"
-        const retryTaskButton = document.getElementById("retryTaskButton");
-        retryTaskButton.addEventListener("click", () => displayTask(task));
+            const retryTaskButton = document.getElementById("retryTaskButton");
+            if (retryTaskButton) {
+                retryTaskButton.addEventListener("click", () => displayTask(task));
+            }
+        }
+
+        // Jika modal aktif, tetap tampilkan modal
+        if (modal) {
+            const modalTaskContainer = document.getElementById("modalTaskContainer");
+            if (modalTaskContainer) {
+                modalTaskContainer.innerHTML = `
+                    <p>Jawaban salah! Silakan coba lagi.</p>
+                    <button id="retryModalTaskButton">Coba Lagi</button>
+                `;
+
+                const retryModalTaskButton = document.getElementById("retryModalTaskButton");
+                if (retryModalTaskButton) {
+                    retryModalTaskButton.addEventListener("click", () => displayTask(task));
+                }
+            }
+        }
     }
 }
 
