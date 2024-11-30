@@ -462,54 +462,52 @@ function checkAnswer(task) {
         return;
     }
 
-    // Ambil elemen container untuk tugas
     const taskContainer = document.getElementById("taskContainer");
     if (!taskContainer) {
         console.error("Elemen taskContainer tidak ditemukan.");
         return;
     }
 
-    // Logika untuk jawaban benar
+    // Jika jawaban benar
     if (selectedOption.value === task.answer) {
         alert("Jawaban benar!");
         console.log(`Jawaban benar: ${task.answer}`);
 
-        // Setelah jawaban benar, bersihkan taskContainer
+        // Perbarui tampilan setelah jawaban benar
         taskContainer.innerHTML = `
             <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
             <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
         `;
 
-        // Tambahkan tombol untuk tugas berikutnya
+        // Tambahkan event untuk tombol "Lanjutkan ke tugas berikutnya"
         const nextTaskButton = document.getElementById("nextTaskButton");
-        if (nextTaskButton) {
-            nextTaskButton.addEventListener("click", () => {
-                taskContainer.innerHTML = `<p>Silakan pilih tugas baru di peta!</p>`;
-            });
-        }
+        nextTaskButton.addEventListener("click", () => {
+            taskContainer.innerHTML = `<p>Pilih tugas baru di peta!</p>`;
+        });
 
-        // Tambahkan logika untuk meningkatkan XP, token, atau menyimpan kemajuan
-        // currentUser.xp += task.xp;
-        // currentUser.token += task.token;
+        // Tandai tugas sebagai selesai dan perbarui kecamatanData
+        const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+        const kecamatan = kecamatanData.find(kec => kec.tasks.includes(task));
+        if (kecamatan) {
+            kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id); // Hapus tugas dari daftar
+            localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
+        }
     } 
-    // Logika untuk jawaban salah
+    // Jika jawaban salah
     else {
         alert("Jawaban salah!");
         console.log(`Jawaban salah: ${selectedOption.value}`);
 
-        // Tampilkan pesan jawaban salah
         taskContainer.innerHTML = `
-            <p>Jawaban salah! Silakan coba tugas lainnya.</p>
+            <p>Jawaban salah! Silakan coba lagi.</p>
             <button id="retryTaskButton">Coba Lagi</button>
         `;
 
-        // Tambahkan tombol untuk mencoba lagi
+        // Tambahkan event untuk tombol "Coba Lagi"
         const retryTaskButton = document.getElementById("retryTaskButton");
-        if (retryTaskButton) {
-            retryTaskButton.addEventListener("click", () => {
-                displayTask(task); // Tampilkan ulang tugas
-            });
-        }
+        retryTaskButton.addEventListener("click", () => displayTask(task));
+    }
+}
 
 // ========================
 // Fungsi Pembaruan Status Pemain
