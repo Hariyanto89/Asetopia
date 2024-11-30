@@ -332,15 +332,15 @@ function initializeMarkers(kecamatanData) {
     const mapContainer = document.querySelector(".map-container");
 
     kecamatanData.forEach((kecamatan, index) => {
-        // Buat marker
         const marker = document.createElement("div");
         marker.classList.add("marker");
-        marker.style.top = `${30 + index * 10}%`; // Contoh posisi vertikal (ubah sesuai kebutuhan)
-        marker.style.left = `${40 + index * 10}%`; // Contoh posisi horizontal (ubah sesuai kebutuhan)
-        marker.dataset.kecamatan = kecamatan.kecamatan;
-        marker.dataset.taskIndex = kecamatan.lastTaskIndex;
 
-        // Tambahkan event klik pada marker
+        // Ubah posisi marker berdasarkan peta
+        marker.style.top = `${30 + index * 8}%`; // Perbaiki nilai sesuai peta
+        marker.style.left = `${40 + index * 8}%`;
+
+        marker.dataset.kecamatan = kecamatan.kecamatan;
+
         marker.addEventListener("click", function () {
             if (kecamatan.unlocked) {
                 startTask(kecamatan);
@@ -349,7 +349,6 @@ function initializeMarkers(kecamatanData) {
             }
         });
 
-        // Tambahkan marker ke map container
         mapContainer.appendChild(marker);
     });
 }
@@ -361,9 +360,13 @@ function displayPlayerData(user) {
 
 // Fungsi memulai tugas
 function startTask(kecamatan) {
-    const currentTaskIndex = kecamatan.lastTaskIndex;
     const taskContainer = document.getElementById("taskContainer");
+    if (!taskContainer) {
+        console.error("Elemen taskContainer tidak ditemukan.");
+        return;
+    }
 
+    const currentTaskIndex = kecamatan.lastTaskIndex;
     if (currentTaskIndex >= kecamatan.tasks.length) {
         alert(`Selamat! Semua tugas di kecamatan ${kecamatan.kecamatan} telah selesai.`);
         kecamatan.completed = true;
@@ -384,7 +387,10 @@ function startTask(kecamatan) {
         <button id="submitTaskButton">Kirim Jawaban</button>
     `;
 
-    document.getElementById("submitTaskButton").addEventListener("click", () => {
+    // Hapus event lama sebelum menambahkan baru
+    const submitButton = document.getElementById("submitTaskButton");
+    submitButton.removeEventListener("click", handleTaskSubmit); // Pastikan tidak ada duplikasi
+    submitButton.addEventListener("click", () => {
         checkAnswer(kecamatan, currentTaskIndex, task);
     });
 }
@@ -398,6 +404,8 @@ function checkAnswer(kecamatan, taskIndex, task) {
     }
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+
     if (selectedOption.value === task.answer) {
         alert("Jawaban benar!");
         currentUser.xp += task.xp;
@@ -412,11 +420,19 @@ function checkAnswer(kecamatan, taskIndex, task) {
         }
     }
 
-    // Simpan perubahan ke localStorage
+    // Update data ke localStorage
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatan));
+    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
 
-    // Perbarui tampilan pemain dan mulai tugas berikutnya
     displayPlayerData(currentUser);
     startTask(kecamatan);
 }
+
+marker.addEventListener("click", function () {
+    console.log(`Marker diklik: ${kecamatan.kecamatan}`);
+    if (kecamatan.unlocked) {
+        startTask(kecamatan);
+    } else {
+        alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
+    }
+});
