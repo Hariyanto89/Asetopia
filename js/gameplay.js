@@ -430,25 +430,63 @@ function displayTask(task) {
 // ========================
 // Fungsi Memeriksa Jawaban
 // ========================
-
 function checkAnswer(task) {
     const selectedOption = document.querySelector("input[name='taskOption']:checked");
 
+    // Periksa apakah pengguna telah memilih jawaban
     if (!selectedOption) {
         alert("Pilih jawaban terlebih dahulu.");
         return;
     }
 
+    // Ambil elemen container untuk tugas
+    const taskContainer = document.getElementById("taskContainer");
+    if (!taskContainer) {
+        console.error("Elemen taskContainer tidak ditemukan.");
+        return;
+    }
+
+    // Logika untuk jawaban benar
     if (selectedOption.value === task.answer) {
         alert("Jawaban benar!");
         console.log(`Jawaban benar: ${task.answer}`);
-        // Tambahkan logika untuk menambah XP atau token
-    } else {
+
+        // Setelah jawaban benar, bersihkan taskContainer
+        taskContainer.innerHTML = `
+            <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
+            <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
+        `;
+
+        // Tambahkan tombol untuk tugas berikutnya
+        const nextTaskButton = document.getElementById("nextTaskButton");
+        if (nextTaskButton) {
+            nextTaskButton.addEventListener("click", () => {
+                taskContainer.innerHTML = `<p>Silakan pilih tugas baru di peta!</p>`;
+            });
+        }
+
+        // Tambahkan logika untuk meningkatkan XP, token, atau menyimpan kemajuan
+        // currentUser.xp += task.xp;
+        // currentUser.token += task.token;
+    } 
+    // Logika untuk jawaban salah
+    else {
         alert("Jawaban salah!");
         console.log(`Jawaban salah: ${selectedOption.value}`);
-        // Tambahkan logika untuk penalti (jika ada)
-    }
-}
+
+        // Tampilkan pesan jawaban salah
+        taskContainer.innerHTML = `
+            <p>Jawaban salah! Silakan coba tugas lainnya.</p>
+            <button id="retryTaskButton">Coba Lagi</button>
+        `;
+
+        // Tambahkan tombol untuk mencoba lagi
+        const retryTaskButton = document.getElementById("retryTaskButton");
+        if (retryTaskButton) {
+            retryTaskButton.addEventListener("click", () => {
+                displayTask(task); // Tampilkan ulang tugas
+            });
+        }
 
 // ========================
 // Fungsi Pembaruan Status Pemain
