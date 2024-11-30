@@ -251,6 +251,23 @@ main {
     color: #555;
 }
 
+#nextQuestionButton {
+    align-self: center;
+    background: #007BFF;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+#nextQuestionButton:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
 /* Animasi Marker */
 @keyframes pulse {
     0%, 100% {
