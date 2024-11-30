@@ -358,17 +358,19 @@ function initializeMarkers(kecamatanData) {
 
         marker.dataset.kecamatan = kecamatan.kecamatan;
 
-        marker.addEventListener("click", function () {
-                console.log(`Marker diklik. Task ID: ${this.dataset.taskId}`);
-                const taskId = parseInt(this.dataset.taskId, 10);
-                const kecamatan = kecamatanData.find((item) => 
-                    item.tasks.some((task) => task.id === taskId)
-                );
+            marker.addEventListener("click", function () {
+                const taskId = parseInt(this.dataset.taskId, 10); // Ambil ID tugas dari marker
+                console.log(`Marker diklik. Task ID: ${taskId}`);
             
-                if (kecamatan) {
-                    startTask(kecamatan);
+                // Cari tugas berdasarkan taskId
+                const task = kecamatanData
+                    .flatMap(kecamatan => kecamatan.tasks) // Gabungkan semua tugas dari setiap kecamatan
+                    .find(task => task.id === taskId); // Temukan tugas berdasarkan ID
+            
+                if (task) {
+                    displayTask(task); // Panggil fungsi untuk menampilkan soal tugas
                 } else {
-                    console.error(`Kecamatan atau tugas tidak ditemukan untuk Task ID: ${taskId}`);
+                    console.error(`Tugas dengan ID ${taskId} tidak ditemukan.`);
                 }
             });
 
