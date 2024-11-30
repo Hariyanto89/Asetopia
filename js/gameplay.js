@@ -1,19 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Ambil data pengguna dari localStorage
+    // Ambil data pengguna dari localStorage atau inisialisasi data default
     const currentUser = JSON.parse(localStorage.getItem("currentUser")) || initializeUser();
     const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks")) || initializeKecamatanData();
 
     // Inisialisasi elemen utama
-    initializeMap(kecamatanData);
+    initializeMarkers(kecamatanData);
     displayPlayerData(currentUser);
-    displayBadges(currentUser);
 
     // Simpan data awal ke localStorage
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
     localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
-
-    // Tombol event listener
-    setupEventListeners();
 });
 
 // Fungsi inisialisasi pengguna jika data tidak ditemukan
@@ -33,8 +29,6 @@ function initializeKecamatanData() {
     return [
         {
             kecamatan: "Merigi",
-            lat: 3.504305,
-            lng: 102.517364,
             unlocked: true,
             completed: false,
             lastTaskIndex: 0,
@@ -70,7 +64,7 @@ function initializeKecamatanData() {
                 options: ["Untuk meningkatkan pendapatan pajak", "Untuk mengelola dan memanfaatkan aset secara efisien", "Untuk mengurangi pengeluaran daerah"],
                 answer: "Untuk mengelola dan memanfaatkan aset secara efisien",
                 xp: 25,
-                token: 15
+                token: 15,
             },
             {
                 id: 4,
@@ -78,7 +72,7 @@ function initializeKecamatanData() {
                 options: ["Dibiarkan sampai ada keperluan", "Dijual secara langsung", "Dioptimalkan pemanfaatannya atau dijual melalui mekanisme lelang"],
                 answer: "Dioptimalkan pemanfaatannya atau dijual melalui mekanisme lelang",
                 xp: 30,
-                token: 20
+                token: 20,
             },
             {
                 id: 5,
@@ -86,7 +80,7 @@ function initializeKecamatanData() {
                 options: ["Pencatatan seluruh barang milik daerah yang digunakan oleh pemerintah", "Penghapusan barang yang sudah tidak dipakai", "Perencanaan pengadaan aset baru"],
                 answer: "Pencatatan seluruh barang milik daerah yang digunakan oleh pemerintah",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 6,
@@ -94,7 +88,7 @@ function initializeKecamatanData() {
                 options: ["Meningkatkan pencatatan manual", "Mengatur keuangan daerah", "Pencatatan, penatausahaan, dan pelaporan aset daerah"],
                 answer: "Pencatatan, penatausahaan, dan pelaporan aset daerah",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 7,
@@ -102,7 +96,7 @@ function initializeKecamatanData() {
                 options: ["Herwin Noviansyah", "Robby Kurniawan J", "Kepala Dinas Keuangan"],
                 answer: "Herwin Noviansyah",
                 xp: 15,
-                token: 10
+                token: 10,
             },
             {
                 id: 8,
@@ -110,7 +104,7 @@ function initializeKecamatanData() {
                 options: ["Hariyanto", "Herwin Noviansyah", "Robby Kurniawan J"],
                 answer: "Hariyanto",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 9,
@@ -118,7 +112,7 @@ function initializeKecamatanData() {
                 options: ["Inventarisasi manual", "Sistem valuasi berdasarkan pasar", "Menggunakan penilaian pemerintah"],
                 answer: "Sistem valuasi berdasarkan pasar",
                 xp: 25,
-                token: 20
+                token: 20,
             },
             {
                 id: 10,
@@ -126,7 +120,7 @@ function initializeKecamatanData() {
                 options: ["Memaksimalkan hasil panen", "Meningkatkan harga jual aset", "Menjaga kualitas dan nilai ekonomi aset"],
                 answer: "Menjaga kualitas dan nilai ekonomi aset",
                 xp: 30,
-                token: 25
+                token: 25,
             },
             {
                 id: 11,
@@ -134,7 +128,7 @@ function initializeKecamatanData() {
                 options: ["10", "1", "14"],
                 answer: "1",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 12,
@@ -142,7 +136,7 @@ function initializeKecamatanData() {
                 options: ["Kopi", "Teh", "Kelapa Sawit"],
                 answer: "Kopi",
                 xp: 25,
-                token: 25
+                token: 25,
             },
             {
                 id: 13,
@@ -150,7 +144,7 @@ function initializeKecamatanData() {
                 options: ["Melakukan penghapusan langsung", "Mengevaluasi dan memperbaiki aset", "Mengganti aset baru"],
                 answer: "Mengevaluasi dan memperbaiki aset",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 14,
@@ -158,7 +152,7 @@ function initializeKecamatanData() {
                 options: ["Segera dijual untuk dana tambahan", "Diinventarisasi dan dimanfaatkan sesuai kebutuhan", "Tidak perlu dioptimalkan"],
                 answer: "Diinventarisasi dan dimanfaatkan sesuai kebutuhan",
                 xp: 30,
-                token: 25
+                token: 25,
             },
             {
                 id: 15,
@@ -166,7 +160,7 @@ function initializeKecamatanData() {
                 options: ["Pengembangan teknis", "Kepala Bidang Aset dan penggagas ide", "Pelaksanaan pelaporan manual"],
                 answer: "Kepala Bidang Aset dan penggagas ide",
                 xp: 15,
-                token: 10
+                token: 10,
             },
             {
                 id: 16,
@@ -174,7 +168,7 @@ function initializeKecamatanData() {
                 options: ["1 tahun", "5 tahun", "3 tahun"],
                 answer: "5 tahun",
                 xp: 25,
-                token: 20
+                token: 20,
             },
             {
                 id: 17,
@@ -182,7 +176,7 @@ function initializeKecamatanData() {
                 options: ["Mengurangi harga pasar aset", "Menambah anggaran pemerintah", "Meningkatkan hasil produksi pertanian"],
                 answer: "Meningkatkan hasil produksi pertanian",
                 xp: 30,
-                token: 25
+                token: 25,
             },
             {
                 id: 18,
@@ -190,7 +184,7 @@ function initializeKecamatanData() {
                 options: ["Herwin Noviansyah", "Robby Kurniawan J", "Hariyanto"],
                 answer: "Robby Kurniawan J",
                 xp: 15,
-                token: 10
+                token: 10,
             },
             {
                 id: 19,
@@ -198,7 +192,7 @@ function initializeKecamatanData() {
                 options: ["Pencatatan manual", "Pelaporan otomatis dan penatausahaan digital", "Sistem penghapusan aset yang mudah"],
                 answer: "Pelaporan otomatis dan penatausahaan digital",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 20,
@@ -206,7 +200,7 @@ function initializeKecamatanData() {
                 options: ["Diserahkan kepada pihak swasta", "Dimanfaatkan untuk kepentingan masyarakat", "Dijadikan sebagai aset cadangan"],
                 answer: "Dimanfaatkan untuk kepentingan masyarakat",
                 xp: 25,
-                token: 20
+                token: 20,
             },
             {
                 id: 21,
@@ -214,7 +208,7 @@ function initializeKecamatanData() {
                 options: ["Melakukan penjualan langsung", "Mekanisme lelang sesuai peraturan", "Mengabaikan aset tersebut"],
                 answer: "Mekanisme lelang sesuai peraturan",
                 xp: 30,
-                token: 20
+                token: 20,
             },
             {
                 id: 22,
@@ -222,7 +216,7 @@ function initializeKecamatanData() {
                 options: ["Permendagri No. 19 Tahun 2016", "Undang-Undang No. 12 Tahun 2020", "Keputusan Presiden"],
                 answer: "Permendagri No. 19 Tahun 2016",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 23,
@@ -230,7 +224,7 @@ function initializeKecamatanData() {
                 options: ["Mengurangi jumlah aset", "Meningkatkan efisiensi pengelolaan", "Meningkatkan harga aset"],
                 answer: "Meningkatkan efisiensi pengelolaan",
                 xp: 25,
-                token: 20
+                token: 20,
             },
             {
                 id: 24,
@@ -238,7 +232,7 @@ function initializeKecamatanData() {
                 options: ["Nilai pasar", "Nilai manfaat jangka panjang", "Nilai jual cepat"],
                 answer: "Nilai manfaat jangka panjang",
                 xp: 30,
-                token: 25
+                token: 25,
             },
             {
                 id: 25,
@@ -246,7 +240,7 @@ function initializeKecamatanData() {
                 options: ["Kepala Bidang Aset", "Kepala Desa", "Kepala Seksi Pelaporan"],
                 answer: "Kepala Bidang Aset",
                 xp: 15,
-                token: 10
+                token: 10,
             },
             {
                 id: 26,
@@ -254,7 +248,7 @@ function initializeKecamatanData() {
                 options: ["Langsung digunakan", "Dihapus dari sistem", "Dilakukan inventarisasi ulang"],
                 answer: "Dilakukan inventarisasi ulang",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 27,
@@ -262,7 +256,7 @@ function initializeKecamatanData() {
                 options: ["Meningkatkan pendapatan daerah", "Efisiensi dan transparansi dalam pengelolaan aset", "Mengurangi jumlah aset daerah"],
                 answer: "Efisiensi dan transparansi dalam pengelolaan aset",
                 xp: 30,
-                token: 25
+                token: 25,
             },
             {
                 id: 28,
@@ -270,7 +264,7 @@ function initializeKecamatanData() {
                 options: ["Dengan penilaian pihak independen", "Dengan harga pasar yang ditentukan sendiri", "Dengan keputusan kepala dinas"],
                 answer: "Dengan penilaian pihak independen",
                 xp: 25,
-                token: 20
+                token: 20,
             },
             {
                 id: 29,
@@ -278,7 +272,7 @@ function initializeKecamatanData() {
                 options: ["Segera mengganti dengan yang baru", "Melakukan evaluasi untuk perbaikan", "Mengabaikan kerusakan"],
                 answer: "Melakukan evaluasi untuk perbaikan",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 30,
@@ -286,7 +280,7 @@ function initializeKecamatanData() {
                 options: ["Transparansi, efisiensi, dan efektivitas", "Efisiensi dan keuntungan", "Keuntungan dan penghematan biaya"],
                 answer: "Transparansi, efisiensi, dan efektivitas",
                 xp: 25,
-                token: 20
+                token: 20,
             },
             {
                 id: 31,
@@ -294,7 +288,7 @@ function initializeKecamatanData() {
                 options: ["10", "15", "20"],
                 answer: "15",
                 xp: 20,
-                token: 10
+                token: 10,
             },
             {
                 id: 32,
@@ -302,7 +296,7 @@ function initializeKecamatanData() {
                 options: ["Penghapusan aset secara otomatis", "Dokumentasi digital dari aset daerah", "Pelaporan manual aset"],
                 answer: "Dokumentasi digital dari aset daerah",
                 xp: 20,
-                token: 15
+                token: 15,
             },
             {
                 id: 33,
@@ -310,7 +304,7 @@ function initializeKecamatanData() {
                 options: ["Segera dijual", "Dilakukan optimalisasi pemanfaatan", "Disimpan tanpa digunakan"],
                 answer: "Dilakukan optimalisasi pemanfaatan",
                 xp: 30,
-                token: 25
+                token: 25,
             },
             {
                 id: 34,
@@ -318,7 +312,7 @@ function initializeKecamatanData() {
                 options: ["Asisten UX", "Pengembang utama", "Penyanyi"],
                 answer: "Asisten UX",
                 xp: 15,
-                token: 10
+                token: 10,
             },
             {
                 id: 35,
@@ -326,91 +320,57 @@ function initializeKecamatanData() {
                 options: ["Menghapus semua data aset", "Melakukan validasi dan konsolidasi data", "Mengabaikan aset ganda"],
                 answer: "Melakukan validasi dan konsolidasi data",
                 xp: 25,
-                token: 20
-          },
-	],
+                token: 20,
+                },
+            ],
         },
     ];
 }
 
-// Fungsi inisialisasi map
-function initializeMap(kecamatanData) {
-    const map = L.map("kepahiangMap").setView([-3.6403, 102.6159], 13);
+// Fungsi menambahkan marker pada peta statis
+function initializeMarkers(kecamatanData) {
+    const mapContainer = document.querySelector(".map-container");
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "© OpenStreetMap contributors",
-    }).addTo(map);
+    kecamatanData.forEach((kecamatan, index) => {
+        // Buat marker
+        const marker = document.createElement("div");
+        marker.classList.add("marker");
+        marker.style.top = `${30 + index * 10}%`; // Contoh posisi vertikal (ubah sesuai kebutuhan)
+        marker.style.left = `${40 + index * 10}%`; // Contoh posisi horizontal (ubah sesuai kebutuhan)
+        marker.dataset.kecamatan = kecamatan.kecamatan;
+        marker.dataset.taskIndex = kecamatan.lastTaskIndex;
 
-    kecamatanData.forEach((kecamatan) => {
-        L.marker([3.504305, 102.517364])
-            .addTo(map)
-            .bindPopup(`<strong>${kecamatan.kecamatan}</strong>`)
-            .on("click", () => {
-                if (kecamatan.unlocked) {
-                    startTask(kecamatan);
-                } else {
-                    alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
-                }
-            });
+        // Tambahkan event klik pada marker
+        marker.addEventListener("click", function () {
+            if (kecamatan.unlocked) {
+                startTask(kecamatan);
+            } else {
+                alert(`Kecamatan ${kecamatan.kecamatan} masih terkunci.`);
+            }
+        });
+
+        // Tambahkan marker ke map container
+        mapContainer.appendChild(marker);
     });
 }
 
 // Fungsi menampilkan data pemain
 function displayPlayerData(user) {
-    document.getElementById("playerName").textContent = user.username || "[Nama Pengguna]";
-    document.getElementById("playerCharacter").textContent = user.character || "[Belum Dipilih]";
-    document.getElementById("playerLevel").textContent = Math.floor(user.xp / 100) + 1;
-    document.getElementById("playerXP").textContent = `${user.xp % 100} / 100`;
-    document.getElementById("playerToken").textContent = user.token || 0;
-    document.getElementById("playerLives").textContent = user.lives || 5;
-}
-
-// Fungsi menampilkan badge pemain
-function displayBadges(user) {
-    const badgeContainer = document.getElementById("badgeList");
-    badgeContainer.innerHTML = "";
-
-    if (!user.badges.length) {
-        badgeContainer.innerHTML = "<p>Belum ada badge yang diperoleh.</p>";
-        return;
-    }
-
-    user.badges.forEach((badge) => {
-        const badgeItem = document.createElement("div");
-        badgeItem.className = "badge-item";
-        badgeItem.innerHTML = `
-            <img src="${badge.image}" alt="${badge.name}">
-            <p>${badge.name}</p>
-        `;
-        badgeContainer.appendChild(badgeItem);
-    });
+    document.getElementById("taskMessage").textContent = `Selamat datang, ${user.username}! Pilih lokasi di peta untuk memulai tugas.`;
 }
 
 // Fungsi memulai tugas
 function startTask(kecamatan) {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-
     const currentTaskIndex = kecamatan.lastTaskIndex;
+    const taskContainer = document.getElementById("taskContainer");
+
     if (currentTaskIndex >= kecamatan.tasks.length) {
         alert(`Selamat! Semua tugas di kecamatan ${kecamatan.kecamatan} telah selesai.`);
         kecamatan.completed = true;
-        currentUser.badges.push(kecamatan.badge);
-
-        // Simpan perubahan
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
-        localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
-        displayBadges(currentUser);
         return;
     }
 
-    displayTask(kecamatan, currentTaskIndex);
-}
-
-// Fungsi menampilkan pertanyaan
-function displayTask(kecamatan, taskIndex) {
-    const task = kecamatan.tasks[taskIndex];
-    const taskContainer = document.getElementById("taskContainer");
+    const task = kecamatan.tasks[currentTaskIndex];
     taskContainer.innerHTML = `
         <h3>${task.question}</h3>
         <div>
@@ -425,7 +385,7 @@ function displayTask(kecamatan, taskIndex) {
     `;
 
     document.getElementById("submitTaskButton").addEventListener("click", () => {
-        checkAnswer(kecamatan, taskIndex, task);
+        checkAnswer(kecamatan, currentTaskIndex, task);
     });
 }
 
@@ -438,8 +398,6 @@ function checkAnswer(kecamatan, taskIndex, task) {
     }
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-
     if (selectedOption.value === task.answer) {
         alert("Jawaban benar!");
         currentUser.xp += task.xp;
@@ -454,22 +412,11 @@ function checkAnswer(kecamatan, taskIndex, task) {
         }
     }
 
-    // Simpan perubahan
+    // Simpan perubahan ke localStorage
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatan));
+
+    // Perbarui tampilan pemain dan mulai tugas berikutnya
     displayPlayerData(currentUser);
-
     startTask(kecamatan);
-}
-
-// Fungsi setup tombol
-function setupEventListeners() {
-    document.getElementById("showStatusButton").addEventListener("click", togglePlayerStatusPopup);
-    document.getElementById("closeStatusButton").addEventListener("click", togglePlayerStatusPopup);
-}
-
-// Fungsi toggle popup status pemain
-function togglePlayerStatusPopup() {
-    const popup = document.getElementById("playerStatusPopup");
-    popup.classList.toggle("hidden");
 }
