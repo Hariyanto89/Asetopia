@@ -371,7 +371,6 @@ function initializeKecamatanData() {
 // ========================
 // Fungsi Inisialisasi Marker
 // ========================
-
 function initializeMarkers(kecamatanData) {
     const mapContainer = document.querySelector(".map-container");
 
@@ -381,21 +380,21 @@ function initializeMarkers(kecamatanData) {
             marker.classList.add("marker");
             marker.dataset.taskId = task.id; // Hubungkan ID tugas
 
-            // Atur posisi marker (sesuaikan dengan koordinat peta)
+            // Atur posisi marker
             marker.style.top = `${30 + kecamatanIndex * 10}%`;
             marker.style.left = `${40 + task.id * 5}%`;
 
+            // Tambahkan event listener untuk klik marker
             marker.addEventListener("click", function () {
-                const taskId = parseInt(this.dataset.taskId, 10);
-                const task = kecamatanData
-                    .flatMap(kecamatan => kecamatan.tasks)
-                    .find(task => task.id === taskId);
-
-                if (task) {
-                    displayTask(task); // Tampilkan soal tugas
-                } else {
-                    console.error(`Tugas dengan ID ${taskId} tidak ditemukan.`);
+                // Cek apakah tugas sudah selesai
+                const isTaskCompleted = kecamatan.tasks.find(t => t.id === task.id) === undefined;
+                if (isTaskCompleted) {
+                    alert("Tugas ini sudah selesai. Silakan pilih tugas lain.");
+                    return;
                 }
+
+                // Tampilkan tugas
+                displayTask(task);
             });
 
             mapContainer.appendChild(marker);
