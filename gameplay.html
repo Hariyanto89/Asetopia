@@ -27,6 +27,20 @@
         <section id="map">
            <h2>Klik tanda air, maka tugas akan muncul di bawah. Selesaikan!</h2>
             <div id="kepahiangMap"></div>
+                <script>
+        // Inisialisasi peta
+        var map = L.map('map').setView([-3.6403, 102.6159], 13);
+
+        // Menambahkan tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Menambahkan marker
+        L.marker([-3.6403, 102.6159]).addTo(map)
+            .bindPopup('Kecamatan Kepahiang')
+            .openPopup();
+    </script>
         </section>
 
         <!-- Tugas -->
