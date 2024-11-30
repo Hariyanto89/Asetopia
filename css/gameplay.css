@@ -149,19 +149,18 @@ main {
 /* Marker */
 .marker {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: red; /* Warna awal marker */
-    border-radius: 50%; /* Membuat marker berbentuk lingkaran */
-    border: 2px solid #fff; /* Outline putih untuk kontras */
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid white;
     cursor: pointer;
-    transform: translate(-50%, -50%); /* Menempatkan marker di tengah koordinat */
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform: translate(-50%, -50%);
 }
 
 .marker:hover {
-    transform: scale(1.2); /* Marker membesar saat dihover */
-    background-color: #FF4500; /* Warna berubah saat dihover */
+    background-color: #ff4500;
+    transform: scale(1.2);
 }
 
 /* Marker selesai */
