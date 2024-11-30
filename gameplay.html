@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gameplay - Asetopia</title>
     <link rel="stylesheet" href="css/gameplay.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-    </head>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
 <body>
     <header>
         <h1>ASETOPIA</h1>
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-        <br>
         <nav>
-        <ul>
+            <ul>
                 <li><a href="status.html">Status Pemain</a></li>
                 <li><a href="#Cara Bermain">Cara Bermain</a></li>
                 <li><a href="#Papan Peringkat">Papan Peringkat</a></li>
@@ -24,51 +22,32 @@
 
     <main>
         <!-- Peta Kecamatan -->
-        <section id="map">
-           <h2>Klik tanda air, maka tugas akan muncul di bawah. Selesaikan!</h2>
-            <div id="kepahiangMap"></div>
-                <script>
-        // Inisialisasi peta
-        var map = L.map('map').setView([-3.6403, 102.6159], 13);
-
-        // Menambahkan tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Menambahkan marker
-        L.marker([-3.6403, 102.6159]).addTo(map)
-            .bindPopup('Kecamatan Kepahiang')
-            .openPopup();
-    </script>
+        <section id="map-section">
+            <h2>Klik tanda pada peta untuk memulai tugas!</h2>
+            <div class="map-container">
+                <!-- Peta gambar -->
+                <img src="assets/map/Merigi.png" alt="Peta Kecamatan Merigi" class="map-image">
+                
+                <!-- Marker Lokasi -->
+                <div class="marker" data-task-id="1" style="top: 30%; left: 40%;"></div>
+                <div class="marker" data-task-id="2" style="top: 50%; left: 60%;"></div>
+                <div class="marker" data-task-id="3" style="top: 70%; left: 20%;"></div>
+            </div>
         </section>
 
         <!-- Tugas -->
         <section id="tasks">
             <h2>Tugas Pengelolaan Aset</h2>
             <div id="taskContainer">
-                <!-- Pertanyaan Aktif -->
-                <div id="currentTask" class="hidden">
-                    <h3 id="currentTaskQuestion"></h3>
-                    <div id="taskOptions"></div>
-                    <button id="submitTaskButton" class="hidden"> </button>
-                </div>
+                <p id="taskMessage">Pilih lokasi pada peta untuk memulai tugas.</p>
             </div>
         </section>
-
-        <!-- Popup Jawaban -->
-        <div id="popupMessage" class="hidden">
-            <h3></h3>
-            <p></p>
-            <button id="closePopupButton">Tutup</button>
-        </div>
     </main>
 
     <footer>
         <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto - WA +62 856-0932-6414 - Kabupaten Kepahiang</p>
     </footer>
 
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="js/gameplay.js"></script>
 </body>
 </html>
