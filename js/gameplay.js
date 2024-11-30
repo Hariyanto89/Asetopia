@@ -28,8 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// ========================
+// Fungsi Inisialisasi Data
+// ========================
 
-// Fungsi inisialisasi pengguna jika data tidak ditemukan
 function initializeUser() {
     return {
         username: "User1",
@@ -41,7 +43,6 @@ function initializeUser() {
     };
 }
 
-// Fungsi inisialisasi data kecamatan jika tidak ditemukan
 function initializeKecamatanData() {
     return [
         {
@@ -344,41 +345,45 @@ function initializeKecamatanData() {
     ];
 }
 
-// Fungsi menambahkan marker pada peta statis
+// ========================
+// Fungsi Inisialisasi Marker
+// ========================
+
 function initializeMarkers(kecamatanData) {
     const mapContainer = document.querySelector(".map-container");
 
-    kecamatanData.forEach((kecamatan, index) => {
-        const marker = document.createElement("div");
-        marker.classList.add("marker");
+    kecamatanData.forEach((kecamatan, kecamatanIndex) => {
+        kecamatan.tasks.forEach(task => {
+            const marker = document.createElement("div");
+            marker.classList.add("marker");
+            marker.dataset.taskId = task.id; // Hubungkan ID tugas
 
-        // Ubah posisi marker berdasarkan peta
-        marker.style.top = `${30 + index * 8}%`; // Atur nilai sesuai peta
-        marker.style.left = `${40 + index * 8}%`;
-
-        marker.dataset.kecamatan = kecamatan.kecamatan;
+            // Atur posisi marker (sesuaikan dengan koordinat peta)
+            marker.style.top = `${30 + kecamatanIndex * 10}%`;
+            marker.style.left = `${40 + task.id * 5}%`;
 
             marker.addEventListener("click", function () {
-                const taskId = parseInt(this.dataset.taskId, 10); // Ambil ID tugas dari marker
-                console.log(`Marker diklik. Task ID: ${taskId}`);
-            
-                // Cari tugas berdasarkan taskId
+                const taskId = parseInt(this.dataset.taskId, 10);
                 const task = kecamatanData
-                    .flatMap(kecamatan => kecamatan.tasks) // Gabungkan semua tugas dari setiap kecamatan
-                    .find(task => task.id === taskId); // Temukan tugas berdasarkan ID
-            
+                    .flatMap(kecamatan => kecamatan.tasks)
+                    .find(task => task.id === taskId);
+
                 if (task) {
-                    displayTask(task); // Panggil fungsi untuk menampilkan soal tugas
+                    displayTask(task); // Tampilkan soal tugas
                 } else {
                     console.error(`Tugas dengan ID ${taskId} tidak ditemukan.`);
                 }
             });
 
-        mapContainer.appendChild(marker);
+            mapContainer.appendChild(marker);
+        });
     });
 }
 
-// Fungsi menampilkan data pemain
+// ========================
+// Fungsi Menampilkan Data Pemain
+// ========================
+
 function displayPlayerData(user) {
     const taskMessageElement = document.getElementById("taskMessage");
     if (taskMessageElement) {
@@ -388,39 +393,11 @@ function displayPlayerData(user) {
     }
 }
 
-// Fungsi memulai tugas
-function startTask(kecamatan) {
-    const taskContainer = document.getElementById("taskContainer");
-    if (!taskContainer) {
-        console.error("Elemen taskContainer tidak ditemukan.");
-        return;
-    }
+// ========================
+// Fungsi Menampilkan Tugas
+// ========================
 
-    const taskIndex = kecamatan.tasks.findIndex(
-        (task) => task.id === kecamatan.lastTaskIndex + 1
-    );
-
-    if (taskIndex === -1 || taskIndex >= kecamatan.tasks.length) {
-        alert(`Selamat! Semua tugas di kecamatan ${kecamatan.kecamatan} telah selesai.`);
-        kecamatan.completed = true;
-        return;
-    }
-
-    const task = kecamatan.tasks[taskIndex];
-    taskContainer.innerHTML = `
-        <h3>${task.question}</h3>
-        <div>
-            ${task.options
-                .map(
-                    (option) =>
-                        `<label><input type="radio" name="taskOption" value="${option}"> ${option}</label>`
-                )
-                .join("")}
-        </div>
-        <button id="submitTaskButton">Kirim Jawaban</button>
-    `;
-
-    function displayTask(task) {
+function displayTask(task) {
     const taskContainer = document.getElementById("taskContainer");
 
     if (!taskContainer) {
@@ -428,7 +405,7 @@ function startTask(kecamatan) {
         return;
     }
 
-    // Update HTML dengan soal dan opsi jawaban
+    // Perbarui isi container dengan soal dan pilihan jawaban
     taskContainer.innerHTML = `
         <h3>${task.question}</h3>
         <div>
@@ -444,6 +421,16 @@ function startTask(kecamatan) {
     `;
 
     console.log(`Tugas ditampilkan: ${task.question}`);
+
+    // Tambahkan event listener ke tombol submit
+    const submitButton = document.getElementById("submitTaskButton");
+    submitButton.addEventListener("click", () => checkAnswer(task));
+}
+
+// ========================
+// Fungsi Memeriksa Jawaban
+// ========================
+
 function checkAnswer(task) {
     const selectedOption = document.querySelector("input[name='taskOption']:checked");
 
@@ -454,76 +441,19 @@ function checkAnswer(task) {
 
     if (selectedOption.value === task.answer) {
         alert("Jawaban benar!");
-        // Tambahkan logika untuk menambah XP atau token, jika ada
+        console.log(`Jawaban benar: ${task.answer}`);
+        // Tambahkan logika untuk menambah XP atau token
     } else {
         alert("Jawaban salah!");
-        // Tambahkan logika untuk penalti, jika ada
-    }
-
-    console.log(`Jawaban dipilih: ${selectedOption.value}, Jawaban benar: ${task.answer}`);
-}
-
-    // Tambahkan event listener ke tombol submit
-    const submitButton = document.getElementById("submitTaskButton");
-    submitButton.addEventListener("click", () => checkAnswer(task));
-}
-
-    // Tambahkan event listener untuk tombol submit
-    const submitButton = document.getElementById("submitTaskButton");
-    if (submitButton) {
-        submitButton.replaceWith(submitButton.cloneNode(true)); // Hapus semua listener sebelumnya
-        const newSubmitButton = document.getElementById("submitTaskButton");
-        newSubmitButton.addEventListener("click", () => {
-            checkAnswer(kecamatan, taskIndex, task);
-        });
+        console.log(`Jawaban salah: ${selectedOption.value}`);
+        // Tambahkan logika untuk penalti (jika ada)
     }
 }
 
-    // Hapus event lama sebelum menambahkan baru
-    const submitButton = document.getElementById("submitTaskButton");
-    if (submitButton) {
-        submitButton.replaceWith(submitButton.cloneNode(true)); // Hapus semua event listener sebelumnya
-        const newSubmitButton = document.getElementById("submitTaskButton");
-        newSubmitButton.addEventListener("click", () => {
-            checkAnswer(kecamatan, currentTaskIndex, task);
-        });
-    }
-}
+// ========================
+// Fungsi Pembaruan Status Pemain
+// ========================
 
-// Fungsi memeriksa jawaban
-function checkAnswer(kecamatan, taskIndex, task) {
-    const selectedOption = document.querySelector("input[name='taskOption']:checked");
-    if (!selectedOption) {
-        alert("Pilih jawaban terlebih dahulu.");
-        return;
-    }
-
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-
-    if (selectedOption.value === task.answer) {
-        alert("Jawaban benar!");
-        currentUser.xp += task.xp;
-        currentUser.token += task.token;
-        kecamatan.lastTaskIndex++;
-    } else {
-        alert("Jawaban salah!");
-        currentUser.lives--;
-        if (currentUser.lives <= 0) {
-            alert("Nyawa habis! Tunggu 24 jam atau gunakan token untuk menambah nyawa.");
-            return;
-        }
-    }
-
-    // Update data ke localStorage
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
-
-    displayPlayerData(currentUser);
-    startTask(kecamatan);
-}
-
-// Fungsi pembaruan status pemain
 function updatePlayerStatus(user) {
     const statusElement = document.getElementById("playerStatus");
     if (statusElement) {
@@ -537,21 +467,4 @@ function updatePlayerStatus(user) {
     } else {
         console.error("Elemen playerStatus tidak ditemukan.");
     }
-}
-
-const taskContainer = document.getElementById("taskContainer");
-if (!taskContainer) {
-    console.error("Elemen taskContainer tidak ditemukan.");
-    return;
-}
-
-try {
-    currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-} catch (error) {
-    console.error("Data di localStorage tidak valid. Inisialisasi ulang data...");
-    currentUser = initializeUser();
-    kecamatanData = initializeKecamatanData();
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
 }
