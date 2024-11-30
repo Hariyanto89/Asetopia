@@ -444,6 +444,24 @@ function startTask(kecamatan) {
     `;
 
     console.log(`Tugas ditampilkan: ${task.question}`);
+function checkAnswer(task) {
+    const selectedOption = document.querySelector("input[name='taskOption']:checked");
+
+    if (!selectedOption) {
+        alert("Pilih jawaban terlebih dahulu.");
+        return;
+    }
+
+    if (selectedOption.value === task.answer) {
+        alert("Jawaban benar!");
+        // Tambahkan logika untuk menambah XP atau token, jika ada
+    } else {
+        alert("Jawaban salah!");
+        // Tambahkan logika untuk penalti, jika ada
+    }
+
+    console.log(`Jawaban dipilih: ${selectedOption.value}, Jawaban benar: ${task.answer}`);
+}
 
     // Tambahkan event listener ke tombol submit
     const submitButton = document.getElementById("submitTaskButton");
