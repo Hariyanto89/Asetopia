@@ -130,20 +130,20 @@ main {
 }
 
 /* Peta Statis */
-/* Peta Statis */
 .map-container {
-    position: relative; /* Untuk mengatur posisi marker di atas peta */
-    width: 100%; /* Membuat peta responsif terhadap lebar layar */
-    max-width: 800px; /* Batas maksimal lebar peta */
-    aspect-ratio: 16 / 9; /* Menjaga rasio gambar tetap landscape */
-    margin: 20px auto; /* Tengah secara horizontal */
+    position: relative;
+    width: 100%; /* Gunakan lebar penuh container */
+    max-width: 800px; /* Batasi ukuran maksimum untuk layar besar */
+    aspect-ratio: 16 / 9; /* Tetap menjaga rasio landscape */
+    margin: 20px auto;
     border: 2px solid #ddd;
-    background-image: url('assets/map/Merigi.png'); /* Gambar peta statis */
-    background-size: contain; /* Gambar sepenuhnya terlihat tanpa terpotong */
-    background-repeat: no-repeat; /* Hindari pengulangan gambar */
+    background-image: url('assets/map/Merigi.png'); /* Pastikan path benar */
+    background-size: contain; /* Hindari pemotongan gambar */
+    background-repeat: no-repeat;
     background-position: center;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Pastikan elemen di dalam tidak keluar */
 }
 
 /* Marker */
@@ -379,14 +379,17 @@ h1 {
 }
 
 @media (max-width: 768px) {
+    /* Responsif untuk peta pada perangkat kecil */
     .map-container {
-        max-width: 100%; /* Gunakan lebar penuh untuk layar kecil */
-        height: auto; /* Tinggi disesuaikan dengan lebar */
+        width: 100%; /* Peta mengambil lebar penuh layar */
+        max-width: 100%; /* Tidak melebihi lebar layar */
+        aspect-ratio: auto; /* Tidak memaksa rasio tertentu */
+        height: auto; /* Tinggi disesuaikan otomatis */
     }
 
+    /* Marker lebih kecil di layar kecil */
     .marker {
-        width: 15px; /* Perkecil marker */
+        width: 15px;
         height: 15px;
     }
 }
-
