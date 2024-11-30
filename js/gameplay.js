@@ -342,7 +342,7 @@ function initializeMap(kecamatanData) {
     }).addTo(map);
 
     kecamatanData.forEach((kecamatan) => {
-        L.marker([kecamatan.lat, kecamatan.lng])
+        L.marker([3.504305, 102.517364])
             .addTo(map)
             .bindPopup(`<strong>${kecamatan.kecamatan}</strong>`)
             .on("click", () => {
