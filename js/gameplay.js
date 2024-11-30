@@ -459,7 +459,39 @@ function displayPlayerData(user) {
 // Fungsi Menampilkan Tugas
 // ========================
 
-function displayTask(task) {
+function displayTaskInModal(task) {
+    const modal = document.getElementById("taskModal");
+    const modalTaskContainer = document.getElementById("modalTaskContainer");
+
+    if (!modal || !modalTaskContainer) {
+        console.error("Elemen modal atau kontainer tugas tidak ditemukan.");
+        return;
+    }
+
+    // Tampilkan modal
+    modal.style.display = "block";
+
+    // Perbarui konten modal dengan soal dan pilihan jawaban
+    modalTaskContainer.innerHTML = `
+        <h3>${task.question}</h3>
+        <div>
+            ${task.options
+                .map(option => 
+                    `<label>
+                        <input type="radio" name="taskOption" value="${option}"> ${option}
+                    </label>`
+                )
+                .join("")}
+        </div>
+        <button id="submitTaskButton">Kirim Jawaban</button>
+    `;
+
+    // Tambahkan event listener ke tombol "Kirim Jawaban"
+    const submitButton = document.getElementById("submitTaskButton");
+    submitButton.addEventListener("click", () => checkAnswer(task));
+}
+
+function displayTaskInContainer(task) {
     const taskContainer = document.getElementById("taskContainer");
 
     if (!taskContainer) {
@@ -467,7 +499,7 @@ function displayTask(task) {
         return;
     }
 
-    // Tampilkan soal dan opsi jawaban
+    // Perbarui konten kontainer dengan soal dan pilihan jawaban
     taskContainer.innerHTML = `
         <h3>${task.question}</h3>
         <div>
