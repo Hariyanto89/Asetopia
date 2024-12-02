@@ -1,17 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM content loaded. Memulai inisialisasi...");
 
-    // Ambil data pengguna dari localStorage atau buat data default
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    let kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+    // Validasi apakah pengguna sudah login
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    // Validasi atau inisialisasi data jika diperlukan
     if (!currentUser) {
-        console.warn("Data pengguna tidak ditemukan. Membuat data baru...");
-        currentUser = initializeUser();
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        alert("Anda belum login. Silakan login terlebih dahulu.");
+        window.location.href = "index.html"; // Arahkan kembali ke halaman utama
+        return; // Hentikan eksekusi lebih lanjut
+    } else if (!currentUser.character) {
+        alert("Anda belum memilih karakter. Silakan pilih karakter terlebih dahulu.");
+        window.location.href = "character.html";
+        return; // Hentikan eksekusi lebih lanjut
+    } else {
+        console.log(`Selamat datang kembali, ${currentUser.username}!`);
     }
 
+    // Jika pengguna valid, lanjutkan dengan inisialisasi elemen utama
+    let kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+
+    // Validasi atau inisialisasi data kecamatan jika diperlukan
     if (!kecamatanData || !Array.isArray(kecamatanData) || kecamatanData.length === 0) {
         console.warn("Data kecamatan tidak ditemukan atau tidak valid. Membuat data baru...");
         kecamatanData = initializeKecamatanData();
@@ -24,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         displayPlayerData(currentUser); // Menampilkan data pemain di UI
         console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
 
-        // === Tambahkan Event Listener untuk Marker ===
+        // Tambahkan Event Listener untuk Marker
         const markers = document.querySelectorAll(".marker");
         markers.forEach(marker => {
             marker.addEventListener("click", function () {
@@ -49,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Terjadi kesalahan selama inisialisasi:", error);
     }
 });
-
 
 // ========================
 // Fungsi Inisialisasi Data
