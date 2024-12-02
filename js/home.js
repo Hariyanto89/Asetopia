@@ -59,21 +59,21 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
     // Fungsi untuk Daftar
-    function registerUser(username, password) {
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        if (users.find(user => user.username === username)) {
-            alert("Nama pengguna sudah terdaftar!");
-            return;
-        }
-
-        // Simpan pengguna baru
-        const newUser = { username, password, character: null, token: 0 };
-        users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("currentUser", JSON.stringify(newUser)); // Login otomatis
-        alert("Pendaftaran berhasil! Silakan pilih karakter.");
-        window.location.href = "character.html";
+function registerUser(username, password) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if (users.find(user => user.username === username)) {
+        alert("Nama pengguna sudah terdaftar!");
+        return;
     }
+
+    // Simpan pengguna baru
+    const newUser = { username, password, character: null, token: 0 };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUser", JSON.stringify(newUser)); // Login otomatis
+    alert("Pendaftaran berhasil! Silakan pilih karakter.");
+    window.location.href = "character.html"; // Arahkan ke pemilihan karakter
+}
 
     // Submit Form
     document.getElementById("authForm").addEventListener("submit", function (event) {
