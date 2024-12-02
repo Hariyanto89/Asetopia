@@ -325,9 +325,9 @@ function initializeKecamatanData() {
             },
             {
                 id: 31,
-                question: "Berapa jumlah aset pertanian yang dimanfaatkan di Merigi?",
-                options: ["10", "15", "20"],
-                answer: "15",
+                question: "Berapa jumlah Kecamatan di Kabupaten Kepahiang?",
+                options: ["10", "15", "8"],
+                answer: "8",
                 xp: 20,
                 token: 10,
             },
