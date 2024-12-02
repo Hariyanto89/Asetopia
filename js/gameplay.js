@@ -556,14 +556,44 @@ function updatePlayerStatus(user) {
 function awardBadgeToUser(badge) {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    if (!currentUser.badges.find(b => b.name === badge.name)) {
+    if (!currentUser) {
+        console.error("Data pengguna tidak ditemukan di localStorage.");
+        return;
+    }
+
+    // Periksa apakah badge sudah ada
+    const badgeAlreadyAwarded = currentUser.badges.find(b => b.name === badge.name);
+
+    if (!badgeAlreadyAwarded) {
         currentUser.badges.push(badge); // Tambahkan badge ke daftar
         localStorage.setItem("currentUser", JSON.stringify(currentUser)); // Simpan data pemain
 
         // Tampilkan notifikasi bahwa badge telah diterima
         alert(`Selamat! Anda telah menerima badge: ${badge.name}`);
     }
+
+    // Selalu tambahkan badge ke UI (untuk memastikan UI terupdate)
+    const badgeContainer = document.getElementById("badgeContainer");
+
+    if (!badgeContainer) {
+        console.error("Elemen badgeContainer tidak ditemukan.");
+        return;
+    }
+
+    // Cegah duplikasi badge di UI
+    const existingBadge = Array.from(badgeContainer.children).find(
+        child => child.alt === badge.name
+    );
+    if (!existingBadge) {
+        const badgeElement = document.createElement("img");
+        badgeElement.src = badge.image;
+        badgeElement.alt = badge.name;
+        badgeElement.title = badge.description;
+        badgeElement.classList.add("badge"); // Tambahkan kelas CSS jika perlu
+        badgeContainer.appendChild(badgeElement);
+    }
 }
+
 
 function displayBadges() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
