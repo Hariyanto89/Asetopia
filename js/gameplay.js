@@ -552,3 +552,16 @@ function updatePlayerStatus(user) {
         console.error("Elemen playerStatus tidak ditemukan.");
     }
 }
+
+function awardBadgeToUser(badge) {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!currentUser.badges.find(b => b.name === badge.name)) {
+        currentUser.badges.push(badge); // Tambahkan badge ke daftar
+        localStorage.setItem("currentUser", JSON.stringify(currentUser)); // Simpan data pemain
+
+        // Tampilkan notifikasi bahwa badge telah diterima
+        alert(`Selamat! Anda telah menerima badge: ${badge.name}`);
+    }
+}
+
