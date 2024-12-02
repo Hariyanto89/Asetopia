@@ -42,21 +42,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fungsi untuk Login
     function loginUser(username, password) {
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const user = users.find(user => user.username === username && user.password === password);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(user => user.username === username && user.password === password);
 
-        if (user) {
-            localStorage.setItem("currentUser", JSON.stringify(user));
-            alert(`Selamat datang, ${username}!`);
-            if (user.character) {
-                window.location.href = "gameplay.html"; // Jika karakter sudah dipilih
-            } else {
-                window.location.href = "character.html"; // Jika karakter belum dipilih
-            }
+    if (user) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        alert(`Selamat datang, ${username}!`);
+        if (!user.character) {
+            window.location.href = "character.html"; // Arahkan ke pemilihan karakter
         } else {
-            alert("Nama pengguna atau kata sandi salah!");
+            window.location.href = "gameplay.html"; // Jika karakter sudah dipilih
         }
+    } else {
+        alert("Nama pengguna atau kata sandi salah!");
     }
+}
 
     // Fungsi untuk Daftar
     function registerUser(username, password) {
