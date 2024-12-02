@@ -565,3 +565,18 @@ function awardBadgeToUser(badge) {
     }
 }
 
+function displayBadges() {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const badgeContainer = document.getElementById("badgeContainer");
+
+    if (badgeContainer) {
+        badgeContainer.innerHTML = currentUser.badges
+            .map(badge => `
+                <div class="badge-item">
+                    <img src="${badge.image}" alt="${badge.name}" />
+                    <p>${badge.name}</p>
+                </div>
+            `)
+            .join("");
+    }
+}
