@@ -1,17 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM content loaded. Memulai inisialisasi...");
+
     // Periksa apakah ada pengguna yang sudah login
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    // Jika ada pengguna yang login
     if (currentUser) {
-        if (currentUser.character) {
-            // Jika karakter sudah dipilih, langsung ke gameplay
-            window.location.href = "gameplay.html";
-        } else {
-            // Jika belum memilih karakter, arahkan ke character.html
+        console.log(`Pengguna sudah login: ${currentUser.username}`);
+        if (!currentUser.character) {
+            // Jika karakter belum dipilih, arahkan ke character.html
+            alert("Silakan pilih karakter terlebih dahulu.");
             window.location.href = "character.html";
+        } else {
+            // Jika karakter sudah dipilih, arahkan ke gameplay.html
+            window.location.href = "gameplay.html";
         }
-        return;
+    } else {
+        console.log("Pengguna belum login. Tetap di halaman ini.");
     }
 
     // Mode default adalah Login
