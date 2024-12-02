@@ -478,7 +478,7 @@ function checkAnswer(task) {
     }
 
     // Jika jawaban benar
-    if (selectedOption.value === task.answer) {
+if (selectedOption.value === task.answer) {
     alert("Jawaban benar!");
     console.log(`Jawaban benar: ${task.answer}`);
 
@@ -503,9 +503,17 @@ function checkAnswer(task) {
 
     // Tandai tugas sebagai selesai dan perbarui kecamatanData
     const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-    const kecamatan = kecamatanData.find(kec => kec.tasks.includes(task));
+    const kecamatan = kecamatanData.find(kec => kec.tasks.some(t => t.id === task.id));
     if (kecamatan) {
-        kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id); // Hapus tugas dari daftar
+        // Hapus tugas dari daftar
+        kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id);
+        
+        // Periksa apakah semua tugas sudah selesai
+        if (kecamatan.tasks.length === 0 && !kecamatan.completed) {
+            kecamatan.completed = true; // Tandai kecamatan sebagai selesai
+            awardBadgeToUser(kecamatan.badge); // Berikan badge ke pemain
+        }
+
         localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
     }
 }
