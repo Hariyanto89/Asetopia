@@ -467,29 +467,37 @@ function checkAnswer(task) {
 
     // Jika jawaban benar
     if (selectedOption.value === task.answer) {
-        alert("Jawaban benar!");
-        console.log(`Jawaban benar: ${task.answer}`);
+    alert("Jawaban benar!");
+    console.log(`Jawaban benar: ${task.answer}`);
 
-        // Perbarui tampilan setelah jawaban benar
-        taskContainer.innerHTML = `
-            <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
-            <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
-        `;
+    // Temukan marker terkait dan sembunyikan
+    const marker = document.querySelector(`.marker[data-task-id="${task.id}"]`);
+    if (marker) {
+        marker.classList.add("completed"); // Tambahkan kelas untuk menandai selesai
+        marker.style.display = "none"; // Sembunyikan marker secara visual
+    }
 
-        // Tambahkan event untuk tombol "Lanjutkan ke tugas berikutnya"
-        const nextTaskButton = document.getElementById("nextTaskButton");
-        nextTaskButton.addEventListener("click", () => {
-            taskContainer.innerHTML = `<p>Pilih tugas baru di peta!</p>`;
-        });
+    // Perbarui tampilan setelah jawaban benar
+    taskContainer.innerHTML = `
+        <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
+        <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
+    `;
 
-        // Tandai tugas sebagai selesai dan perbarui kecamatanData
-        const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-        const kecamatan = kecamatanData.find(kec => kec.tasks.includes(task));
-        if (kecamatan) {
-            kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id); // Hapus tugas dari daftar
-            localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
-        }
-    } 
+    // Tambahkan event untuk tombol "Lanjutkan ke tugas berikutnya"
+    const nextTaskButton = document.getElementById("nextTaskButton");
+    nextTaskButton.addEventListener("click", () => {
+        taskContainer.innerHTML = `<p>Pilih tugas baru di peta!</p>`;
+    });
+
+    // Tandai tugas sebagai selesai dan perbarui kecamatanData
+    const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+    const kecamatan = kecamatanData.find(kec => kec.tasks.includes(task));
+    if (kecamatan) {
+        kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id); // Hapus tugas dari daftar
+        localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
+    }
+}
+
     // Jika jawaban salah
     else {
         alert("Jawaban salah!");
