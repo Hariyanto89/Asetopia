@@ -158,8 +158,10 @@ main {
 }
 
 .marker.completed {
-    background-color: green; /* Warna marker selesai */
+    background-color: green; /* Warna hijau menunjukkan selesai */
     cursor: not-allowed;
+    pointer-events: none; /* Nonaktifkan klik pada marker */
+    opacity: 0.5; /* Berikan transparansi untuk tampilan selesai */
 }
 
 /* Tugas */
