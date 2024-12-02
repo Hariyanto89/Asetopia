@@ -76,7 +76,7 @@ function initializeKecamatanData() {
             badge: {
                 name: "Bronze Badge Agro Visionary",
                 description: "Selesaikan semua tugas di Merigi!",
-                image: "assets/images/badges/merigi_badge.png",
+                image: "..assets/images/badges/merigi_badge.png",
             },
             tasks: [
                 {
