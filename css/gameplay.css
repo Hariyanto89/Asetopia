@@ -142,11 +142,14 @@ main {
 
 /* Marker */
 .marker {
-    min-width: 15px;
-    min-height: 15px;
+    position: absolute; /* Agar bisa diposisikan di atas peta */
+    width: 20px;
+    height: 20px;
     background-color: red;
     border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 10; /* Pastikan marker berada di atas peta */
 }
 
 .marker.completed {
