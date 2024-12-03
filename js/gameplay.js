@@ -384,7 +384,7 @@ function initializeMarkers(kecamatanData) {
     // Bersihkan semua marker sebelumnya
     mapContainer.innerHTML = "";
 
-    // Validasi kecamatanData
+    // Validasi data kecamatan
     if (!kecamatanData || !Array.isArray(kecamatanData)) {
         console.error("Data kecamatan tidak valid atau kosong.");
         return;
@@ -398,46 +398,53 @@ function initializeMarkers(kecamatanData) {
         }
 
         kecamatan.tasks.forEach(task => {
+            if (!task.id) {
+                console.warn("Tugas tanpa ID ditemukan. Melewati tugas ini.");
+                return;
+            }
+
             // Buat elemen marker
             const marker = document.createElement("div");
             marker.classList.add("marker");
-            marker.dataset.taskId = task.id; // Hubungkan ID tugas
+            marker.dataset.taskId = task.id;
 
-            // Atur posisi marker pada peta (gunakan logika posisi fleksibel)
-            marker.style.top = `${10 + kecamatanIndex * 12}%`; // Atur posisi vertikal
-            marker.style.left = `${10 + task.id * 5}%`; // Atur posisi horizontal
+            // Tambahkan kelas berdasarkan status tugas
+            if (kecamatan.completed) {
+                marker.classList.add("completed");
+            }
 
-            // Tambahkan event listener untuk klik marker
-marker.addEventListener("click", function () {
-    const taskId = parseInt(this.dataset.taskId); // Ambil ID tugas dari marker
-    console.log(`Marker diklik. Task ID: ${taskId}`); // Log untuk memastikan marker diklik
+            // Atur posisi marker pada peta (gunakan logika posisi dinamis)
+            marker.style.top = `${15 + kecamatanIndex * 10}%`;
+            marker.style.left = `${10 + task.id * 5}%`;
 
-    // Ambil data kecamatan dari localStorage
-    const storedData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-    console.log("Data kecamatan dari localStorage:", storedData); // Log data kecamatan
+            // Event listener untuk klik marker
+            marker.addEventListener("click", function () {
+                const taskId = parseInt(this.dataset.taskId);
+                console.log(`Marker diklik. Task ID: ${taskId}`);
 
-    if (!storedData) {
-        console.error("Data kecamatan tidak ditemukan di localStorage.");
-        return;
-    }
+                // Ambil data kecamatan dari localStorage
+                const storedData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+                if (!storedData) {
+                    console.error("Data kecamatan tidak ditemukan di localStorage.");
+                    return;
+                }
 
-    // Cari kecamatan dan tugas terkait
-    const kecamatan = storedData.find(kec => kec.tasks.some(t => t.id === taskId));
-    if (!kecamatan) {
-        console.warn(`Tugas dengan ID ${taskId} tidak terkait dengan kecamatan mana pun.`);
-        return;
-    }
+                // Cari kecamatan dan tugas terkait
+                const kecamatan = storedData.find(kec => kec.tasks.some(t => t.id === taskId));
+                if (!kecamatan) {
+                    console.warn(`Tugas dengan ID ${taskId} tidak terkait dengan kecamatan mana pun.`);
+                    return;
+                }
 
-    const task = kecamatan.tasks.find(t => t.id === taskId);
-    if (!task) {
-        console.warn(`Tugas dengan ID ${taskId} tidak ditemukan.`);
-        alert("Tugas ini sudah selesai. Silakan pilih tugas lain.");
-        return;
-    }
+                const task = kecamatan.tasks.find(t => t.id === taskId);
+                if (!task) {
+                    alert("Tugas ini sudah selesai. Silakan pilih tugas lain.");
+                    return;
+                }
 
-    console.log("Tugas ditemukan:", task); // Log detail tugas
-    displayTask(task); // Panggil fungsi untuk menampilkan soal tugas
-});
+                console.log("Tugas ditemukan:", task);
+                displayTask(task); // Panggil fungsi untuk menampilkan soal tugas
+            });
 
             // Tambahkan marker ke mapContainer
             mapContainer.appendChild(marker);
