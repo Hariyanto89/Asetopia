@@ -142,21 +142,48 @@ main {
 
 /* Marker */
 .marker {
-    position: absolute; /* Agar bisa diposisikan di atas peta */
+    position: absolute; /* Posisi relatif terhadap peta */
     width: 20px;
     height: 20px;
-    background-color: red;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    z-index: 10; /* Pastikan marker berada di atas peta */
+    background-color: red; /* Warna awal untuk marker */
+    border-radius: 50%; /* Bentuk lingkaran */
+    cursor: pointer; /* Ganti kursor saat hover */
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 10; /* Pastikan di atas peta */
+}
+
+.marker:not(.completed):hover {
+    background-color: orange; /* Perubahan warna pada hover */
+    transform: scale(1.2); /* Efek membesar pada hover */
 }
 
 .marker.completed {
-    background-color: green; /* Warna hijau menunjukkan selesai */
-    cursor: not-allowed;
-    pointer-events: none; /* Nonaktifkan klik pada marker */
-    opacity: 0.5; /* Berikan transparansi untuk tampilan selesai */
+    background-color: green; /* Indikator selesai */
+    cursor: not-allowed; /* Kursor tidak aktif */
+    pointer-events: none; /* Nonaktifkan klik */
+    opacity: 0.5; /* Transparansi */
+}
+
+@media (max-width: 768px) {
+    .marker {
+        width: 15px;
+        height: 15px; /* Ukuran lebih kecil untuk layar kecil */
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+    50% {
+        transform: scale(1.2);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    }
+}
+
+.marker {
+    animation: pulse 1.5s infinite; /* Animasi denyut lembut */
 }
 
 /* Tugas */
