@@ -510,23 +510,53 @@ function checkAnswer(task) {
         return;
     }
 
-    // Jika jawaban benar
-if (selectedOption.value === task.answer) {
-    alert("Jawaban benar!");
-    console.log(`Jawaban benar: ${task.answer}`);
+    if (selectedOption.value === task.answer) {
+        alert("Jawaban benar!");
+        console.log(`Jawaban benar: ${task.answer}`);
 
-    // Temukan marker terkait dan sembunyikan
-    const marker = document.querySelector(`.marker[data-task-id="${task.id}"]`);
-    if (marker) {
-        marker.classList.add("completed"); // Tambahkan kelas untuk menandai selesai
-        marker.style.display = "none"; // Sembunyikan marker secara visual
+        // Temukan marker terkait dan sembunyikan
+        const marker = document.querySelector(`.marker[data-task-id="${task.id}"]`);
+        if (marker) {
+            marker.classList.add("completed"); // Tandai selesai
+            marker.style.display = "none"; // Sembunyikan secara visual
+        }
+
+        // Perbarui data kecamatan
+        const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+        const kecamatan = kecamatanData.find(kec => kec.tasks.some(t => t.id === task.id));
+
+        if (kecamatan) {
+            // Hapus tugas dari daftar
+            kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id);
+
+            // Tandai kecamatan sebagai selesai jika semua tugas telah selesai
+            if (kecamatan.tasks.length === 0) {
+                kecamatan.completed = true;
+                awardBadgeToUser(kecamatan.badge); // Berikan badge
+            }
+
+            // Simpan kembali data kecamatan
+            localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+        }
+
+        // Perbarui UI
+        taskContainer.innerHTML = `
+            <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
+            <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
+        `;
+        document.getElementById("nextTaskButton").addEventListener("click", () => {
+            taskContainer.innerHTML = `<p>Pilih tugas baru di peta!</p>`;
+        });
+    } else {
+        alert("Jawaban salah!");
+        console.log(`Jawaban salah: ${selectedOption.value}`);
+        taskContainer.innerHTML = `
+            <p>Jawaban salah! Silakan coba lagi.</p>
+            <button id="retryTaskButton">Coba Lagi</button>
+        `;
+        document.getElementById("retryTaskButton").addEventListener("click", () => displayTask(task));
     }
-
-    // Perbarui tampilan setelah jawaban benar
-    taskContainer.innerHTML = `
-        <p>Selamat! Anda berhasil menyelesaikan tugas ini.</p>
-        <button id="nextTaskButton">Lanjutkan ke tugas berikutnya</button>
-    `;
+}
 
     // Tambahkan event untuk tombol "Lanjutkan ke tugas berikutnya"
     const nextTaskButton = document.getElementById("nextTaskButton");
