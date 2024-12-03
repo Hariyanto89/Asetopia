@@ -16,25 +16,27 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(`Selamat datang kembali, ${currentUser.username}!`);
     }
 
-    // Jika pengguna valid, lanjutkan dengan inisialisasi elemen utama
-    let kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+    // Deklarasikan variabel `kecamatanData` hanya jika belum ada
+    let kecamatanData;
 
-    // Validasi atau inisialisasi data kecamatan jika diperlukan
-    if (!kecamatanData || !Array.isArray(kecamatanData) || kecamatanData.length === 0) {
+    // Validasi atau inisialisasi data kecamatan
+    if (!localStorage.getItem("kecamatanTasks")) {
         console.warn("Data kecamatan tidak ditemukan atau tidak valid. Membuat data baru...");
         kecamatanData = initializeKecamatanData();
         localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
+    } else {
+        kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
     }
 
     // Inisialisasi elemen utama (marker dan data pengguna)
-try {
-    initializeMarkers(kecamatanData); // Fungsi ini menambahkan semua marker ke dalam peta
-    displayPlayerData(currentUser); // Menampilkan data pemain di UI
-    console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
-} catch (error) {
-    console.error("Terjadi kesalahan selama inisialisasi:", error);
-}
-
+    try {
+        initializeMarkers(kecamatanData); // Fungsi ini menambahkan semua marker ke dalam peta
+        displayPlayerData(currentUser); // Menampilkan data pemain di UI
+        console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
+    } catch (error) {
+        console.error("Terjadi kesalahan selama inisialisasi:", error);
+    }
+});
 
 // ========================
 // Fungsi Inisialisasi Data
