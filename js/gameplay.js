@@ -470,33 +470,56 @@ function displayTask(task) {
     // Validasi data tugas
     if (!task || !task.question || !Array.isArray(task.options)) {
         console.error("Tugas tidak valid:", task);
-        taskContainer.innerHTML = `
-            <p class="error-message">Tugas tidak valid atau data tugas tidak lengkap. Silakan coba lagi.</p>
-        `;
+        taskContainer.innerHTML = `<p class="error-message">Tugas tidak valid atau data tugas tidak lengkap. Silakan coba lagi.</p>`;
+        return;
+    }
+
+    if (!task.id || typeof task.id !== "number") {
+        console.error("Tugas tidak memiliki ID valid:", task);
+        taskContainer.innerHTML = `<p class="error-message">Kesalahan: ID tugas tidak valid.</p>`;
+        return;
+    }
+
+    if (!task.options.includes(task.answer)) {
+        console.error("Jawaban tugas tidak cocok dengan opsi yang tersedia:", task);
+        taskContainer.innerHTML = `<p class="error-message">Kesalahan: Jawaban tidak valid.</p>`;
         return;
     }
 
     // Bersihkan taskContainer sebelum menambahkan konten baru
     taskContainer.innerHTML = "";
 
-    // Tampilkan soal dan opsi jawaban
-    taskContainer.innerHTML = `
-        <h3>${task.question.trim()}</h3>
-        <div class="task-options">
-            ${task.options
-                .filter(option => option.trim() !== "") // Hanya tampilkan opsi valid
-                .map(option =>
-                    `<label class="task-option">
-                        <input type="radio" name="taskOption" value="${option.trim()}"> ${option.trim()}
-                    </label>`
-                )
-                .join("")}
-        </div>
-        <button id="submitTaskButton" class="submit-button">Kirim Jawaban</button>
-    `;
+    // Buat elemen judul
+    const taskTitle = document.createElement("h3");
+    taskTitle.textContent = task.question.trim();
+    taskContainer.appendChild(taskTitle);
 
-    // Ambil referensi baru untuk tombol
-    const submitButton = document.getElementById("submitTaskButton");
+    // Buat opsi jawaban
+    const optionsContainer = document.createElement("div");
+    optionsContainer.classList.add("task-options");
+    task.options
+        .filter(option => option.trim() !== "")
+        .forEach(option => {
+            const label = document.createElement("label");
+            label.classList.add("task-option");
+
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = "taskOption";
+            input.value = option.trim();
+
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${option.trim()}`));
+            optionsContainer.appendChild(label);
+        });
+    taskContainer.appendChild(optionsContainer);
+
+    // Tambahkan tombol submit
+    const submitButton = document.createElement("button");
+    submitButton.id = "submitTaskButton";
+    submitButton.classList.add("submit-button");
+    submitButton.textContent = "Kirim Jawaban";
+    taskContainer.appendChild(submitButton);
 
     // Tambahkan event listener ke tombol
     submitButton.addEventListener("click", () => {
