@@ -470,21 +470,32 @@ function displayPlayerData(user) {
 // ========================
 // Fungsi Menampilkan Tugas
 // ========================
-
 function displayTask(task) {
     const taskContainer = document.getElementById("taskContainer");
 
     if (!taskContainer) {
         console.error("Elemen taskContainer tidak ditemukan.");
+        alert("Kesalahan: Elemen untuk menampilkan tugas tidak tersedia.");
         return;
     }
 
-    // Tampilkan soal dan opsi jawaban dengan trim
+    // Periksa apakah `task` valid
+    if (!task || !task.question || !Array.isArray(task.options)) {
+        console.error("Tugas tidak valid:", task);
+        alert("Kesalahan: Data tugas tidak valid.");
+        return;
+    }
+
+    // Bersihkan container sebelum menambahkan konten baru
+    taskContainer.innerHTML = "";
+
+    // Tampilkan soal dan opsi jawaban dengan validasi untuk mencegah opsi kosong
     taskContainer.innerHTML = `
         <h3>${task.question.trim()}</h3>
         <div>
             ${task.options
-                .map(option => 
+                .filter(option => option.trim() !== "") // Pastikan opsi tidak kosong
+                .map(option =>
                     `<label>
                         <input type="radio" name="taskOption" value="${option.trim()}"> ${option.trim()}
                     </label>`
@@ -495,9 +506,13 @@ function displayTask(task) {
     `;
 
     const submitButton = document.getElementById("submitTaskButton");
+
+    // Hapus event listener sebelumnya untuk menghindari duplikasi
+    submitButton.replaceWith(submitButton.cloneNode(true));
+
+    // Tambahkan event listener ke tombol "Kirim Jawaban"
     submitButton.addEventListener("click", () => checkAnswer(task));
 }
-
 
 // ========================
 // Fungsi Memeriksa Jawaban
