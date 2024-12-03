@@ -473,45 +473,49 @@ function displayPlayerData(user) {
 function displayTask(task) {
     const taskContainer = document.getElementById("taskContainer");
 
+    // Validasi keberadaan elemen taskContainer
     if (!taskContainer) {
         console.error("Elemen taskContainer tidak ditemukan.");
         alert("Kesalahan: Elemen untuk menampilkan tugas tidak tersedia.");
         return;
     }
 
-    // Periksa apakah `task` valid
+    // Validasi data tugas
     if (!task || !task.question || !Array.isArray(task.options)) {
         console.error("Tugas tidak valid:", task);
-        alert("Kesalahan: Data tugas tidak valid.");
+        taskContainer.innerHTML = `
+            <p class="error-message">Tugas tidak valid atau data tugas tidak lengkap. Silakan coba lagi.</p>
+        `;
         return;
     }
 
-    // Bersihkan container sebelum menambahkan konten baru
+    // Bersihkan taskContainer sebelum menambahkan konten baru
     taskContainer.innerHTML = "";
 
-    // Tampilkan soal dan opsi jawaban dengan validasi untuk mencegah opsi kosong
+    // Tampilkan soal dan opsi jawaban
     taskContainer.innerHTML = `
         <h3>${task.question.trim()}</h3>
-        <div>
+        <div class="task-options">
             ${task.options
-                .filter(option => option.trim() !== "") // Pastikan opsi tidak kosong
+                .filter(option => option.trim() !== "") // Hanya tampilkan opsi valid
                 .map(option =>
-                    `<label>
+                    `<label class="task-option">
                         <input type="radio" name="taskOption" value="${option.trim()}"> ${option.trim()}
                     </label>`
                 )
                 .join("")}
         </div>
-        <button id="submitTaskButton">Kirim Jawaban</button>
+        <button id="submitTaskButton" class="submit-button">Kirim Jawaban</button>
     `;
 
+    // Ambil referensi baru untuk tombol
     const submitButton = document.getElementById("submitTaskButton");
 
-    // Hapus event listener sebelumnya untuk menghindari duplikasi
-    submitButton.replaceWith(submitButton.cloneNode(true));
-
-    // Tambahkan event listener ke tombol "Kirim Jawaban"
-    submitButton.addEventListener("click", () => checkAnswer(task));
+    // Tambahkan event listener ke tombol
+    submitButton.addEventListener("click", () => {
+        console.log("Tombol Kirim Jawaban diklik");
+        checkAnswer(task);
+    });
 }
 
 // ========================
