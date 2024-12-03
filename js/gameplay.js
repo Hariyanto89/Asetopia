@@ -387,6 +387,7 @@ function initializeMarkers(kecamatanData) {
     // Validasi data kecamatan
     if (!kecamatanData || !Array.isArray(kecamatanData)) {
         console.error("Data kecamatan tidak valid atau kosong.");
+        alert("Kesalahan: Data kecamatan tidak tersedia.");
         return;
     }
 
@@ -398,8 +399,9 @@ function initializeMarkers(kecamatanData) {
         }
 
         kecamatan.tasks.forEach(task => {
-            if (!task.id) {
-                console.warn("Tugas tanpa ID ditemukan. Melewati tugas ini.");
+            // Validasi ID tugas
+            if (!task.id || isNaN(task.id)) {
+                console.warn(`Tugas tanpa ID atau ID tidak valid ditemukan:`, task);
                 return;
             }
 
@@ -408,12 +410,12 @@ function initializeMarkers(kecamatanData) {
             marker.classList.add("marker");
             marker.dataset.taskId = task.id;
 
-            // Tambahkan kelas berdasarkan status tugas
+            // Tambahkan kelas jika kecamatan sudah selesai
             if (kecamatan.completed) {
                 marker.classList.add("completed");
             }
 
-            // Atur posisi marker pada peta (gunakan logika posisi dinamis)
+            // Atur posisi marker pada peta
             marker.style.top = `${15 + kecamatanIndex * 10}%`;
             marker.style.left = `${10 + task.id * 5}%`;
 
@@ -426,6 +428,7 @@ function initializeMarkers(kecamatanData) {
                 const storedData = JSON.parse(localStorage.getItem("kecamatanTasks"));
                 if (!storedData) {
                     console.error("Data kecamatan tidak ditemukan di localStorage.");
+                    alert("Kesalahan: Data kecamatan tidak ditemukan.");
                     return;
                 }
 
@@ -433,6 +436,7 @@ function initializeMarkers(kecamatanData) {
                 const kecamatan = storedData.find(kec => kec.tasks.some(t => t.id === taskId));
                 if (!kecamatan) {
                     console.warn(`Tugas dengan ID ${taskId} tidak terkait dengan kecamatan mana pun.`);
+                    alert("Tugas tidak valid. Silakan pilih tugas lain.");
                     return;
                 }
 
@@ -442,8 +446,12 @@ function initializeMarkers(kecamatanData) {
                     return;
                 }
 
+                console.group(`Marker ID: ${taskId} diklik`);
                 console.log("Tugas ditemukan:", task);
-                displayTask(task); // Panggil fungsi untuk menampilkan soal tugas
+                console.log("Kecamatan:", kecamatan);
+                console.groupEnd();
+
+                displayTask(task); // Tampilkan soal tugas
             });
 
             // Tambahkan marker ke mapContainer
