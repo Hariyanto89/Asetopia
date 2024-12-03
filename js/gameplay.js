@@ -632,7 +632,6 @@ if (kecamatan) {
         const retryTaskButton = document.getElementById("retryTaskButton");
         retryTaskButton.addEventListener("click", () => displayTask(task));
     }
-}
 
 // ========================
 // Fungsi Pembaruan Status Pemain
