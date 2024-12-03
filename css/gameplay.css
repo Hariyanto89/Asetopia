@@ -125,16 +125,16 @@ main {
 /* Peta Statis */
 .map-container {
     position: relative;
-    width: 100%; /* Gunakan lebar penuh container */
-    max-width: 800px; /* Batasi ukuran maksimum untuk layar besar */
-    aspect-ratio: 16 / 9; /* Tetap menjaga rasio landscape */
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
     margin: 20px auto;
     border: 2px solid #ddd;
-    background-image: url('assets/map/Merigi.png'); /* Pastikan path benar */
-    background-size: contain; /* Hindari pemotongan gambar */
+    background-image: url('assets/map/Merigi.png');
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #f0f0f0; /* Berikan warna latar untuk area kosong */
+    background-color: #f0f0f0;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     overflow: hidden; /* Pastikan elemen di dalam tidak keluar */
