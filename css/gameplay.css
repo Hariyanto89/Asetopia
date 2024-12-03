@@ -404,20 +404,3 @@ footer {
 h1 {
     animation: pulse-text 2s infinite;
 }
-
-
-@media (max-width: 768px) {
-    /* Responsif untuk peta pada perangkat kecil */
-    .map-container {
-        width: 100%; /* Peta mengambil lebar penuh layar */
-        max-width: 100%; /* Tidak melebihi lebar layar */
-        aspect-ratio: auto; /* Tidak memaksa rasio tertentu */
-        height: auto; /* Tinggi disesuaikan otomatis */
-    }
-
-    /* Marker lebih kecil di layar kecil */
-    .marker {
-        width: 15px;
-        height: 15px;
-    }
-}
