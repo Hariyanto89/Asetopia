@@ -148,13 +148,11 @@ main {
 
 /* Marker */
 .marker {
-    position: absolute;
-    width: 20px;
-    height: 20px;
+    min-width: 15px;
+    min-height: 15px;
     background-color: red;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .marker.completed {
