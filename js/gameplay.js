@@ -27,36 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Inisialisasi elemen utama (marker dan data pengguna)
-    try {
-        initializeMarkers(kecamatanData); // Fungsi ini menambahkan semua marker ke dalam peta
-        displayPlayerData(currentUser); // Menampilkan data pemain di UI
-        console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
+try {
+    initializeMarkers(kecamatanData); // Fungsi ini menambahkan semua marker ke dalam peta
+    displayPlayerData(currentUser); // Menampilkan data pemain di UI
+    console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
+} catch (error) {
+    console.error("Terjadi kesalahan selama inisialisasi:", error);
+}
 
-        // Tambahkan Event Listener untuk Marker
-        const markers = document.querySelectorAll(".marker");
-        markers.forEach(marker => {
-            marker.addEventListener("click", function () {
-                const taskId = this.dataset.taskId; // Ambil ID tugas dari marker
-                console.log(`Marker diklik. Task ID: ${taskId}`);
-                
-                // Cari tugas berdasarkan taskId
-                const task = kecamatanData
-                    .flatMap(kecamatan => kecamatan.tasks) // Gabungkan semua tugas
-                    .find(task => task.id === parseInt(taskId)); // Temukan tugas berdasarkan ID
-
-                if (task) {
-                    displayTask(task); // Panggil fungsi untuk menampilkan soal tugas
-                } else {
-                    console.error(`Tugas dengan ID ${taskId} tidak ditemukan.`);
-                }
-            });
-        });
-
-        console.log("Event listener untuk marker telah diaktifkan.");
-    } catch (error) {
-        console.error("Terjadi kesalahan selama inisialisasi:", error);
-    }
-});
 
 // ========================
 // Fungsi Inisialisasi Data
