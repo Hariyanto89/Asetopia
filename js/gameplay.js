@@ -420,39 +420,40 @@ function initializeMarkers(kecamatanData) {
             marker.style.left = `${10 + task.id * 5}%`;
 
             // Event listener untuk klik marker
-            marker.addEventListener("click", function () {
-                const taskId = parseInt(this.dataset.taskId);
-                console.log(`Marker diklik. Task ID: ${taskId}`);
+   marker.addEventListener("click", function () {
+    const taskId = parseInt(this.dataset.taskId);
+    console.log(`Marker diklik. Task ID: ${taskId}`);
 
-                // Ambil data kecamatan dari localStorage
-                const storedData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-                if (!storedData) {
-                    console.error("Data kecamatan tidak ditemukan di localStorage.");
-                    alert("Kesalahan: Data kecamatan tidak ditemukan.");
-                    return;
-                }
+    // Ambil data kecamatan dari localStorage
+    const storedData = JSON.parse(localStorage.getItem("kecamatanTasks"));
+    if (!storedData) {
+        console.error("Data kecamatan tidak ditemukan di localStorage.");
+        alert("Kesalahan: Data kecamatan tidak ditemukan.");
+        return;
+    }
 
-                // Cari kecamatan dan tugas terkait
-                const kecamatan = storedData.find(kec => kec.tasks.some(t => t.id === taskId));
-                if (!kecamatan) {
-                    console.warn(`Tugas dengan ID ${taskId} tidak terkait dengan kecamatan mana pun.`);
-                    alert("Tugas tidak valid. Silakan pilih tugas lain.");
-                    return;
-                }
+    // Cari kecamatan dan tugas terkait
+    const kecamatan = storedData.find(kec => kec.tasks.some(t => t.id === taskId));
+    if (!kecamatan) {
+        console.warn(`Tugas dengan ID ${taskId} tidak terkait dengan kecamatan mana pun.`);
+        alert("Tugas tidak valid. Silakan pilih tugas lain.");
+        return;
+    }
 
-                const task = kecamatan.tasks.find(t => t.id === taskId);
-                if (!task) {
-                    alert("Tugas ini sudah selesai. Silakan pilih tugas lain.");
-                    return;
-                }
+    const task = kecamatan.tasks.find(t => t.id === taskId);
+    if (!task) {
+        alert("Tugas ini sudah selesai. Silakan pilih tugas lain.");
+        return;
+    }
 
-                console.group(`Marker ID: ${taskId} diklik`);
-                console.log("Tugas ditemukan:", task);
-                console.log("Kecamatan:", kecamatan);
-                console.groupEnd();
+    console.group(`Marker ID: ${taskId} diklik`);
+    console.log("Tugas ditemukan:", task);
+    console.log("Kecamatan:", kecamatan);
+    console.groupEnd();
 
-                displayTask(task); // Tampilkan soal tugas
-            });
+    // Tampilkan soal tugas
+    displayTask(task);
+});
 
             // Tambahkan marker ke mapContainer
             mapContainer.appendChild(marker);
