@@ -521,19 +521,18 @@ if (selectedOption.value === task.answer) {
 
     // Tandai tugas sebagai selesai dan perbarui kecamatanData
     const kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
-    const kecamatan = kecamatanData.find(kec => kec.tasks.some(t => t.id === task.id));
-    if (kecamatan) {
-        // Hapus tugas dari daftar
-        kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id);
-        
-        // Periksa apakah semua tugas sudah selesai
-        if (kecamatan.tasks.length === 0 && !kecamatan.completed) {
-            kecamatan.completed = true; // Tandai kecamatan sebagai selesai
-            awardBadgeToUser(kecamatan.badge); // Berikan badge ke pemain
-        }
+const kecamatan = kecamatanData.find(kec => kec.tasks.some(t => t.id === task.id));
 
-        localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
+if (kecamatan) {
+    // Hapus tugas dari daftar
+    kecamatan.tasks = kecamatan.tasks.filter(t => t.id !== task.id);
+
+    // Tandai kecamatan sebagai selesai jika tidak ada tugas yang tersisa
+    if (kecamatan.tasks.length === 0) {
+        kecamatan.completed = true; // Tandai kecamatan selesai
     }
+
+    localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
 }
 
     // Jika jawaban salah
