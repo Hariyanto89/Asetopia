@@ -457,14 +457,14 @@ function displayTask(task) {
         return;
     }
 
-    // Tampilkan soal dan opsi jawaban
+    // Tampilkan soal dan opsi jawaban dengan trim
     taskContainer.innerHTML = `
-        <h3>${task.question}</h3>
+        <h3>${task.question.trim()}</h3>
         <div>
             ${task.options
                 .map(option => 
                     `<label>
-                        <input type="radio" name="taskOption" value="${option}"> ${option}
+                        <input type="radio" name="taskOption" value="${option.trim()}"> ${option.trim()}
                     </label>`
                 )
                 .join("")}
@@ -472,10 +472,10 @@ function displayTask(task) {
         <button id="submitTaskButton">Kirim Jawaban</button>
     `;
 
-    // Tambahkan event listener ke tombol "Kirim Jawaban"
     const submitButton = document.getElementById("submitTaskButton");
     submitButton.addEventListener("click", () => checkAnswer(task));
 }
+
 
 // ========================
 // Fungsi Memeriksa Jawaban
