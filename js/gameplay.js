@@ -535,7 +535,7 @@ function displayTask(currentTask) {
     submitButton.addEventListener("click", () => {
         console.log("Tombol Kirim Jawaban diklik");
         checkAnswer(task);
-
+    }
 // ========================
 // Fungsi Memeriksa Jawaban
 // ========================
@@ -638,7 +638,7 @@ if (kecamatan) {
         const retryTaskButton = document.getElementById("retryTaskButton");
         retryTaskButton.addEventListener("click", () => displayTask(task));
     }
-}
+
 // ========================
 // Fungsi Pembaruan Status Pemain
 // ========================
