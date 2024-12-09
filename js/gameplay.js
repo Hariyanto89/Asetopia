@@ -456,9 +456,29 @@ function displayTask(currentTask) {
     const taskContainer = document.getElementById("taskContainer");
     if (!taskContainer) {
         console.error("Elemen taskContainer tidak ditemukan.");
-        return;
+        return; // Validasi elemen taskContainer berada di dalam fungsi
     }
 
+    // Validasi data tugas
+    if (!currentTask || !currentTask.question || !Array.isArray(currentTask.options)) {
+        console.error("Tugas tidak valid:", currentTask);
+        taskContainer.innerHTML = `<p class="error-message">Tugas tidak valid atau data tugas tidak lengkap. Silakan coba lagi.</p>`;
+        return; // Validasi data tugas berada di dalam fungsi
+    }
+
+    if (!currentTask.id || typeof currentTask.id !== "number") {
+        console.error("Tugas tidak memiliki ID valid:", currentTask);
+        taskContainer.innerHTML = `<p class="error-message">Kesalahan: ID tugas tidak valid.</p>`;
+        return; // Validasi ID tugas berada di dalam fungsi
+    }
+
+    if (!currentTask.options.includes(currentTask.answer)) {
+        console.error("Jawaban tugas tidak cocok dengan opsi yang tersedia:", currentTask);
+        taskContainer.innerHTML = `<p class="error-message">Kesalahan: Jawaban tidak valid.</p>`;
+        return; // Validasi jawaban berada di dalam fungsi
+    }
+
+    // Menampilkan tugas
     taskContainer.innerHTML = `
         <h3>${currentTask.question}</h3>
         ${currentTask.options.map(option => `
@@ -472,35 +492,9 @@ function displayTask(currentTask) {
 
     // Menambahkan event listener untuk tombol kirim jawaban
     document.getElementById("submitAnswerButton").addEventListener("click", function() {
-        checkAnswer(currentTask);  // Gunakan currentTask
+        checkAnswer(currentTask);  // Gunakan currentTask untuk mengecek jawaban
     });
 }
-
-    // Validasi keberadaan elemen taskContainer
-    if (!taskContainer) {
-        console.error("Elemen taskContainer tidak ditemukan.");
-        alert("Kesalahan: Elemen untuk menampilkan tugas tidak tersedia.");
-        return;
-    }
-
-    // Validasi data tugas
-    if (!task || !task.question || !Array.isArray(task.options)) {
-        console.error("Tugas tidak valid:", task);
-        taskContainer.innerHTML = `<p class="error-message">Tugas tidak valid atau data tugas tidak lengkap. Silakan coba lagi.</p>`;
-        return;
-    }
-
-    if (!task.id || typeof task.id !== "number") {
-        console.error("Tugas tidak memiliki ID valid:", task);
-        taskContainer.innerHTML = `<p class="error-message">Kesalahan: ID tugas tidak valid.</p>`;
-        return;
-    }
-
-    if (!task.options.includes(task.answer)) {
-        console.error("Jawaban tugas tidak cocok dengan opsi yang tersedia:", task);
-        taskContainer.innerHTML = `<p class="error-message">Kesalahan: Jawaban tidak valid.</p>`;
-        return;
-    }
 
     // Bersihkan taskContainer sebelum menambahkan konten baru
     taskContainer.innerHTML = "";
