@@ -81,7 +81,8 @@ function initializeKecamatanData() {
                 description: "Selesaikan semua tugas di Merigi!",
                 image: "../assets/images/badges/merigi_badge.png",
             },
-            tasks: [
+function getTaskById(taskId) {
+    const tasks = [
                 {
                     id: 1,
                     question: "Dalam kategori apakah traktor dicatat sebagai Barang Milik Daerah (BMD)?",
@@ -369,6 +370,9 @@ function initializeKecamatanData() {
             ],
         },
     ];
+   ];
+
+    return tasks.find(task => task.id === parseInt(taskId));
 }
 
 // ========================
