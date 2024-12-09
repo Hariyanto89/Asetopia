@@ -480,15 +480,17 @@ function displayTask(currentTask) {
         return; // Validasi jawaban berada di dalam fungsi
     }
 
-    // Menampilkan tugas
+   // Menampilkan tugas
     taskContainer.innerHTML = `
         <h3>${currentTask.question}</h3>
-        ${currentTask.options.map(option => `
-            <label>
-                <input type="radio" name="taskOption" value="${option}">
-                ${option}
-            </label><br>
-        `).join('')}
+        <div id="taskOptions">
+            ${currentTask.options.map(option => `
+                <label>
+                    <input type="radio" name="taskOption" value="${option}">
+                    ${option}
+                </label><br>
+            `).join('')}
+        </div>
         <button id="submitAnswerButton">Kirim Jawaban</button>
     `;
 
