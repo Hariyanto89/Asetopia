@@ -451,8 +451,9 @@ function displayTask(task) {
         console.error("Elemen taskContainer tidak ditemukan.");
         return;
     }
-        taskContainer.innerHTML = `
-        <h2>${task.question}</h2>
+
+    taskContainer.innerHTML = `
+        <h3>${task.question}</h3>
         ${task.options.map(option => `
             <label>
                 <input type="radio" name="taskOption" value="${option}">
@@ -461,6 +462,13 @@ function displayTask(task) {
         `).join('')}
         <button id="submitAnswerButton">Kirim Jawaban</button>
     `;
+
+    // Menambahkan event listener untuk tombol kirim jawaban
+    document.getElementById("submitAnswerButton").addEventListener("click", function() {
+        checkAnswer(task);
+    });
+}
+
     // Validasi keberadaan elemen taskContainer
     if (!taskContainer) {
         console.error("Elemen taskContainer tidak ditemukan.");
