@@ -535,8 +535,6 @@ function displayTask(currentTask) {
     submitButton.addEventListener("click", () => {
         console.log("Tombol Kirim Jawaban diklik");
         checkAnswer(task);
-    });
-} // Pastikan fungsi ditutup dengan benar
 
 // ========================
 // Fungsi Memeriksa Jawaban
