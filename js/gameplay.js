@@ -410,6 +410,12 @@ function initializeMarkers(kecamatanData) {
                     alert("Kesalahan: Data kecamatan tidak ditemukan.");
                     return;
                 }
+                
+                const task = storedData.flatMap(kec => kec.tasks).find(t => t.id === taskId);
+                if (!task) {
+                    console.error("Tugas tidak ditemukan.");
+                    return;
+                }
 
                 // Cari tugas yang sesuai dengan ID yang diklik
                 const task = storedData.flatMap(kec => kec.tasks).find(t => t.id === taskId);
