@@ -370,7 +370,6 @@ function getTaskById(taskId) {
             ],
         },
     ];
-   ];
 
     return tasks.find(task => task.id === parseInt(taskId));
 }
