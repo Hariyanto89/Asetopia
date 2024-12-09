@@ -452,7 +452,7 @@ function displayPlayerData(user) {
 // ========================
 // Fungsi Menampilkan Tugas
 // ========================
-function displayTask(task) {
+function displayTask(currentTask) {
     const taskContainer = document.getElementById("taskContainer");
     if (!taskContainer) {
         console.error("Elemen taskContainer tidak ditemukan.");
@@ -460,8 +460,8 @@ function displayTask(task) {
     }
 
     taskContainer.innerHTML = `
-        <h3>${task.question}</h3>
-        ${task.options.map(option => `
+        <h3>${currentTask.question}</h3>
+        ${currentTask.options.map(option => `
             <label>
                 <input type="radio" name="taskOption" value="${option}">
                 ${option}
@@ -472,7 +472,7 @@ function displayTask(task) {
 
     // Menambahkan event listener untuk tombol kirim jawaban
     document.getElementById("submitAnswerButton").addEventListener("click", function() {
-        checkAnswer(task);
+        checkAnswer(currentTask);  // Gunakan currentTask
     });
 }
 
