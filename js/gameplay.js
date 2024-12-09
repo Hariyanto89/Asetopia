@@ -371,7 +371,7 @@ function getTaskById(taskId) {
                 token: 20,
                 },
             ],
-         };
+         }
     ];
 
     return tasks.find(task => task.id === parseInt(taskId));
