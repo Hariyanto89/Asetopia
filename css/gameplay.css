@@ -258,6 +258,27 @@ main {
     margin-right: 8px;
 }
 
+/* Tombol Kirim */
+#submitAnswerButton {
+    background-color: #007BFF;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submitAnswerButton:hover {
+    background-color: #0056b3;
+}
+
+/* Pesan Error */
+.error-message {
+    color: red;
+    font-size: 1rem;
+}
+
 /* Tombol Kirim Jawaban */
 #submitTaskButton {
     background: #FF4500;
