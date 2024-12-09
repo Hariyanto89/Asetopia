@@ -719,3 +719,23 @@ function displayBadges() {
             .join("");
     }
 }
+
+function displayTaskInModal(currentTask) {
+    const modal = document.getElementById("taskModal");
+    const modalTaskContainer = document.getElementById("modalTaskContainer");
+
+    modalTaskContainer.innerHTML = `
+        <h3>${currentTask.question}</h3>
+        <div id="taskOptions">
+            ${currentTask.options.map(option => `
+                <label>
+                    <input type="radio" name="taskOption" value="${option}">
+                    ${option}
+                </label><br>
+            `).join('')}
+        </div>
+        <button id="submitAnswerButton">Kirim Jawaban</button>
+    `;
+
+    modal.style.display = "block";  // Menampilkan modal
+}
