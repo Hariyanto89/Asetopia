@@ -402,6 +402,7 @@ function initializeMarkers(kecamatanData) {
             // Event listener untuk klik marker
             marker.addEventListener("click", function () {
                 const taskId = parseInt(this.dataset.taskId);
+                console.log(`Task ID yang diklik: ${taskId}`);
 
                 // Ambil data kecamatan dari localStorage
                 const storedData = JSON.parse(localStorage.getItem("kecamatanTasks"));
