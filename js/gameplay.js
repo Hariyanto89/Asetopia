@@ -400,10 +400,10 @@ function initializeMarkers(kecamatanData) {
             marker.style.left = `${10 + task.id * 5}%`;
 
             // Event listener untuk klik marker
-            marker.addEventListener("click", function () {
-                const taskId = parseInt(this.dataset.taskId);
-                console.log(`Task ID yang diklik: ${taskId}`);
-
+                marker.addEventListener("click", function () {
+                    const taskId = parseInt(this.dataset.taskId);
+                    console.log(`Task ID yang diklik: ${taskId}`);
+    
                 // Ambil data kecamatan dari localStorage
                 const storedData = JSON.parse(localStorage.getItem("kecamatanTasks"));
                 if (!storedData) {
@@ -412,11 +412,11 @@ function initializeMarkers(kecamatanData) {
                     return;
                 }
                 
-                const task = storedData.flatMap(kec => kec.tasks).find(t => t.id === taskId);
-                if (!task) {
-                    console.error("Tugas tidak ditemukan.");
-                    return;
-                }
+               const clickedTask = storedData.flatMap(kec => kec.tasks).find(t => t.id === taskId);
+                    if (!clickedTask) {
+                        console.error("Tugas tidak ditemukan.");
+                        return;
+                    }
 
                 // Cari tugas yang sesuai dengan ID yang diklik
                 const task = storedData.flatMap(kec => kec.tasks).find(t => t.id === taskId);
@@ -427,8 +427,8 @@ function initializeMarkers(kecamatanData) {
                 }
 
                 // Tampilkan tugas dengan memanggil displayTask
-                displayTask(task);
-            });
+              displayTask(clickedTask);  // Gunakan clickedTask di sini
+                });
 
             // Tambahkan marker ke dalam peta
             mapContainer.appendChild(marker);
