@@ -92,7 +92,19 @@
             </div>
         </div>
     </div>
-    
+       <div id="taskContainer">
+            <h3>${currentTask.question}</h3>
+            <div id="taskOptions">
+                ${currentTask.options.map(option => `
+                    <label>
+                        <input type="radio" name="taskOption" value="${option}">
+                        ${option}
+                    </label>
+                `).join('')}
+            </div>
+            <button id="submitAnswerButton">Kirim Jawaban</button>
+        </div>
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 Asetopia - Dibuat oleh Hariyanto - WA +62 856-0932-6414 - Kabupaten Kepahiang</p>
