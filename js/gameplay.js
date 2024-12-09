@@ -447,7 +447,20 @@ function displayPlayerData(user) {
 // ========================
 function displayTask(task) {
     const taskContainer = document.getElementById("taskContainer");
-
+    if (!taskContainer) {
+        console.error("Elemen taskContainer tidak ditemukan.");
+        return;
+    }
+        taskContainer.innerHTML = `
+        <h2>${task.question}</h2>
+        ${task.options.map(option => `
+            <label>
+                <input type="radio" name="taskOption" value="${option}">
+                ${option}
+            </label><br>
+        `).join('')}
+        <button id="submitAnswerButton">Kirim Jawaban</button>
+    `;
     // Validasi keberadaan elemen taskContainer
     if (!taskContainer) {
         console.error("Elemen taskContainer tidak ditemukan.");
