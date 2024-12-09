@@ -618,21 +618,21 @@ if (kecamatan) {
     localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData)); // Simpan kembali data
 }
 
-// Jika jawaban salah
-else {
-    alert("Jawaban salah!");
-    console.log(`Jawaban salah: ${selectedOption.value}`);
+    // Jika jawaban salah
+    else {
+        alert("Jawaban salah!");
+        console.log(`Jawaban salah: ${selectedOption.value}`);
 
-    taskContainer.innerHTML = `
-        <p>Jawaban salah! Silakan coba lagi.</p>
-        <button id="retryTaskButton">Coba Lagi</button>
-    `;
+        taskContainer.innerHTML = `
+            <p>Jawaban salah! Silakan coba lagi.</p>
+            <button id="retryTaskButton">Coba Lagi</button>
+        `;
 
-    // Tambahkan event untuk tombol "Coba Lagi"
-    const retryTaskButton = document.getElementById("retryTaskButton");
-    retryTaskButton.addEventListener("click", () => displayTask(task));
+        // Tambahkan event untuk tombol "Coba Lagi"
+        const retryTaskButton = document.getElementById("retryTaskButton");
+        retryTaskButton.addEventListener("click", () => displayTask(task));
+    }
 }
-
 // ========================
 // Fungsi Pembaruan Status Pemain
 // ========================
