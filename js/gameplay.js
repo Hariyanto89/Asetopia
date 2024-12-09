@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.warn("Data kecamatan tidak ditemukan atau tidak valid. Membuat data baru...");
         kecamatanData = initializeKecamatanData();
         localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
-    } else {
+    }
+    
+    else {
         kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
     }
 
