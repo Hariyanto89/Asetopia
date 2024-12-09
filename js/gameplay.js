@@ -81,6 +81,7 @@ function initializeKecamatanData() {
                 description: "Selesaikan semua tugas di Merigi!",
                 image: "../assets/images/badges/merigi_badge.png",
             },
+        }
 function getTaskById(taskId) {
     const tasks = [
                 {
