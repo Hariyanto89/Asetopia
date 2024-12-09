@@ -24,12 +24,11 @@
     <!-- Main Content -->
     <main>
         <!-- Peta Kecamatan -->
-        <section id="map-section">
+    <section id="map-section">
             <h2>Klik tanda pada peta untuk memulai tugas!</h2>
             <div class="map-container">
                 <!-- Peta gambar -->
-                <img src="assets/map/Merigi.png" alt="Peta Kecamatan Merigi" class="map-image">
-         
+                                <img src="assets/map/Merigi.png" alt="Peta Kecamatan Merigi" class="map-image">
                 <!-- Marker (posisi ditentukan dengan top dan left) -->          
             <div class="marker" data-task-id="1" style="top: 10%; left: 9%;"></div>
             <div class="marker" data-task-id="2" style="top: 20%; left: 17%;"></div>
@@ -66,7 +65,7 @@
             <div class="marker" data-task-id="31" style="top: 73%; left: 63%;"></div>
             <div class="marker" data-task-id="32" style="top: 77%; left: 74%;"></div>
             <div class="marker" data-task-id="34" style="top: 87%; left: 85%;"></div>
-            </div>
+           </div>
         </section>
 
         <!-- Tugas -->
@@ -76,34 +75,22 @@
                 <p id="taskMessage">Pilih lokasi pada peta untuk memulai tugas.</p>
             </div>
         </section>
+
         <section id="badgeList">
             <h2>Badge yang Telah Diperoleh</h2>
             <div id="badgeContainer"></div>
         </section>
     </main>
 
-        <!-- Modal Pop-Up -->
-        <div id="taskModal" class="modal">
-            <div class="modal-content">
+    <!-- Modal Pop-Up untuk Tugas -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
             <span class="close">&times;</span>
- 
-           <div id="modalTaskContainer">
-               <!-- Soal akan dimasukkan secara dinamis melalui JS -->
+            <div id="modalTaskContainer">
+                <!-- Soal akan dimasukkan secara dinamis melalui JS -->
             </div>
         </div>
     </div>
-       <div id="taskContainer">
-            <h3>${currentTask.question}</h3>
-            <div id="taskOptions">
-                ${currentTask.options.map(option => `
-                    <label>
-                        <input type="radio" name="taskOption" value="${option}">
-                        ${option}
-                    </label>
-                `).join('')}
-            </div>
-            <button id="submitAnswerButton">Kirim Jawaban</button>
-        </div>
 
     <!-- Footer -->
     <footer>
