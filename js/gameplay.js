@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!currentUser) {
         alert("Anda belum login. Silakan login terlebih dahulu.");
-        window.location.href = "index.html"; // Arahkan kembali ke halaman utama
-        return; // Hentikan eksekusi lebih lanjut
+        window.location.href = "index.html";
+        return;
     } else if (!currentUser.character) {
         alert("Anda belum memilih karakter. Silakan pilih karakter terlebih dahulu.");
         window.location.href = "character.html";
-        return; // Hentikan eksekusi lebih lanjut
+        return;
     } else {
         console.log(`Selamat datang kembali, ${currentUser.username}!`);
     }
@@ -21,12 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Validasi atau inisialisasi data kecamatan
     if (!localStorage.getItem("kecamatanTasks")) {
-        console.warn("Data kecamatan tidak ditemukan atau tidak valid. Membuat data baru...");
+        console.warn("Data kecamatan tidak ditemukan. Membuat data baru...");
         kecamatanData = initializeKecamatanData();
         localStorage.setItem("kecamatanTasks", JSON.stringify(kecamatanData));
-    }
-    
-    else {
+    } else {
         kecamatanData = JSON.parse(localStorage.getItem("kecamatanTasks"));
     }
 
@@ -35,10 +33,26 @@ document.addEventListener("DOMContentLoaded", function () {
         initializeMarkers(kecamatanData); // Fungsi ini menambahkan semua marker ke dalam peta
         displayPlayerData(currentUser); // Menampilkan data pemain di UI
         console.log("Inisialisasi selesai. Marker dan data pengguna siap.");
+
+        // Tambahkan event listener ke setiap marker
+        const markers = document.querySelectorAll(".marker");
+        markers.forEach(marker => {
+            marker.addEventListener("click", function () {
+                const taskId = marker.getAttribute("data-task-id");
+                const currentTask = getTaskById(taskId); // Fungsi untuk mendapatkan tugas berdasarkan taskId
+
+                if (currentTask) {
+                    displayTaskInModal(currentTask); // Menampilkan tugas di modal
+                } else {
+                    console.error("Tugas tidak ditemukan untuk ID:", taskId);
+                }
+            });
+        });
     } catch (error) {
         console.error("Terjadi kesalahan selama inisialisasi:", error);
     }
 });
+
 
 // ========================
 // Fungsi Inisialisasi Data
