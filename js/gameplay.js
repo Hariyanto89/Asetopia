@@ -82,6 +82,8 @@ function initializeKecamatanData() {
                 image: "../assets/images/badges/merigi_badge.png",
             },
         }
+        ]
+
 function getTaskById(taskId) {
     const tasks = [
                 {
@@ -369,7 +371,7 @@ function getTaskById(taskId) {
                 token: 20,
                 },
             ],
-        },
+         },
     ];
 
     return tasks.find(task => task.id === parseInt(taskId));
